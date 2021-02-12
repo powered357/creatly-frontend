@@ -1,0 +1,16 @@
+{
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "ie": 11,
+        "chrome": 52,
+        "browsers": ["last 2 versions", "safari 9"]
+      },
+      "modules": false,
+      "loose": true
+    }],
+    ["@babel/preset-react", {
+      "runtime": "automatic"
+    }]
+  ]
+}
