@@ -49,6 +49,7 @@ module.exports = {
   resolve: {
     alias: {
       COMPONENTS: paths.components,
+      STORE: paths.store,
     },
   },
   stats: {

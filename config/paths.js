@@ -9,4 +9,5 @@ module.exports = {
   assets: path.resolve(__dirname, '../src/assets'),
   // Src directories for aliases
   components: path.resolve(__dirname, '../src/components'),
+  store: path.resolve(__dirname, '../src/store'),
 };
