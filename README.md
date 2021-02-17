@@ -18,7 +18,7 @@ Open [http://localhost:1337](http://localhost:1337) to view it in the browser.
 
 The page will reload if you make edits.
 
-### `yarn test` (TODO)
+### `yarn test`
 
 Launches the test runner.
 
