@@ -57,6 +57,5 @@ jobs:
             # Run a new container from a new image
             docker run -d --restart always \
             --publish 1337:80 \
-            --link=courses-api:backend \
             --name $(echo $CONTAINER_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
