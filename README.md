@@ -1,5 +1,12 @@
 # Courses Platform project
 
+## Dependencies
+
+- [Node & npm](https://nodejs.org/en/)
+- yarn - `npm install --global yarn`
+- croos-env - `npm install --save-dev cross-env`
+- webpack - `npm install --save-dev webpack`
+
 ## Available Scripts
 
 In the project directory, you can run:
