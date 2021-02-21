@@ -8,6 +8,11 @@ module.exports = {
   // Assets files that get copied to build folder
   assets: path.resolve(__dirname, '../src/assets'),
   // Src directories for aliases
-  components: path.resolve(__dirname, '../src/components'),
+  api: path.resolve(__dirname, '../src/api'),
+  constants: path.resolve(__dirname, '../src/constants'),
   store: path.resolve(__dirname, '../src/store'),
+  pages: path.resolve(__dirname, '../src/pages'),
+  components: path.resolve(__dirname, '../src/components'),
+  hooks: path.resolve(__dirname, '../src/hooks'),
+  utils: path.resolve(__dirname, '../src/utils'),
 };

@@ -1,5 +1,6 @@
 import { screen, render, cleanup } from '@testing-library/react';
-import App from './App';
+
+import App from 'COMPONENTS/App';
 
 describe('App component', () => {
   beforeAll(() => {

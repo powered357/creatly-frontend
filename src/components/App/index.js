@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { logIn } from 'STORE/auth';
 
+import RootRouter from 'PAGES/RootRouter';
+
 const Title = styled.h1`
   font-size: 100px;
   font-family: 'Helvetica', 'sans-serif';
@@ -18,7 +20,12 @@ const App = () => {
     dispatch(logIn());
   }, []);
 
-  return <Title>Courses Platform</Title>;
+  return (
+    <>
+      <Title>Courses Platform</Title>
+      <RootRouter />
+    </>
+  );
 };
 
 export default App;

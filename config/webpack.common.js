@@ -48,8 +48,13 @@ module.exports = {
   },
   resolve: {
     alias: {
-      COMPONENTS: paths.components,
+      API: paths.api,
+      CONSTANTS: paths.constants,
       STORE: paths.store,
+      PAGES: paths.pages,
+      COMPONENTS: paths.components,
+      HOOKS: paths.hooks,
+      UTILS: paths.utils,
     },
   },
   stats: {

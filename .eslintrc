@@ -70,90 +70,55 @@
         "jsx": "never"
       }
     ],
-    // "import/order": ["error", {
-    //   "newlines-between": "always",
-    //   "groups": ["builtin", "external", "internal", "unknown", "parent", "sibling", "index"],
-    //   "pathGroups": [
-    //     {
-    //       "pattern": "react",
-    //       "group": "external",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "API/**",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "CONSTS/**",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "SAGAS/**",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "REDUCERS/**",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "ACTIONS",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "ACTIONS/**",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "SELECTORS",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "SELECTORS/**",
-    //       "group": "internal",
-    //       "position": "before"
-    //     },
-    //     {
-    //       "pattern": "CONTAINERS/**",
-    //       "group": "internal",
-    //       "position": "after"
-    //     },
-    //     {
-    //       "pattern": "COMPONENTS/**",
-    //       "group": "internal",
-    //       "position": "after"
-    //     },
-    //     {
-    //       "pattern": "HOOKS/**",
-    //       "group": "internal",
-    //       "position": "after"
-    //     },
-    //     {
-    //       "pattern": "UTILS/**",
-    //       "group": "internal",
-    //       "position": "after"
-    //     },
-    //     {
-    //       "pattern": "STYLES/**",
-    //       "group": "internal",
-    //       "position": "after"
-    //     },
-    //     {
-    //       "pattern": "FONTS/**",
-    //       "group": "internal",
-    //       "position": "after"
-    //     }
-    //   ],
-    //   "pathGroupsExcludedImportTypes": [
-    //     "containers"
-    //   ]
-    // }],
+    "import/order": ["error", {
+      "newlines-between": "always",
+      "groups": ["builtin", "external", "internal", "unknown", "parent", "sibling", "index"],
+      "pathGroups": [
+        {
+          "pattern": "API/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "CONSTANTS/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "STORE",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "STORE/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "PAGES/**",
+          "group": "internal",
+          "position": "after"
+        },
+        {
+          "pattern": "COMPONENTS/**",
+          "group": "internal",
+          "position": "after"
+        },
+        {
+          "pattern": "HOOKS/**",
+          "group": "internal",
+          "position": "after"
+        },
+        {
+          "pattern": "UTILS/**",
+          "group": "internal",
+          "position": "after"
+        }
+      ],
+      "pathGroupsExcludedImportTypes": [
+        "containers"
+      ]
+    }],
     "indent": 0,
     "jsx-a11y/aria-props": 2,
     "jsx-a11y/heading-has-content": 0,

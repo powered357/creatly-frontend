@@ -1,13 +1,16 @@
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
-import './style.scss';
 import store from 'STORE';
+
 import App from 'COMPONENTS/App';
+import { ErrorBoundary } from 'COMPONENTS/ErrorBoundary';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </Provider>,
   document.getElementById('root'),
 );

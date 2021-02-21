@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "API/*": ["./src/api/*"],
+      "STORE/*": ["./src/store/*"],
+      "PAGES/*": ["./src/pages/*"],
+      "COMPONENTS/*": ["./src/components/*"],
+      "UTILS/*": ["./src/utils/*"],
+      "CONSTANTS/*": ["./src/constants/*"],
+      "HOOKS/*": ["./src/hooks/*"],
+    }
+  }
+}
