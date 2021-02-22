@@ -3,16 +3,22 @@ import { Provider } from 'react-redux';
 
 import store from 'STORE';
 
-import App from 'COMPONENTS/App';
+import GlobalStyle from 'THEME/global';
+
+import { App } from 'COMPONENTS/App';
 import { ErrorBoundary } from 'COMPONENTS/ErrorBoundary';
+
+import { loadFonts } from 'UTILS/loadFonts';
 
 ReactDOM.render(
   <Provider store={store}>
+    <GlobalStyle />
     <ErrorBoundary>
       <App />
     </ErrorBoundary>
   </Provider>,
   document.getElementById('root'),
+  loadFonts,
 );
 
 if (process.env.PROD_ENV) {

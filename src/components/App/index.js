@@ -1,19 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { logIn } from 'STORE/auth';
 
 import RootRouter from 'PAGES/RootRouter';
 
-const Title = styled.h1`
-  font-size: 100px;
-  font-family: 'Helvetica', 'sans-serif';
-  color: palevioletred;
-  margin: 0;
-`;
+import { AppStyled } from './styles/AppStyled';
 
-const App = () => {
+export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,11 +16,10 @@ const App = () => {
   }, []);
 
   return (
-    <>
-      <Title>Courses Platform</Title>
-      <RootRouter />
-    </>
+    <AppStyled>
+      <Router>
+        <RootRouter />
+      </Router>
+    </AppStyled>
   );
 };
-
-export default App;

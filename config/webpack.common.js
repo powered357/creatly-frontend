@@ -52,6 +52,7 @@ module.exports = {
       CONSTANTS: paths.constants,
       STORE: paths.store,
       PAGES: paths.pages,
+      THEME: paths.theme,
       COMPONENTS: paths.components,
       HOOKS: paths.hooks,
       UTILS: paths.utils,
