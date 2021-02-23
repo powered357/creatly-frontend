@@ -9,6 +9,7 @@
       "PAGES/*": ["./src/pages/*"],
       "THEME/*": ["./src/theme/*"],
       "COMPONENTS/*": ["./src/components/*"],
+      "UI-KIT": ["./src/ui-kit/"],
       "UTILS/*": ["./src/utils/*"],
       "CONSTANTS/*": ["./src/constants/*"],
       "HOOKS/*": ["./src/hooks/*"],

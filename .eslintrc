@@ -105,6 +105,11 @@
           "position": "after"
         },
         {
+          "pattern": "UI-KIT",
+          "group": "internal",
+          "position": "after"
+        },
+        {
           "pattern": "COMPONENTS/**",
           "group": "internal",
           "position": "after"

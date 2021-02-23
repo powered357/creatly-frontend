@@ -13,6 +13,7 @@ module.exports = {
   store: path.resolve(__dirname, '../src/store'),
   pages: path.resolve(__dirname, '../src/pages'),
   theme: path.resolve(__dirname, '../src/theme'),
+  uikit: path.resolve(__dirname, '../src/ui-kit'),
   components: path.resolve(__dirname, '../src/components'),
   hooks: path.resolve(__dirname, '../src/hooks'),
   utils: path.resolve(__dirname, '../src/utils'),

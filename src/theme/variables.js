@@ -1,5 +1,6 @@
 export const colorVariables = {
   primary: '#74C79D',
+  primaryLight: 'rgba(116, 199, 157, 0.2)',
   black: '#333333',
   white: '#ffffff',
   danger: '#FF2051',
@@ -14,27 +15,57 @@ export const fontFamilyVariables = {
 
 export const fontVariables = {
   h1: {
-    weight: fontFamilyVariables.bold,
+    family: fontFamilyVariables.bold,
     size: '32px',
     lineHeight: '48px',
-    spacing: '-1px',
+    spacing: '1px',
   },
   h2: {
-    weight: fontFamilyVariables.bold,
+    family: fontFamilyVariables.bold,
     size: '24px',
     lineHeight: '32px',
-    spacing: '0',
+    spacing: '1px',
   },
   h3: {
-    weight: fontFamilyVariables.bold,
+    family: fontFamilyVariables.bold,
+    size: '18px',
+    lineHeight: '26px',
+    spacing: '1px',
+  },
+  h4: {
+    family: fontFamilyVariables.bold,
     size: '16px',
     lineHeight: '24px',
     spacing: '0',
   },
-  t1: {
-    weight: fontFamilyVariables.reg,
+  s1: {
+    family: fontFamilyVariables.semi,
     size: '16px',
     lineHeight: '32px',
+    spacing: '0',
+  },
+  t1: {
+    family: fontFamilyVariables.reg,
+    size: '16px',
+    lineHeight: '32px',
+    spacing: '0',
+  },
+  t2: {
+    family: fontFamilyVariables.reg,
+    size: '14px',
+    lineHeight: '24px',
+    spacing: '0',
+  },
+  t3: {
+    family: fontFamilyVariables.reg,
+    size: '12px',
+    lineHeight: '20px',
+    spacing: '0',
+  },
+  t4: {
+    family: fontFamilyVariables.reg,
+    size: '10px',
+    lineHeight: '16px',
     spacing: '0',
   },
 };

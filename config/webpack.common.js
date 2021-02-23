@@ -53,6 +53,7 @@ module.exports = {
       STORE: paths.store,
       PAGES: paths.pages,
       THEME: paths.theme,
+      'UI-KIT': paths.uikit,
       COMPONENTS: paths.components,
       HOOKS: paths.hooks,
       UTILS: paths.utils,
