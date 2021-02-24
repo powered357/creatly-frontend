@@ -12,7 +12,7 @@ export const Header = () => {
   const history = useHistory();
 
   const onClick = () => {
-    history.push(ROUTES.LOGIN);
+    history.push(ROUTES.ACCOUNT.LOGIN);
   };
 
   return (
@@ -22,7 +22,7 @@ export const Header = () => {
           <Text font="h3" uppercase>
             Zhashkevych workshop
           </Text>
-          <Button onClick={onClick}>Sign in</Button>
+          <Button onClick={onClick}>Войти</Button>
         </Row>
       </Container>
     </HeaderStyled>

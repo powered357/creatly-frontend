@@ -1,9 +1,11 @@
 export const ROUTES = {
-  MAIN: '/',
+  ROOT: '/',
+  ACCOUNT: {
+    LOGIN: '/login',
+    REGISTRATION: '/registration',
+    VERIFICATION: '/verification',
+  },
   ERROR: {
     NOT_FOUND: '/404',
   },
-  LOGIN: '/login',
-  REGISTRATION: '/registration',
-  TEST: '/test',
 };

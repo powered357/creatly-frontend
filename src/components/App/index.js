@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 import { logIn } from 'STORE/auth';
 
@@ -16,10 +17,12 @@ export const App = () => {
   }, []);
 
   return (
-    <AppStyled>
-      <Router>
-        <RootRouter />
-      </Router>
-    </AppStyled>
+    <CookiesProvider>
+      <AppStyled>
+        <Router>
+          <RootRouter />
+        </Router>
+      </AppStyled>
+    </CookiesProvider>
   );
 };

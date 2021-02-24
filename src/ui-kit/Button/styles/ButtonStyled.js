@@ -5,7 +5,7 @@ import { colorVariables, commonVariables, transitionVariables } from 'THEME/vari
 export const ButtonStyled = styled.button`
   height: 50px;
   width: 100%;
-  max-width: 190px;
+  max-width: ${({ fullWidth }) => (fullWidth ? '100%' : '190px')};
   border-radius: ${commonVariables.borderRadius};
   background-color: ${colorVariables.primary};
   border: 2px solid ${colorVariables.primary};
@@ -13,7 +13,7 @@ export const ButtonStyled = styled.button`
   text-align: center;
   padding: 0 10px;
   transition: ${transitionVariables.bgColor};
-  &:hover {
+  &:not(:disabled):hover {
     background-color: ${colorVariables.white};
   }
 `;

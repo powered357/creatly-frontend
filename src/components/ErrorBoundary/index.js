@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component {
 
     if (hasError) {
       // You can render any custom fallback UI
-      return <ErrorWrapper text="Something went wrong" />;
+      return <ErrorWrapper text="Something went wrong :(" />;
     }
 
     return children;
