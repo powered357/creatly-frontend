@@ -33,14 +33,7 @@ export const useAuthAPI = () => {
     setLoading(true);
     clearServerError();
 
-    return (
-      apiRegistration({ name, email, password })
-        // .then(() => {
-        //   history.push(ROUTES.ACCOUNT.VERIFICATION);
-        // })
-        .catch(catchError)
-        .finally(stopLoading)
-    );
+    return apiRegistration({ name, email, password }).catch(catchError).finally(stopLoading);
   };
 
   const verifyUser = ({ code }) => {
@@ -48,10 +41,8 @@ export const useAuthAPI = () => {
     clearServerError();
 
     return apiVerification({ code })
-      .then((res) => {
+      .then(() => {
         // TODO: implement login on success
-        // history.push(ROUTES.ACCOUNT.LOGIN);
-        console.log({ res });
       })
       .catch(({ message }) => {
         catchError(message);
@@ -60,10 +51,7 @@ export const useAuthAPI = () => {
       .finally(stopLoading);
   };
 
-  const catchError = ({ message }) => {
-    console.log('error', message);
-    setServerError(message);
-  };
+  const catchError = ({ message }) => setServerError(message);
 
   const stopLoading = () => setLoading(false);
 
