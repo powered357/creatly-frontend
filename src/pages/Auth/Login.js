@@ -1,15 +1,11 @@
-import { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useCookies } from 'react-cookie';
-
-import { apiLogin } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 import { VALIDATION } from 'CONSTANTS/validation';
 
 import { Input, Button, Link } from 'UI-KIT';
 
+import { useAuthAPI } from './hooks/useAuthAPI';
 import {
   AuthStyled,
   Content,
@@ -23,35 +19,14 @@ import {
 } from './styles/AuthStyled';
 
 const Login = () => {
-  const history = useHistory();
-  const [, setCookie] = useCookies(['token, refresh']);
   const { register, handleSubmit, errors } = useForm();
-  const [serverError, setServerError] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const onSubmit = ({ email, password }) => {
-    setLoading(true);
-    clearServerError();
-    apiLogin({ email, password })
-      .then(({ data }) => {
-        const { accessToken, refreshToken } = data;
-
-        setCookie('token', accessToken);
-        setCookie('refresh', refreshToken);
-
-        history.push(ROUTES.MAIN);
-      })
-      .catch(({ message }) => setServerError(message))
-      .finally(() => setLoading(false));
-  };
-
-  const clearServerError = useCallback(() => setServerError(''), []);
+  const { loginUser, isLoading, serverError, clearServerError } = useAuthAPI();
 
   return (
     <AuthStyled>
       <Content>
         <Title>Zhashkevych workshop</Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(loginUser)}>
           <FormField>
             <Input
               name="email"

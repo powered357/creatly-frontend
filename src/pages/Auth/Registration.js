@@ -1,14 +1,11 @@
-import { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
-import { apiRegistration } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 import { VALIDATION } from 'CONSTANTS/validation';
 
 import { Input, Button, Link } from 'UI-KIT';
 
+import { useAuthAPI } from './hooks/useAuthAPI';
 import {
   AuthStyled,
   Content,
@@ -22,23 +19,12 @@ import {
 } from './styles/AuthStyled';
 
 const Registration = () => {
-  const history = useHistory();
   const { register, handleSubmit, errors } = useForm();
-  const [serverError, setServerError] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const { registerUser, isLoading, serverError, clearServerError } = useAuthAPI();
 
   const onSubmit = ({ name, email, password }) => {
-    setLoading(true);
-    clearServerError();
-    apiRegistration({ name, email, password })
-      .then(() => {
-        history.push(ROUTES.ACCOUNT.VERIFICATION);
-      })
-      .catch(({ message }) => setServerError(message))
-      .finally(() => setLoading(false));
+    registerUser({ name, email, password }).then((res) => console.log({ res }));
   };
-
-  const clearServerError = useCallback(() => setServerError(''), []);
 
   return (
     <AuthStyled>
