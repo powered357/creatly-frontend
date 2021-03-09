@@ -12,16 +12,16 @@ export const useAuthAPI = () => {
   const [isLoading, setLoading] = useState(false);
   const [serverError, setServerError] = useState('');
 
-  const loginUser = ({ email, password }) => {
+  const login = (isAdmin) => ({ email, password }) => {
     setLoading(true);
     clearServerError();
 
-    return apiLogin({ email, password })
+    return apiLogin({ email, password, isAdmin })
       .then(({ data }) => {
         const { accessToken, refreshToken } = data;
 
-        setCookie('token', accessToken);
-        setCookie('refresh', refreshToken);
+        setCookie(!isAdmin ? 'token' : 'adminToken', accessToken);
+        setCookie(!isAdmin ? 'refresh' : 'adminRefresh', refreshToken);
 
         history.replace(ROUTES.ROOT);
       })
@@ -58,7 +58,7 @@ export const useAuthAPI = () => {
   const clearServerError = useCallback(() => setServerError(''), []);
 
   return {
-    loginUser,
+    login,
     registerUser,
     verifyUser,
     isLoading,

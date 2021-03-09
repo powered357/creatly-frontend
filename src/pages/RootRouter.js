@@ -15,7 +15,7 @@ import { Main } from 'COMPONENTS/Main';
 const RootRouter = () => {
   const { pathname } = useLocation();
 
-  const withBars = !['/login', '/registration', '/verification'].includes(pathname);
+  const withBars = !['/login', '/admin/login', '/registration', '/verification'].includes(pathname);
 
   return (
     <>
@@ -27,6 +27,9 @@ const RootRouter = () => {
           </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />
+          </Route>
+          <Route exact path={ROUTES.ADMIN.LOGIN}>
+            <Login isAdmin />
           </Route>
           <Route exact path={ROUTES.ACCOUNT.REGISTRATION}>
             <Registration />

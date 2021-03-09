@@ -2,8 +2,8 @@ import { endpoints } from 'API/endpoints';
 
 import { makeRequest } from 'UTILS/makeRequest';
 
-export const apiLogin = ({ email, password }) =>
-  makeRequest('POST')(endpoints.login)({
+export const apiLogin = ({ email, password, isAdmin }) =>
+  makeRequest('POST')(!isAdmin ? endpoints.login : endpoints.admin.login)({
     data: {
       email,
       password,

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ROUTES } from 'CONSTANTS/routes';
@@ -5,58 +6,54 @@ import { VALIDATION } from 'CONSTANTS/validation';
 
 import { Input, Button, Link } from 'UI-KIT';
 
+import { AuthTemplate } from 'COMPONENTS/AuthTemplate';
+
 import { useAuthAPI } from './hooks/useAuthAPI';
-import {
-  AuthStyled,
-  Content,
-  Title,
-  Form,
-  FormField,
-  FormError,
-  FormButton,
-  FormBottom,
-  TextStyled,
-} from './styles/AuthStyled';
+import { Subtitle, Form, FormField, FormError, FormButton, FormBottom, TextStyled } from './styles/AuthStyled';
 
 const Registration = () => {
   const { register, handleSubmit, errors } = useForm();
   const { registerUser, isLoading, serverError, clearServerError } = useAuthAPI();
+  const [isSubmitted, setSubmitted] = useState(false);
 
   const onSubmit = ({ name, email, password }) => {
-    registerUser({ name, email, password }).then((res) => console.log({ res }));
+    registerUser({ name, email, password }).then(({ code }) => {
+      if (code === 200) {
+        setSubmitted(true);
+      }
+    });
   };
 
   return (
-    <AuthStyled>
-      <Content>
-        <Title>Zhashkevych workshop</Title>
+    <AuthTemplate title="Zhashkevych workshop">
+      {!isSubmitted ? (
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormField>
-            <Input name="name" ref={register({ required: true })} placeholder="Name" onChange={clearServerError} />
-            {errors.name?.type === 'required' && <FormError>This field is required</FormError>}
+            <Input name="name" ref={register({ required: true })} placeholder="Имя" onChange={clearServerError} />
+            {errors.name?.type === 'required' && <FormError>Это поле обязательное</FormError>}
           </FormField>
           <FormField>
             <Input
               name="email"
               ref={register({ required: true, pattern: VALIDATION.EMAIL })}
-              placeholder="Email"
+              placeholder="Ел. почта"
               onChange={clearServerError}
             />
-            {errors.email?.type === 'required' && <FormError>This field is required</FormError>}
-            {errors.email?.type === 'pattern' && <FormError>Enter a valid email</FormError>}
+            {errors.email?.type === 'required' && <FormError>Это поле обязательное</FormError>}
+            {errors.email?.type === 'pattern' && <FormError>Введите валидный email</FormError>}
           </FormField>
           <FormField>
             <Input
               type="password"
               name="password"
               ref={register({ required: true })}
-              placeholder="Password"
+              placeholder="Пароль"
               onChange={clearServerError}
             />
             {serverError ? (
               <FormError>{serverError}</FormError>
             ) : (
-              errors.password?.type === 'required' && <FormError>This field is required</FormError>
+              errors.password?.type === 'required' && <FormError>Это поле обязательное</FormError>
             )}
           </FormField>
           <FormButton>
@@ -71,8 +68,14 @@ const Registration = () => {
             </Link>
           </FormBottom>
         </Form>
-      </Content>
-    </AuthStyled>
+      ) : (
+        <Subtitle>
+          Спасибо за регистрацию!<br></br>
+          Вам на почту отправлено письмо с подтверждением.<br></br>
+          Для завершения регистрации перейдите по ссылке из письма.
+        </Subtitle>
+      )}
+    </AuthTemplate>
   );
 };
 
