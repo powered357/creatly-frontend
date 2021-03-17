@@ -17,6 +17,7 @@ const Login = ({ isAdmin }) => {
 
   return (
     <AuthTemplate title={!isAdmin ? 'Zhashkevych workshop' : 'Admin panel'}>
+      <span className="text-blue-800">hello</span>
       <Form onSubmit={handleSubmit(login(isAdmin))}>
         <FormField>
           <Input

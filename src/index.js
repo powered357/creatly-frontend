@@ -9,6 +9,7 @@ import { App } from 'COMPONENTS/App';
 import { ErrorBoundary } from 'COMPONENTS/ErrorBoundary';
 
 import { loadFonts } from 'UTILS/loadFonts';
+import './index.css';
 
 ReactDOM.render(
   <Provider store={store}>
