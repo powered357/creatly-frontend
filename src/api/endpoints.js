@@ -6,4 +6,8 @@ export const endpoints = {
   login: `${API_URL}/students/sign-in`,
   registration: `${API_URL}/students/sign-up`,
   verification: (code) => `${API_URL}/students/verify/${code}`,
+  admin: {
+    refresh: `${API_URL}/admins/auth/refresh`,
+    login: `${API_URL}/admins/sign-in`,
+  },
 };

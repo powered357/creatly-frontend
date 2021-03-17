@@ -6,17 +6,17 @@ import { ROUTES } from 'CONSTANTS/routes';
 
 export const PrivateRoute = ({ children: Component, ...rest }) => {
   const [cookies] = useCookies(['token', 'refresh']);
-  const { token, refresh } = cookies;
+  const { token, refresh, adminToken, adminRefresh } = cookies;
 
   return (
     <Route
       {...rest}
       render={() => {
-        if (!token && !refresh) {
-          return <Redirect to={ROUTES.ACCOUNT.LOGIN} />;
+        if ((token && refresh) || (adminToken && adminRefresh)) {
+          return Component;
         }
 
-        return Component;
+        return <Redirect to={ROUTES.ACCOUNT.LOGIN} />;
       }}
     />
   );

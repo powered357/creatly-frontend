@@ -1,9 +1,9 @@
-name: CI-stage
+name: CI-production
 
 on:
   push:
     branches:
-      - develop
+      - main
 
 env:
   REGISTRY: "registry.digitalocean.com/sandbox-registry"
@@ -34,7 +34,7 @@ jobs:
         run: docker push $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
 
   deploy:
-    environment: stage
+    environment: production
     runs-on: ubuntu-latest
     needs: build_and_push
 
@@ -56,6 +56,6 @@ jobs:
 
             # Run a new container from a new image
             docker run -d --restart always \
-            --publish 1337:80 \
+            --publish 80:80 \
             --name $(echo $CONTAINER_NAME) \
             $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)

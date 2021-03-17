@@ -1,96 +1,71 @@
-import { useState, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { useCookies } from 'react-cookie';
-
-import { apiLogin } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 import { VALIDATION } from 'CONSTANTS/validation';
 
 import { Input, Button, Link } from 'UI-KIT';
 
-import {
-  AuthStyled,
-  Content,
-  Title,
-  Form,
-  FormField,
-  FormError,
-  FormButton,
-  FormBottom,
-  TextStyled,
-} from './styles/AuthStyled';
+import { AuthTemplate } from 'COMPONENTS/AuthTemplate';
 
-const Login = () => {
-  const history = useHistory();
-  const [, setCookie] = useCookies(['token, refresh']);
+import { useAuthAPI } from './hooks/useAuthAPI';
+import { Form, FormField, FormError, FormButton, FormBottom, TextStyled } from './styles/AuthStyled';
+
+const Login = ({ isAdmin }) => {
   const { register, handleSubmit, errors } = useForm();
-  const [serverError, setServerError] = useState('');
-  const [isLoading, setLoading] = useState(false);
-
-  const onSubmit = ({ email, password }) => {
-    setLoading(true);
-    clearServerError();
-    apiLogin({ email, password })
-      .then(({ data }) => {
-        const { accessToken, refreshToken } = data;
-
-        setCookie('token', accessToken);
-        setCookie('refresh', refreshToken);
-
-        history.push(ROUTES.MAIN);
-      })
-      .catch(({ message }) => setServerError(message))
-      .finally(() => setLoading(false));
-  };
-
-  const clearServerError = useCallback(() => setServerError(''), []);
+  const { login, isLoading, serverError, clearServerError } = useAuthAPI();
 
   return (
-    <AuthStyled>
-      <Content>
-        <Title>Zhashkevych workshop</Title>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <FormField>
-            <Input
-              name="email"
-              ref={register({ required: true, pattern: VALIDATION.EMAIL })}
-              placeholder="Email"
-              onChange={clearServerError}
-            />
-            {errors.email?.type === 'required' && <FormError>This field is required</FormError>}
-            {errors.email?.type === 'pattern' && <FormError>Enter a valid email</FormError>}
-          </FormField>
-          <FormField>
-            <Input
-              type="password"
-              name="password"
-              ref={register({ required: true })}
-              placeholder="Password"
-              onChange={clearServerError}
-            />
-            {serverError ? (
-              <FormError>{serverError}</FormError>
-            ) : (
-              errors.password?.type === 'required' && <FormError>This field is required</FormError>
-            )}
-          </FormField>
-          <FormButton>
-            <Button isLoading={isLoading} fullWidth>
-              Войти
-            </Button>
-          </FormButton>
+    <AuthTemplate title={!isAdmin ? 'Zhashkevych workshop' : 'Admin panel'}>
+      <Form onSubmit={handleSubmit(login(isAdmin))}>
+        <FormField>
+          <Input
+            name="email"
+            ref={register({ required: true, pattern: VALIDATION.EMAIL })}
+            placeholder="Ел. почта"
+            onChange={clearServerError}
+          />
+          {errors.email?.type === 'required' && <FormError>Это поле обязательное</FormError>}
+          {errors.email?.type === 'pattern' && <FormError>Введите валидный email</FormError>}
+        </FormField>
+        <FormField>
+          <Input
+            type="password"
+            name="password"
+            ref={register({ required: true })}
+            placeholder="Пароль"
+            onChange={clearServerError}
+          />
+          {serverError ? (
+            <FormError>{serverError}</FormError>
+          ) : (
+            errors.password?.type === 'required' && <FormError>Это поле обязательное</FormError>
+          )}
+        </FormField>
+        <FormButton>
+          <Button isLoading={isLoading} fullWidth>
+            Войти
+          </Button>
+        </FormButton>
+        {!isAdmin && (
           <FormBottom>
             <TextStyled font="t3">Еще нет аккаунта?</TextStyled>
             <Link to={ROUTES.ACCOUNT.REGISTRATION} font="t3">
               Зарегистрироваться
             </Link>
           </FormBottom>
-        </Form>
-      </Content>
-    </AuthStyled>
+        )}
+      </Form>
+    </AuthTemplate>
   );
+};
+
+Login.propTypes = {
+  isAdmin: PropTypes.bool,
+};
+
+Login.defaultProps = {
+  isAdmin: false,
 };
 
 export default Login;

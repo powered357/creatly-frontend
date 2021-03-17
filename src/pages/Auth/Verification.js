@@ -1,64 +1,45 @@
-import { useState, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-
-import { apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-import { Input, Button } from 'UI-KIT';
+import { Button } from 'UI-KIT';
 
-import { AuthStyled, Content, Title, Subtitle, Form, FormField, FormError, FormButton } from './styles/AuthStyled';
+import { AuthTemplate } from 'COMPONENTS/AuthTemplate';
+
+import { useQueryString } from 'HOOKS/useQueryString';
+
+import { useAuthAPI } from './hooks/useAuthAPI';
+import { Subtitle, FormButton } from './styles/AuthStyled';
 
 const Verification = () => {
   const history = useHistory();
-  const { register, handleSubmit, errors } = useForm();
-  const [serverError, setServerError] = useState('');
-  const [isLoading, setLoading] = useState(false);
+  const { getQueryParam } = useQueryString();
+  const { verifyUser, isLoading } = useAuthAPI();
 
-  const onSubmit = ({ code }) => {
-    setLoading(true);
-    clearServerError();
-    apiVerification({ code })
-      .then(() => {
-        // TODO: implement login on success
-        history.push(ROUTES.ACCOUNT.LOGIN);
-      })
-      .catch(({ message }) => setServerError(message))
-      .finally(() => setLoading(false));
-  };
+  useEffect(() => {
+    const code = getQueryParam('code');
 
-  const clearServerError = useCallback(() => setServerError(''), []);
+    if (code) {
+      verifyUser({ code });
+    } else {
+      history.push(ROUTES.ACCOUNT.LOGIN);
+    }
+  }, []);
 
   return (
-    <AuthStyled>
-      <Content>
-        <Title>Zhashkevych workshop</Title>
+    !isLoading && (
+      <AuthTemplate title="Zhashkevych workshop">
         <Subtitle>
-          Вам на почту отправлен e-mail с подтверждением.<br></br> Введите код из письма.
+          Ваш аккаунт успешно подтвержден.<br></br> Спасибо за регистрацию!
         </Subtitle>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <FormField>
-            <Input
-              name="code"
-              ref={register({ required: true })}
-              placeholder="Введите код"
-              onChange={clearServerError}
-            />
-            {serverError ? (
-              <FormError>{serverError}</FormError>
-            ) : (
-              errors.code?.type === 'required' && <FormError>This field is required</FormError>
-            )}
-          </FormField>
-          <FormButton>
-            <Button isLoading={isLoading} fullWidth>
-              Войти
-            </Button>
-          </FormButton>
-        </Form>
-      </Content>
-    </AuthStyled>
+        <FormButton>
+          <Button isLoading={isLoading} fullWidth>
+            Войти
+          </Button>
+        </FormButton>
+      </AuthTemplate>
+    )
   );
 };
 
