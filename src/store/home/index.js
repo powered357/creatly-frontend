@@ -2,12 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { apiGetAllCourses } from 'API/home';
 
-const fetchCourses = createAsyncThunk('/courses', () => {
-  apiGetAllCourses().then((response) => response.data);
-});
+export const fetchCourses = createAsyncThunk('home/fetchCourses', () => apiGetAllCourses().then((res) => res.data));
 
 const initialState = {
   courses: [],
+  isLoading: false,
 };
 
 const { reducer } = createSlice({
@@ -15,13 +14,16 @@ const { reducer } = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [fetchCourses.fulfilled]: (state, action) => {
-      console.log(action.payload);
-      state.courses = action.payload;
-    },
+    [fetchCourses.pending]: (state) => ({
+      ...state,
+      isLoading: true,
+    }),
+    [fetchCourses.fulfilled]: (state, { payload }) => ({
+      ...state,
+      isLoading: false,
+      courses: payload.data,
+    }),
   },
 });
-
-export { fetchCourses };
 
 export default reducer;
