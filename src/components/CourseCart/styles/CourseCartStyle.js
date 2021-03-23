@@ -26,6 +26,8 @@ export const CartTitle = styled(Text).attrs(() => ({
   justify-content: space-between;
 
   > img {
+    font-size: 10px;
+    font-weight: 400;
     height: 64px;
   }
 `;
