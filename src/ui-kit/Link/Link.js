@@ -1,14 +1,15 @@
+import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Text } from 'UI-KIT';
 
 import { LinkStyled, RouterLink } from './styled/LinkStyled';
 
-export const Link = ({ children, to, font, external }) => (
-  <LinkStyled as={!external && RouterLink} href={to} to={to}>
+export const Link = forwardRef(({ children, to, font, external }, ref) => (
+  <LinkStyled ref={ref} as={!external && RouterLink} href={to} to={to}>
     <Text font={font}>{children}</Text>
   </LinkStyled>
-);
+));
 
 Link.propTypes = {
   children: PropTypes.node.isRequired,

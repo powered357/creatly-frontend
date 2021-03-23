@@ -9,6 +9,19 @@ export const GlobalStyle = createGlobalStyle`
 
   ${optimize};
   
+  .ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+
+  .ReactModal__Overlay--after-open{
+    opacity: 1;
+  }
+
+  .ReactModal__Overlay--before-close{
+    opacity: 0;
+  }
+
   .fade-enter,
   .fade-exit {
     position: absolute;

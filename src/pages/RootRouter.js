@@ -5,8 +5,9 @@ import { ROUTES } from 'CONSTANTS/routes';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
+import CreateCourse from 'PAGES/CreateCourse';
 
-import { PrivateRoute } from 'COMPONENTS/Routes';
+import { PrivateRoute, AdminRoute } from 'COMPONENTS/Routes';
 import { ErrorWrapper } from 'COMPONENTS/ErrorWrapper';
 import { Header } from 'COMPONENTS/Header';
 import { Footer } from 'COMPONENTS/Footer';
@@ -22,9 +23,6 @@ const RootRouter = () => {
       {withBars && <Header />}
       <Main>
         <Switch>
-          <PrivateRoute exact path={ROUTES.ROOT}>
-            Home page
-          </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />
           </Route>
@@ -37,6 +35,12 @@ const RootRouter = () => {
           <Route exact path={ROUTES.ACCOUNT.VERIFICATION}>
             <Verification />
           </Route>
+          <PrivateRoute exact path={ROUTES.ROOT}>
+            Home page
+          </PrivateRoute>
+          <AdminRoute exact path={ROUTES.ADMIN.CREATE_COURSE}>
+            <CreateCourse />
+          </AdminRoute>
           <Route exact path={ROUTES.ERROR.NOT_FOUND}>
             <ErrorWrapper text="404 Page not found" />
           </Route>
