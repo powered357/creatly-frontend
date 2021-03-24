@@ -12,8 +12,8 @@ import { Content, HomeStyled, PageTitle } from './styles/HomeStyled';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const courses = useSelector((state) => state.courses.courses);
-  const isLoading = useSelector((state) => state.courses.isLoading);
+  const allCourses = useSelector(({ courses }) => courses.all);
+  const isLoading = useSelector(({ courses }) => courses.isLoading);
 
   useEffect(() => {
     dispatch(fetchCourses());
@@ -24,7 +24,7 @@ const Home = () => {
       <HomeStyled>
         <PageTitle>Курсы</PageTitle>
         <Content>
-          {!isLoading ? courses.map((course) => <CourseCard key={course.id} {...course} />) : <Loader size={50} />}
+          {!isLoading ? allCourses.map((course) => <CourseCard key={course.id} {...course} />) : <Loader size={50} />}
         </Content>
       </HomeStyled>
     </Container>

@@ -12,7 +12,7 @@ export const PrivateRoute = ({ children: Component, ...rest }) => {
     <Route
       {...rest}
       render={() => {
-        if ((token && refresh) || (adminToken && adminRefresh)) {
+        if ((!token && !refresh) || (!adminToken && !adminRefresh)) {
           return Component;
         }
 

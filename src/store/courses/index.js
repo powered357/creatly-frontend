@@ -5,7 +5,7 @@ import { apiGetAllCourses } from 'API/home';
 export const fetchCourses = createAsyncThunk('courses/fetchCourses', () => apiGetAllCourses().then((res) => res.data));
 
 const initialState = {
-  courses: [],
+  all: [],
   isLoading: false,
 };
 
@@ -21,7 +21,7 @@ const { reducer } = createSlice({
     [fetchCourses.fulfilled]: (state, { payload }) => ({
       ...state,
       isLoading: false,
-      courses: payload.data,
+      all: payload.data,
     }),
   },
 });
