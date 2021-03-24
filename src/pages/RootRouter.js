@@ -2,6 +2,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import Home from 'PAGES/Home';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
@@ -23,7 +24,7 @@ const RootRouter = () => {
       <Main>
         <Switch>
           <PrivateRoute exact path={ROUTES.ROOT}>
-            Home page
+            <Home />
           </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />
