@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import auth from './auth';
-import home from './home';
+import courses from './courses';
 
-const rootReducer = combineReducers({ auth, home });
+const rootReducer = combineReducers({ auth, courses });
 
 export default rootReducer;
