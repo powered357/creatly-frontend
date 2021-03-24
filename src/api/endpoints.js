@@ -10,4 +10,7 @@ export const endpoints = {
     refresh: `${API_URL}/admins/auth/refresh`,
     login: `${API_URL}/admins/sign-in`,
   },
+  courses: {
+    getAll: `${API_URL}/courses`,
+  },
 };

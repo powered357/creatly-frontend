@@ -2,6 +2,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import Home from 'PAGES/Home';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
@@ -23,6 +24,9 @@ const RootRouter = () => {
       {withBars && <Header />}
       <Main>
         <Switch>
+          <PrivateRoute exact path={ROUTES.ROOT}>
+            <Home />
+          </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />
           </Route>
@@ -35,9 +39,6 @@ const RootRouter = () => {
           <Route exact path={ROUTES.ACCOUNT.VERIFICATION}>
             <Verification />
           </Route>
-          <PrivateRoute exact path={ROUTES.ROOT}>
-            Home page
-          </PrivateRoute>
           <AdminRoute exact path={ROUTES.ADMIN.CREATE_COURSE}>
             <CreateCourse />
           </AdminRoute>
