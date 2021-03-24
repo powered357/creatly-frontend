@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const { reducer } = createSlice({
-  name: 'home',
+  name: 'courses',
   initialState,
   reducers: {},
   extraReducers: {

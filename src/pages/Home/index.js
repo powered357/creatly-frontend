@@ -7,10 +7,10 @@ import { Content, HomeStyled, PageTitle } from 'PAGES/Home/styles/HomeStyled';
 
 import { Loader } from 'UI-KIT';
 
-import { CourseCart } from 'COMPONENTS/CourseCart';
+import { CourseCard } from 'COMPONENTS/CourseCard';
 import { Container } from 'COMPONENTS/Container';
 
-export const HomePage = () => {
+const Home = () => {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.home.courses);
   const isLoading = useSelector((state) => state.home.isLoading);
@@ -24,9 +24,11 @@ export const HomePage = () => {
       <HomeStyled>
         <PageTitle>Курсы</PageTitle>
         <Content>
-          {!isLoading ? courses.map((course) => <CourseCart key={course.id} {...course} />) : <Loader size={50} />}
+          {!isLoading ? courses.map((course) => <CourseCard key={course.id} {...course} />) : <Loader size={50} />}
         </Content>
       </HomeStyled>
     </Container>
   );
 };
+
+export default Home;
