@@ -2,7 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { apiGetAllCourses } from 'API/home';
 
-export const fetchCourses = createAsyncThunk('courses/fetchCourses', () => apiGetAllCourses().then((res) => res.data));
+export const fetchCourses = createAsyncThunk('courses/fetchCourses', async () => {
+  const { data } = await apiGetAllCourses();
+
+  return data;
+});
 
 const initialState = {
   all: [],
