@@ -2,6 +2,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import Course from 'PAGES/Course';
 import Home from 'PAGES/Home';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
@@ -25,6 +26,9 @@ const RootRouter = () => {
         <Switch>
           <PrivateRoute exact path={ROUTES.ROOT}>
             <Home />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.COURSE}>
+            <Course />
           </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />

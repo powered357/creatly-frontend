@@ -12,5 +12,6 @@ export const endpoints = {
   },
   courses: {
     getAll: `${API_URL}/courses`,
+    getOne: (id) => `${API_URL}/courses/${id}`,
   },
 };
