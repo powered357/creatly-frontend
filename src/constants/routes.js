@@ -10,6 +10,7 @@ export const ROUTES = {
     CREATE_COURSE: '/admin/create-course',
   },
   COURSE: '/course/:id',
+  MODULE: '/module/:id',
   ERROR: {
     NOT_FOUND: '/404',
   },

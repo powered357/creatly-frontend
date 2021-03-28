@@ -13,10 +13,16 @@ const initialState = {
   modules: null,
 };
 
-const { reducer } = createSlice({
+const { reducer, actions } = createSlice({
   name: 'courses',
   initialState,
-  reducers: {},
+  reducers: {
+    clearCourse: (state) => ({
+      ...state,
+      course: null,
+      modules: null,
+    }),
+  },
   extraReducers: {
     [fetchCourses.pending]: (state) => ({
       ...state,
@@ -34,5 +40,7 @@ const { reducer } = createSlice({
     }),
   },
 });
+
+export const { clearCourse } = actions;
 
 export default reducer;

@@ -3,6 +3,7 @@ export const colorVariables = {
   primaryLight: 'rgba(116, 199, 157, 0.2)',
   black: '#333333',
   white: '#ffffff',
+  grey: '#cccccc',
   danger: '#FF2051',
 };
 
@@ -18,19 +19,19 @@ export const fontVariables = {
     family: fontFamilyVariables.bold,
     size: '32px',
     lineHeight: '48px',
-    spacing: '1px',
+    spacing: '0.5px',
   },
   h2: {
     family: fontFamilyVariables.bold,
     size: '24px',
     lineHeight: '32px',
-    spacing: '1px',
+    spacing: '0.5px',
   },
   h3: {
     family: fontFamilyVariables.bold,
     size: '18px',
     lineHeight: '26px',
-    spacing: '1px',
+    spacing: '0.5px',
   },
   h4: {
     family: fontFamilyVariables.bold,
