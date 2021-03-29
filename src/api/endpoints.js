@@ -1,5 +1,5 @@
 // TODO: find a way to pass env variable here instead of hardcode
-const API_URL = 'https://api.zhashkevych.com/api/v1';
+const API_URL = 'https://api-prod-creatly.zhashkevych.com/api/v1';
 
 export const endpoints = {
   refresh: `${API_URL}/students/auth/refresh`,
