@@ -21,7 +21,7 @@ export const Title = styled.div`
   justify-content: space-between;
   > :last-child {
     transition: ${transitionVariables.transform};
-    transform: ${({ open }) => (open ? 'rotate(180deg)' : '')};
+    transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : '')};
   }
 `;
 

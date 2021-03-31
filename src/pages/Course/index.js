@@ -20,10 +20,10 @@ const Course = () => {
 
   useEffect(() => {
     dispatch(fetchCourse(params.id));
-    return dispatch(clearCourse());
+    return () => dispatch(clearCourse());
   }, []);
 
-  const checkModulesBlock = () => !!(modules && modules.length);
+  const isModulesBlock = () => !!modules?.length;
 
   return (
     <Container size="sm">
@@ -31,7 +31,7 @@ const Course = () => {
         <CourseStyled>
           <Title>{course.name}</Title>
           <Description>{course.description}</Description>
-          {checkModulesBlock() ? (
+          {isModulesBlock() ? (
             <Content>
               <SubTitle>Содержание курса</SubTitle>
               {modules.map((module) => (
@@ -42,11 +42,11 @@ const Course = () => {
             <p>Материалы курса находятся в разработке</p>
           )}
           <BtnContainer>
-            {checkModulesBlock() ? (
-              <Link to={`/module/${checkModulesBlock() ? modules[0].id : ''}`}>
+            {isModulesBlock() && (
+              <Link to={`/module/${isModulesBlock() ? modules[0].id : ''}`}>
                 <Button fullWidth>Начать обучение</Button>
               </Link>
-            ) : null}
+            )}
           </BtnContainer>
         </CourseStyled>
       ) : (
