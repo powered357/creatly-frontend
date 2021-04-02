@@ -19,6 +19,7 @@ module.exports = {
       'process.env': {
         PROD_ENV: process.env.NODE_ENV === 'production',
         BUILD_DATE: Date.now(),
+        API_HOST: process.env.API_HOST,
       },
     }),
     new CleanWebpackPlugin(),

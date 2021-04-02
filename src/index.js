@@ -27,3 +27,5 @@ if (process.env.PROD_ENV) {
     'color: #7CDF64; font-family: "Courier New", sans-serif; font-size: 14px; font-weight: bold; padding: 5px 2px;',
   );
 }
+
+console.log(process.env.API_HOST);
