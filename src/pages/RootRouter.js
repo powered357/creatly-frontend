@@ -2,11 +2,15 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import Module from 'PAGES/Module';
+import Course from 'PAGES/Course';
+import Home from 'PAGES/Home';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
+import CreateCourse from 'PAGES/CreateCourse';
 
-import { PrivateRoute } from 'COMPONENTS/Routes';
+import { PrivateRoute, AdminRoute } from 'COMPONENTS/Routes';
 import { ErrorWrapper } from 'COMPONENTS/ErrorWrapper';
 import { Header } from 'COMPONENTS/Header';
 import { Footer } from 'COMPONENTS/Footer';
@@ -23,7 +27,13 @@ const RootRouter = () => {
       <Main>
         <Switch>
           <PrivateRoute exact path={ROUTES.ROOT}>
-            Home page
+            <Home />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.COURSE}>
+            <Course />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.MODULE}>
+            <Module />
           </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />
@@ -37,6 +47,9 @@ const RootRouter = () => {
           <Route exact path={ROUTES.ACCOUNT.VERIFICATION}>
             <Verification />
           </Route>
+          <AdminRoute exact path={ROUTES.ADMIN.CREATE_COURSE}>
+            <CreateCourse />
+          </AdminRoute>
           <Route exact path={ROUTES.ERROR.NOT_FOUND}>
             <ErrorWrapper text="404 Page not found" />
           </Route>

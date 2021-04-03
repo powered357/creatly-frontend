@@ -7,7 +7,7 @@ const paths = require('./paths');
 
 module.exports = {
   context: paths.src,
-  entry: './index.js',
+  entry: ['babel-polyfill', './index.js'],
   output: {
     path: paths.build,
     filename: '[name].bundle.js',
@@ -20,6 +20,7 @@ module.exports = {
         PROD_ENV: process.env.NODE_ENV === 'production',
         BUILD_DATE: Date.now(),
       },
+      API_HOST: JSON.stringify(process.env.API_HOST),
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({

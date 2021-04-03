@@ -9,6 +9,8 @@ export const ROUTES = {
     LOGIN: '/admin/login',
     CREATE_COURSE: '/admin/create-course',
   },
+  COURSE: '/course/:id',
+  MODULE: '/module/:id',
   ERROR: {
     NOT_FOUND: '/404',
   },
