@@ -19,8 +19,8 @@ module.exports = {
       'process.env': {
         PROD_ENV: process.env.NODE_ENV === 'production',
         BUILD_DATE: Date.now(),
-        API_HOST: process.env.API_HOST,
       },
+      API_HOST: JSON.stringify(process.env.API_HOST),
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
