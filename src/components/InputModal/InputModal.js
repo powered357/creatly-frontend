@@ -1,4 +1,3 @@
-import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
@@ -7,7 +6,7 @@ import { commonVariables } from 'THEME/variables';
 
 import { Input, Button } from 'UI-KIT';
 
-import { Form, FormField } from '../styles/EditorStyled';
+import { Form, FormField } from './styles/ModalStyled';
 
 const customStyles = {
   content: {
@@ -24,20 +23,17 @@ const customStyles = {
   },
 };
 
-export const InputModal = ({ name, placeholder, onSubmit, isOpen, closeModal }) => {
-  const inputRef = useRef();
+export const InputModal = ({ name, placeholder, buttonText, onSubmit, isLoading, isOpen, closeModal, autoClose }) => {
   const { register, handleSubmit } = useForm();
-
-  useEffect(() => {
-    if (inputRef.current) {
-      register(inputRef.current);
-      inputRef.current.focus();
-    }
-  }, []);
 
   const submitData = (data) => {
     onSubmit(data);
-    closeModal();
+    if (autoClose) closeModal();
+  };
+
+  const onRef = (input) => {
+    register(input, { required: true });
+    if (input) input.focus();
   };
 
   return (
@@ -50,9 +46,9 @@ export const InputModal = ({ name, placeholder, onSubmit, isOpen, closeModal }) 
     >
       <Form onSubmit={handleSubmit(submitData)}>
         <FormField>
-          <Input name={name} ref={register({ required: true })} placeholder={placeholder} />
+          <Input ref={onRef} name={name} placeholder={placeholder} />
         </FormField>
-        <Button>Добавить</Button>
+        <Button isLoading={isLoading}>{buttonText}</Button>
       </Form>
     </Modal>
   );
@@ -61,11 +57,17 @@ export const InputModal = ({ name, placeholder, onSubmit, isOpen, closeModal }) 
 InputModal.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  buttonText: PropTypes.string,
   onSubmit: PropTypes.func,
+  isLoading: PropTypes.bool,
   isOpen: PropTypes.bool.isRequired,
   closeModal: PropTypes.func.isRequired,
+  autoClose: PropTypes.bool,
 };
 
 InputModal.defaultProps = {
   onSubmit: Function.prototype,
+  isLoading: false,
+  buttonText: 'Добавить',
+  autoClose: true,
 };

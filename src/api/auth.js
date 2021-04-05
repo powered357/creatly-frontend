@@ -20,3 +20,10 @@ export const apiRegistration = ({ email, name, password }) =>
   });
 
 export const apiVerification = ({ code }) => makeRequest('POST')(endpoints.verification(code))();
+
+export const apiRefreshToken = ({ token, isAdmin }) =>
+  makeRequest('POST')(!isAdmin ? endpoints.refresh : endpoints.admin.refresh)({
+    data: {
+      token,
+    },
+  });

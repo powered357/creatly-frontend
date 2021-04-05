@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { colorVariables, transitionVariables } from 'THEME/variables';
@@ -22,6 +22,15 @@ export const LinkStyled = styled.a`
     &:after {
       opacity: 0;
     }
+  }
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      pointer-events: none;
+      &:after {
+        opacity: 0;
+      }
+    `}
   }
 `;
 

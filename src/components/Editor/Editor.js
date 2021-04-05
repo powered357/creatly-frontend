@@ -5,8 +5,10 @@ import { withHistory } from 'slate-history';
 
 import { Icon } from 'UI-KIT';
 
+import { InputModal } from 'COMPONENTS/InputModal';
+
 import { useEditor, useLinks, useImages } from './hooks';
-import { Leaf, Element, ToolbarButton, CustomButton, InputModal, CodeHighlight } from './components';
+import { Leaf, Element, ToolbarButton, CustomButton, CodeHighlight } from './components';
 import { EditorStyled, Toolbar } from './styles/EditorStyled';
 
 export const Editor = () => {
