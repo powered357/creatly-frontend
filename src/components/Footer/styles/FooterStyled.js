@@ -12,7 +12,7 @@ export const FooterStyled = styled.footer`
 export const Content = styled.div`
   display: flex;
   justify-content: space-evenly;
-  margin-top: 16px;
+  margin: 16px 0;
 `;
 
 export const Block = styled.div`

@@ -5,14 +5,6 @@ import { FondayLogoCard } from 'COMPONENTS/Footer/components/FondayLogoCard';
 
 import { Block, Title, Content, FooterStyled, Body, BodyItem, SocialMedia } from './styles/FooterStyled';
 
-const socialImages = [
-  { link: '#', name: 'github' },
-  { link: '#', name: 'instagram' },
-  { link: '#', name: 'linkedin' },
-  { link: '#', name: 'telegram' },
-  { link: '#', name: 'youtube' },
-];
-
 const informationBlock = [
   { link: '/privacy', name: 'Политика конфиденциальности' },
   { link: '/service', name: 'Условия предоставления услуг' },
@@ -54,13 +46,6 @@ export const Footer = () => (
           </Body>
         </Block>
         <Block>
-          <SocialMedia>
-            {socialImages.map((img) => (
-              <a href={img.link} key={img.name} target="_blank">
-                <img src={`../../assets/images/${img.name}.png`} alt={img.name} />
-              </a>
-            ))}
-          </SocialMedia>
           <a href="https://fondy.ua/ru/" target="_blank">
             <FondayLogoCard />
           </a>
