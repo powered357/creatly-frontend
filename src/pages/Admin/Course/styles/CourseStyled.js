@@ -8,11 +8,28 @@ export const CourseStyled = styled.div`
   height: 100%;
 `;
 
+export const Form = styled.form`
+  padding-top: 20px;
+`;
+
+export const FormField = styled.div`
+  position: relative;
+  padding-bottom: 30px;
+`;
+
 export const Title = styled(Text).attrs(() => ({
-  font: 'h1',
+  font: 'h3',
 }))`
   display: block;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  padding-top: 20px;
+  button:not(:last-child) {
+    margin-right: 20px;
+  }
 `;
 
 export const EditIcon = styled(Icon).attrs(() => ({

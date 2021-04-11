@@ -57,7 +57,7 @@ const Registration = () => {
             )}
           </FormField>
           <FormButton>
-            <Button isLoading={isLoading} fullWidth>
+            <Button type="submit" isLoading={isLoading} fullWidth>
               Зарегистрироваться
             </Button>
           </FormButton>

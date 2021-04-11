@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const CourseTemplateStyled = styled.div`
   height: 100%;
   display: flex;
+  padding-right: 280px;
 `;
 
 export const Sidebar = styled.div`

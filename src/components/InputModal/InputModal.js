@@ -48,7 +48,9 @@ export const InputModal = ({ name, placeholder, buttonText, onSubmit, isLoading,
         <FormField>
           <Input ref={onRef} name={name} placeholder={placeholder} />
         </FormField>
-        <Button isLoading={isLoading}>{buttonText}</Button>
+        <Button type="submit" isLoading={isLoading}>
+          {buttonText}
+        </Button>
       </Form>
     </Modal>
   );

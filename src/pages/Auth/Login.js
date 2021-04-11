@@ -43,7 +43,7 @@ const Login = ({ isAdmin }) => {
           )}
         </FormField>
         <FormButton>
-          <Button isLoading={isLoading} fullWidth>
+          <Button type="submit" isLoading={isLoading} fullWidth>
             Войти
           </Button>
         </FormButton>
