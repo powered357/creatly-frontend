@@ -13,7 +13,7 @@ export const CourseModule = ({ id, position, name, lessons }) => {
         <span>
           {position + 1}. {name}
         </span>
-        <Icon fontSize={24} name="expand_more" />
+        <Icon size={24} name="expand_more" />
       </Title>
       {isModuleOpen &&
         lessons.map((lesson) => (

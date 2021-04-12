@@ -4,12 +4,12 @@ import { useForm } from 'react-hook-form';
 import { ROUTES } from 'CONSTANTS/routes';
 import { VALIDATION } from 'CONSTANTS/validation';
 
-import { Input, Button, Link } from 'UI-KIT';
+import { Input, Button, Link, FormError } from 'UI-KIT';
 
 import { AuthTemplate } from 'COMPONENTS/AuthTemplate';
 
 import { useAuthAPI } from './hooks/useAuthAPI';
-import { Form, FormField, FormError, FormButton, FormBottom, TextStyled } from './styles/AuthStyled';
+import { Form, FormField, FormButton, FormBottom, TextStyled } from './styles/AuthStyled';
 
 const Login = ({ isAdmin }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -43,7 +43,7 @@ const Login = ({ isAdmin }) => {
           )}
         </FormField>
         <FormButton>
-          <Button isLoading={isLoading} fullWidth>
+          <Button type="submit" isLoading={isLoading} fullWidth>
             Войти
           </Button>
         </FormButton>

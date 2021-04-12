@@ -34,7 +34,7 @@ const Verification = () => {
           Ваш аккаунт успешно подтвержден.<br></br> Спасибо за регистрацию!
         </Subtitle>
         <FormButton>
-          <Button isLoading={isLoading} fullWidth>
+          <Button type="submit" isLoading={isLoading} fullWidth>
             Войти
           </Button>
         </FormButton>
