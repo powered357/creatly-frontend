@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
@@ -19,9 +19,11 @@ export const Header = () => {
     <HeaderStyled>
       <Container>
         <Row>
-          <Text font="h3" uppercase>
-            Zhashkevych workshop
-          </Text>
+          <Link to="/">
+            <Text font="h3" uppercase>
+              Zhashkevych workshop
+            </Text>
+          </Link>
           <Button onClick={onClick}>Войти</Button>
         </Row>
       </Container>

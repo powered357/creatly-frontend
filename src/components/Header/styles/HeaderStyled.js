@@ -5,6 +5,9 @@ import { colorVariables, commonVariables } from 'THEME/variables';
 export const HeaderStyled = styled.header`
   background-color: ${colorVariables.white};
   box-shadow: ${commonVariables.boxShadow};
+  a {
+    text-decoration: none;
+  }
 `;
 
 export const Row = styled.div`

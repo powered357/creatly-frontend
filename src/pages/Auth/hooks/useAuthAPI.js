@@ -23,7 +23,7 @@ export const useAuthAPI = () => {
         setCookie(!isAdmin ? 'token' : 'adminToken', accessToken);
         setCookie(!isAdmin ? 'refresh' : 'adminRefresh', refreshToken);
 
-        history.replace(ROUTES.ROOT);
+        history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
       })
       .catch(catchError)
       .finally(stopLoading);
