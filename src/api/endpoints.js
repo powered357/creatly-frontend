@@ -1,5 +1,4 @@
-// TODO: find a way to pass env variable here instead of hardcode
-const API_URL = 'http://104.236.31.192:8000/api/v1';
+const API_URL = `http://104.236.31.192:8000/api/v1`;
 
 export const endpoints = {
   refresh: `${API_URL}/students/auth/refresh`,
@@ -14,5 +13,7 @@ export const endpoints = {
   },
   courses: {
     getAll: `${API_URL}/courses`,
+    getById: (id) => `${API_URL}/courses/${id}`,
   },
+  footer: `${API_URL}/settings`,
 };

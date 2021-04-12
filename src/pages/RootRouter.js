@@ -2,7 +2,12 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import Module from 'PAGES/Module';
+import Course from 'PAGES/Course';
 import Home from 'PAGES/Home';
+import Privacy from 'PAGES/Privacy';
+import Refund from 'PAGES/Refund';
+import Service from 'PAGES/Service';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
@@ -28,6 +33,21 @@ const RootRouter = () => {
         <Switch>
           <PrivateRoute exact path={ROUTES.ROOT}>
             <Home />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.PRIVACY}>
+            <Privacy />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.REFUND}>
+            <Refund />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.SERVICE}>
+            <Service />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.COURSE}>
+            <Course />
+          </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.MODULE}>
+            <Module />
           </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />

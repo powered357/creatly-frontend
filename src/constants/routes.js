@@ -15,6 +15,11 @@ export const ROUTES = {
       LESSONS: ' /admin/course/:id/lessons',
     },
   },
+  PRIVACY: '/privacy',
+  REFUND: '/refund',
+  SERVICE: '/service',
+  COURSE: '/course/:id',
+  MODULE: '/module/:id',
   ERROR: {
     NOT_FOUND: '/404',
   },
