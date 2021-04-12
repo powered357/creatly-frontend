@@ -1,3 +1,1 @@
-import Privacy from './Privacy';
-
-export default Privacy;
+export { Privacy as default } from './Privacy';

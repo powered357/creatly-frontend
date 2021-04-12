@@ -28,35 +28,21 @@ export const Title = styled(Text).attrs(() => ({
   margin-bottom: 16px;
 `;
 
-export const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  > span {
-    > a {
-      text-decoration: none;
-      color: ${colorVariables.white};
-    }
-  }
-
-  > span:not(:last-child) {
-    margin-bottom: 8px;
-  }
-`;
-
 export const BodyItem = styled(Text).attrs(() => ({
   font: 't3',
   color: colorVariables.white,
 }))``;
 
-export const SocialMedia = styled.div`
+export const Body = styled.div`
   display: flex;
-
-  img {
-    width: 32px;
+  flex-direction: column;
+  ${BodyItem} {
+    > a {
+      text-decoration: none;
+      color: ${colorVariables.white};
+    }
   }
-
-  > a:not(:last-child) {
-    margin-right: 22px;
+  ${BodyItem}:not(:last-child) {
+    margin-bottom: 8px;
   }
 `;

@@ -1,3 +1,1 @@
-import Service from './Service';
-
-export default Service;
+export { Service as default } from './Service';

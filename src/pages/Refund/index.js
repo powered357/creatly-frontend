@@ -1,3 +1,1 @@
-import Refund from './Refund';
-
-export default Refund;
+export { Refund as default } from './Refund';
