@@ -9,6 +9,9 @@ export const ROUTES = {
     LOGIN: '/admin/login',
     CREATE_COURSE: '/admin/create-course',
   },
+  PRIVACY: '/privacy',
+  REFUND: '/refund',
+  SERVICE: '/service',
   COURSE: '/course/:id',
   MODULE: '/module/:id',
   ERROR: {
