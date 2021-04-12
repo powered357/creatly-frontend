@@ -1,4 +1,4 @@
-const API_URL = `http://104.236.31.192:8000/api/v1`;
+const API_URL = `${API_HOST}/api/v1`;
 
 export const endpoints = {
   refresh: `${API_URL}/students/auth/refresh`,
