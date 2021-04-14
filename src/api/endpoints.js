@@ -10,6 +10,7 @@ export const endpoints = {
     login: `${API_URL}/admins/sign-in`,
     courses: `${API_URL}/admins/courses`,
     getCourseById: (id) => `${API_URL}/admins/courses/${id}`,
+    createModule: (id) => `${API_URL}/admins/courses/${id}/modules`,
   },
   courses: {
     getAll: `${API_URL}/courses`,

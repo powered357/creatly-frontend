@@ -1,64 +1,56 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 
-import { apiGetCourse, apiUpdateCourse } from 'API/admin';
+import { fetchCourse, updateCourse } from 'STORE/admin';
 
 import { Input, Button, FormError, Loader } from 'UI-KIT';
 
 import { Container } from 'COMPONENTS/Container';
 import { CourseTemplate } from 'COMPONENTS/CourseTemplate';
 import { AdminSidebar } from 'COMPONENTS/AdminSidebar';
+import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
 
 import { CourseStyled, Form, FormField, Title, ButtonGroup } from './styles/CourseStyled';
 
 export const Course = () => {
+  const dispatch = useDispatch();
   const { id } = useParams();
+  const { currentCourse } = useSelector(({ admin }) => admin);
+  const { course, modules, isLoading } = currentCourse;
   const { register, handleSubmit, errors, reset } = useForm();
-  const [isLoading, setLoading] = useState(false);
   const [isSendingData, setSendingData] = useState(false);
   const [isPublishing, setPublishing] = useState(false);
-  const [course, setCourse] = useState({});
-  const { published } = course;
 
   useEffect(() => {
-    setLoading(true);
-    apiGetCourse(id)
-      .then(({ data }) => {
-        const { name, description } = data.course;
-
-        setCourse(data.course);
-        reset({ name, description });
-      })
-      .catch(handleError)
-      .finally(() => setLoading(false));
+    dispatch(fetchCourse(id))
+      .then(unwrapResult)
+      .then((data) => reset(data.course));
   }, []);
 
   const submitData = (data) => {
     setSendingData(true);
-    apiUpdateCourse({ id, data })
-      .catch(handleError)
-      .finally(() => setSendingData(false));
+    dispatch(updateCourse({ id, data })).finally(() => setSendingData(false));
   };
 
   const handlePublish = () => {
     setPublishing(true);
-    apiUpdateCourse({
-      id,
-      data: { published: !published },
-    })
-      .catch(handleError)
-      .finally(() => setPublishing(false));
+    dispatch(
+      updateCourse({
+        id,
+        data: { published: !course.published },
+      }),
+    ).finally(() => setPublishing(false));
   };
-
-  const handleError = (error) => console.log(error);
 
   return (
     <CourseStyled>
       <Container>
-        <CourseTemplate sidebar={<AdminSidebar />}>
-          <AdminSidebar direction="horizontal" />
-          {Object.keys(course).length && !isLoading ? (
+        {course && !isLoading ? (
+          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
+            <AdminSidebar direction="horizontal" />
             <Form onSubmit={handleSubmit(submitData)}>
               <FormField>
                 <Title>Название</Title>
@@ -80,14 +72,14 @@ export const Course = () => {
                   Сохранить
                 </Button>
                 <Button onClick={handlePublish} theme="inverse" isLoading={isPublishing}>
-                  {published ? 'Скрыть курс' : 'Опубликовать'}
+                  {course.published ? 'Скрыть курс' : 'Опубликовать'}
                 </Button>
               </ButtonGroup>
             </Form>
-          ) : (
-            <Loader />
-          )}
-        </CourseTemplate>
+          </CourseTemplate>
+        ) : (
+          <Loader fullHeight />
+        )}
       </Container>
     </CourseStyled>
   );

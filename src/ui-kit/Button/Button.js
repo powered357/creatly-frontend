@@ -12,7 +12,7 @@ export const Button = ({ children, type, theme, onClick, isLoading, disabled, fu
     disabled={disabled || isLoading}
     fullWidth={fullWidth}
   >
-    {!isLoading ? <Text font="s1">{children}</Text> : <Loader />}
+    {!isLoading ? <Text font="s3">{children}</Text> : <Loader />}
   </ButtonStyled>
 );
 

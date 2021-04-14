@@ -41,6 +41,18 @@ export const fontVariables = {
   },
   s1: {
     family: fontFamilyVariables.semi,
+    size: '20px',
+    lineHeight: '32px',
+    spacing: '0',
+  },
+  s2: {
+    family: fontFamilyVariables.semi,
+    size: '18px',
+    lineHeight: '32px',
+    spacing: '0',
+  },
+  s3: {
+    family: fontFamilyVariables.semi,
     size: '16px',
     lineHeight: '32px',
     spacing: '0',
