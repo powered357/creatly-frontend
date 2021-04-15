@@ -7,6 +7,7 @@ export const LoaderStyled = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${({ fullHeight }) => fullHeight && 'height: 100%;'}
 `;
 
 export const Spinner = styled.div`
