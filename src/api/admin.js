@@ -22,3 +22,6 @@ export const apiUpdateCourse = ({ id, data }) =>
   });
 
 export const apiDeleteCourse = (id) => makeRequest('DELETE')(endpoints.admin.getCourseById(id))({ headers });
+
+export const apiCreateModule = ({ id, data }) =>
+  makeRequest('POST')(endpoints.admin.createModule(id))({ headers, data });

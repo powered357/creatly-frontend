@@ -25,10 +25,11 @@ const RootRouter = () => {
   const { pathname } = useLocation();
 
   const withBars = !['/login', '/admin/login', '/registration', '/verification'].includes(pathname);
+  const isAdmin = pathname.includes('/admin/');
 
   return (
     <>
-      {withBars && <Header />}
+      {withBars && <Header isAdmin={isAdmin} />}
       <Main>
         <Switch>
           <PrivateRoute exact path={ROUTES.ROOT}>
