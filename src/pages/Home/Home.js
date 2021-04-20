@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 import { fetchCourses } from 'STORE/courses';
 
@@ -7,6 +8,8 @@ import { Loader } from 'UI-KIT';
 
 import { CourseCard } from 'COMPONENTS/CourseCard';
 import { Container } from 'COMPONENTS/Container';
+
+import { dispatchErrorMsg } from 'UTILS/dispatchErrorMsg';
 
 import { Content, HomeStyled, PageTitle } from './styles/HomeStyled';
 
@@ -16,7 +19,11 @@ export const Home = () => {
   const isLoading = useSelector(({ courses }) => courses.isLoading);
 
   useEffect(() => {
-    dispatch(fetchCourses());
+    dispatch(fetchCourses())
+      .then(unwrapResult)
+      .catch((error) => {
+        dispatchErrorMsg(dispatch, error);
+      });
   }, [fetchCourses]);
 
   return (
