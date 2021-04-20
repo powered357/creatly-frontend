@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
@@ -8,7 +9,7 @@ import { Container } from 'COMPONENTS/Container';
 
 import { HeaderStyled, Row } from './styles/HeaderStyled';
 
-export const Header = () => {
+export const Header = ({ isAdmin }) => {
   const history = useHistory();
 
   const onClick = () => {
@@ -21,7 +22,7 @@ export const Header = () => {
         <Row>
           <Link to="/">
             <Text font="h3" uppercase>
-              Zhashkevych workshop
+              {!isAdmin ? 'Zhashkevych workshop' : 'Admin panel'}
             </Text>
           </Link>
           <Button onClick={onClick}>Войти</Button>
@@ -29,4 +30,12 @@ export const Header = () => {
       </Container>
     </HeaderStyled>
   );
+};
+
+Header.propTypes = {
+  isAdmin: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  isAdmin: false,
 };
