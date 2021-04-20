@@ -1,31 +1,37 @@
 import { useState, useCallback } from 'react';
-import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 
 import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-export const useAuthAPI = () => {
-  const [, setCookie] = useCookies(['token, refresh']);
+import { getToken } from 'UTILS/getToken';
+import { setTokens } from 'UTILS/setTokens';
+
+export const useAuthAPI = (isAdmin) => {
   const history = useHistory();
   const [isLoading, setLoading] = useState(false);
   const [serverError, setServerError] = useState('');
 
-  const login = (isAdmin) => ({ email, password }) => {
+  const loginRequest = async ({ email, password }) => {
     setLoading(true);
     clearServerError();
 
-    return apiLogin({ email, password, isAdmin })
-      .then(({ data }) => {
-        const { accessToken, refreshToken } = data;
+    const { data } = await apiLogin({ email, password, isAdmin });
+    console.log('login data', data);
+    const { accessToken, refreshToken } = data;
 
-        setCookie(!isAdmin ? 'token' : 'adminToken', accessToken);
-        setCookie(!isAdmin ? 'refresh' : 'adminRefresh', refreshToken);
-      })
-      .then(() => history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES))
-      .catch(catchError)
-      .finally(stopLoading);
+    setTokens({ accessToken, refreshToken, isAdmin });
+  };
+
+  const login = async ({ email, password }) => {
+    await loginRequest({ email, password });
+    const token = getToken(isAdmin);
+    console.log({ token });
+    // setTimeout(() => {
+
+    history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
+    // }, 1000)
   };
 
   const registerUser = ({ name, email, password }) => {
@@ -42,6 +48,7 @@ export const useAuthAPI = () => {
     return apiVerification({ code })
       .then(() => {
         // TODO: implement login on success
+        history.push(ROUTES.ACCOUNT.LOGIN);
       })
       .catch(({ message }) => {
         catchError(message);

@@ -13,11 +13,11 @@ import { Form, FormField, FormButton, FormBottom, TextStyled } from './styles/Au
 
 const Login = ({ isAdmin }) => {
   const { register, handleSubmit, errors } = useForm();
-  const { login, isLoading, serverError, clearServerError } = useAuthAPI();
+  const { login, isLoading, serverError, clearServerError } = useAuthAPI(isAdmin);
 
   return (
     <AuthTemplate title={!isAdmin ? 'Zhashkevych workshop' : 'Admin panel'}>
-      <Form onSubmit={handleSubmit(login(isAdmin))}>
+      <Form onSubmit={handleSubmit(login)}>
         <FormField>
           <Input
             name="email"

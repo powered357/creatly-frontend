@@ -1,16 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-import { fetchCourse, updateCourse } from 'STORE/admin';
+import { fetchCourse, updateCourse, clearCourse } from 'STORE/admin';
 
 import { Input, Button, FormError, Loader } from 'UI-KIT';
 
 import { Container } from 'COMPONENTS/Container';
 import { CourseTemplate } from 'COMPONENTS/CourseTemplate';
-import { AdminSidebar } from 'COMPONENTS/AdminSidebar';
 import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
 
 import { CourseStyled, Form, FormField, Title, ButtonGroup } from './styles/CourseStyled';
@@ -18,6 +17,7 @@ import { CourseStyled, Form, FormField, Title, ButtonGroup } from './styles/Cour
 export const Course = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const { pathname } = useLocation();
   const { currentCourse } = useSelector(({ admin }) => admin);
   const { course, modules, isLoading } = currentCourse;
   const { register, handleSubmit, errors, reset } = useForm();
@@ -28,7 +28,11 @@ export const Course = () => {
     dispatch(fetchCourse(id))
       .then(unwrapResult)
       .then((data) => reset(data.course));
-  }, []);
+
+    return () => {
+      dispatch(clearCourse());
+    };
+  }, [pathname]);
 
   const submitData = (data) => {
     setSendingData(true);
@@ -50,7 +54,6 @@ export const Course = () => {
       <Container>
         {course && !isLoading ? (
           <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
-            <AdminSidebar direction="horizontal" />
             <Form onSubmit={handleSubmit(submitData)}>
               <FormField>
                 <Title>Название</Title>

@@ -11,7 +11,6 @@ import Service from 'PAGES/Service';
 import Login from 'PAGES/Auth/Login';
 import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
-import CreateCourse from 'PAGES/Admin/CreateCourse';
 import MyCourses from 'PAGES/Admin/MyCourses';
 import AdminCourse from 'PAGES/Admin/Course';
 
@@ -32,9 +31,9 @@ const RootRouter = () => {
       {withBars && <Header isAdmin={isAdmin} />}
       <Main>
         <Switch>
-          <PrivateRoute exact path={ROUTES.ROOT}>
+          <Route exact path={ROUTES.ROOT}>
             <Home />
-          </PrivateRoute>
+          </Route>
           <PrivateRoute exact path={ROUTES.PRIVACY}>
             <Privacy />
           </PrivateRoute>
@@ -62,14 +61,14 @@ const RootRouter = () => {
           <Route exact path={ROUTES.ACCOUNT.VERIFICATION}>
             <Verification />
           </Route>
-          <AdminRoute exact path={ROUTES.ADMIN.CREATE_COURSE}>
-            <CreateCourse />
-          </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN.MY_COURSES}>
             <MyCourses />
           </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN.COURSE.MAIN}>
             <AdminCourse />
+          </AdminRoute>
+          <AdminRoute exact path={ROUTES.ADMIN.COURSE.LESSON}>
+            Lesson page
           </AdminRoute>
           <Route exact path={ROUTES.ERROR.NOT_FOUND}>
             <ErrorWrapper text="404 Page not found" />

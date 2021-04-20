@@ -5,7 +5,7 @@ import { withHistory } from 'slate-history';
 
 import { Icon } from 'UI-KIT';
 
-import { InputModal } from 'COMPONENTS/InputModal';
+import { ModalInput } from 'COMPONENTS/ModalInput';
 
 import { useEditor, useLinks, useImages } from './hooks';
 import { Leaf, Element, ToolbarButton, CustomButton, CodeHighlight } from './components';
@@ -95,14 +95,14 @@ export const Editor = () => {
             spellCheck
             autoFocus
           />
-          <InputModal
+          <ModalInput
             name="link"
             placeholder="Ссылка"
             onSubmit={addLink(editor)}
             isOpen={isLinkModalOpen}
             closeModal={closeLinkModal}
           />
-          <InputModal
+          <ModalInput
             name="image"
             placeholder="Ссылка на картинку"
             onSubmit={addImage(editor)}
