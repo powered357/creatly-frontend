@@ -8,9 +8,8 @@ function Alert(props) {
 }
 
 export const Notifications = () => {
-  const [open, setOpen] = useState(false);
-  const errorMsg = useSelector(({ notifications }) => notifications.error);
-  const successMsg = useSelector(({ notifications }) => notifications.success);
+  const [isOpen, setOpen] = useState(false);
+  const { error: errorMsg, success: successMsg } = useSelector(({ notifications }) => notifications);
 
   useEffect(() => {
     if (errorMsg || successMsg) handleOpen();
@@ -21,16 +20,13 @@ export const Notifications = () => {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+    if (reason === 'clickaway') return;
     setOpen(false);
   };
   return (
     <>
       <Snackbar
-        open={open}
+        open={isOpen}
         autoHideDuration={4000}
         onClose={handleClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}

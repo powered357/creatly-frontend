@@ -13,7 +13,7 @@ export const endpoints = {
     createModule: (id) => `${API_URL}/admins/courses/${id}/modules`,
   },
   courses: {
-    getAll: `${API_URL}/courses`,
+    getAll: `${API_URL}/courses2  `,
     getById: (id) => `${API_URL}/courses/${id}`,
   },
   footer: `${API_URL}/settings`,

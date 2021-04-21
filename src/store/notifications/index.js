@@ -6,28 +6,24 @@ const initialState = {
 };
 
 const { reducer, actions } = createSlice({
-  name: 'app',
+  name: 'notifications',
   initialState,
   reducers: {
-    setErrorsMsg: (state, { payload }) => ({
-      ...state,
+    setErrorMsg: (state, { payload }) => ({
       error: payload.message,
     }),
-    clearErrorsMsg: (state) => ({
-      ...state,
+    clearErrorMsg: () => ({
       error: null,
     }),
     setSuccessMsg: (state, { payload }) => ({
-      ...state,
       success: payload.message,
     }),
-    clearSuccessMsg: (state) => ({
-      ...state,
+    clearSuccessMsg: () => ({
       success: null,
     }),
   },
 });
 
-export const { setErrorsMsg, clearErrorsMsg, setSuccessMsg, clearSuccessMsg } = actions;
+export const { setErrorMsg, clearErrorMsg, setSuccessMsg, clearSuccessMsg } = actions;
 
 export default reducer;

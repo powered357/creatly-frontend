@@ -15,8 +15,7 @@ import { Content, HomeStyled, PageTitle } from './styles/HomeStyled';
 
 export const Home = () => {
   const dispatch = useDispatch();
-  const allCourses = useSelector(({ courses }) => courses.all);
-  const isLoading = useSelector(({ courses }) => courses.isLoading);
+  const { all: allCourses, isLoading } = useSelector(({ courses }) => courses);
 
   useEffect(() => {
     dispatch(fetchCourses())
@@ -24,7 +23,7 @@ export const Home = () => {
       .catch((error) => {
         dispatchErrorMsg(dispatch, error);
       });
-  }, [fetchCourses]);
+  }, []);
 
   return (
     <Container size="sm">
