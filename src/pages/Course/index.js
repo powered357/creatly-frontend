@@ -10,6 +10,8 @@ import { Button, Loader } from 'UI-KIT';
 import { CourseModule } from 'COMPONENTS/CourseModule';
 import { Container } from 'COMPONENTS/Container';
 
+import { DocumentTitle } from 'UTILS/DocumentTitle';
+
 import { Content, Description, CourseStyled, Title, SubTitle, BtnContainer } from './styles/CourseStyled';
 
 const Course = () => {
@@ -27,6 +29,7 @@ const Course = () => {
 
   return (
     <Container size="sm">
+      <DocumentTitle customTitle={course && course.name} />
       {course ? (
         <CourseStyled>
           <Title>{course.name}</Title>

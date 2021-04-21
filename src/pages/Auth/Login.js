@@ -8,6 +8,8 @@ import { Input, Button, Link, FormError } from 'UI-KIT';
 
 import { AuthTemplate } from 'COMPONENTS/AuthTemplate';
 
+import { DocumentTitle } from 'UTILS/DocumentTitle';
+
 import { useAuthAPI } from './hooks/useAuthAPI';
 import { Form, FormField, FormButton, FormBottom, TextStyled } from './styles/AuthStyled';
 
@@ -17,6 +19,7 @@ const Login = ({ isAdmin }) => {
 
   return (
     <AuthTemplate title={!isAdmin ? 'Zhashkevych workshop' : 'Admin panel'}>
+      <DocumentTitle customTitle="Login" />
       <Form onSubmit={handleSubmit(login(isAdmin))}>
         <FormField>
           <Input
