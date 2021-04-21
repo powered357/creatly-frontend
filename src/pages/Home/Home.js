@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 import { fetchCourses } from 'STORE/courses';
+import { setErrorMsg } from 'STORE/notifications';
 
 import { Loader } from 'UI-KIT';
 
 import { CourseCard } from 'COMPONENTS/CourseCard';
 import { Container } from 'COMPONENTS/Container';
-
-import { dispatchErrorMsg } from 'UTILS/dispatchErrorMsg';
 
 import { Content, HomeStyled, PageTitle } from './styles/HomeStyled';
 
@@ -21,7 +20,7 @@ export const Home = () => {
     dispatch(fetchCourses())
       .then(unwrapResult)
       .catch((error) => {
-        dispatchErrorMsg(dispatch, error);
+        dispatch(setErrorMsg(error));
       });
   }, []);
 
