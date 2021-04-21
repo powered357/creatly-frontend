@@ -21,6 +21,8 @@ import { Header } from 'COMPONENTS/Header';
 import { Footer } from 'COMPONENTS/Footer';
 import { Main } from 'COMPONENTS/Main';
 
+import { DocumentTitle } from 'UTILS/DocumentTitle';
+
 const RootRouter = () => {
   const { pathname } = useLocation();
 
@@ -29,6 +31,7 @@ const RootRouter = () => {
 
   return (
     <>
+      <DocumentTitle />
       {withBars && <Header isAdmin={isAdmin} />}
       <Main>
         <Switch>
