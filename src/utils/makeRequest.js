@@ -39,6 +39,6 @@ export const makeRequest = (method = 'get') => (url) => ({ headers, params, data
           //   retryRequest(error, resolve, reject);
           // });
         }
-        reject(error.response);
+        reject(error.response.data);
       });
   });
