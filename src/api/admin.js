@@ -35,3 +35,19 @@ export const apiCreateLesson = ({ moduleId, data }) =>
     headers: { Authorization: `Bearer ${getToken(true)}` },
     data,
   });
+
+export const apiGetLesson = (id) =>
+  makeRequest('GET')(endpoints.admin.getLessonById(id))({
+    headers: { Authorization: `Bearer ${getToken(true)}` },
+  });
+
+export const apiDeleteLesson = (id) =>
+  makeRequest('DELETE')(endpoints.admin.getLessonById(id))({
+    headers: { Authorization: `Bearer ${getToken(true)}` },
+  });
+
+export const apiUpdateLesson = ({ id, data }) =>
+  makeRequest('PUT')(endpoints.admin.getLessonById(id))({
+    headers: { Authorization: `Bearer ${getToken(true)}` },
+    data,
+  });

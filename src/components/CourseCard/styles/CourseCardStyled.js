@@ -42,6 +42,7 @@ export const LockIcon = styled(Icon).attrs(() => ({
   color: 'grey',
 }))`
   margin-left: 10px;
+  padding-bottom: 5px;
 `;
 
 export const Description = styled(Text).attrs(() => ({

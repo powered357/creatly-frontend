@@ -13,6 +13,7 @@ import Registration from 'PAGES/Auth/Registration';
 import Verification from 'PAGES/Auth/Verification';
 import MyCourses from 'PAGES/Admin/MyCourses';
 import AdminCourse from 'PAGES/Admin/Course';
+import AdminLesson from 'PAGES/Admin/Lesson';
 
 import { PrivateRoute, AdminRoute } from 'COMPONENTS/Routes';
 import { ErrorWrapper } from 'COMPONENTS/ErrorWrapper';
@@ -68,7 +69,7 @@ const RootRouter = () => {
             <AdminCourse />
           </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN.COURSE.LESSON}>
-            Lesson page
+            <AdminLesson />
           </AdminRoute>
           <Route exact path={ROUTES.ERROR.NOT_FOUND}>
             <ErrorWrapper text="404 Page not found" />

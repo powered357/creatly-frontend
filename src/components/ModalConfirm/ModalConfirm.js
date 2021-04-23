@@ -23,7 +23,7 @@ export const ModalConfirm = ({ title, text, successFunc, cancelFunc, isLoading, 
         <Button onClick={handleSuccess} isLoading={isLoading}>
           Подтвердить
         </Button>
-        <Button onClick={handleCancel} theme="danger">
+        <Button onClick={handleCancel} theme="inverse">
           Отменить
         </Button>
       </ButtonGroup>

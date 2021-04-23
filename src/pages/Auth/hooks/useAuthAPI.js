@@ -5,7 +5,6 @@ import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-import { getToken } from 'UTILS/getToken';
 import { setTokens } from 'UTILS/setTokens';
 
 export const useAuthAPI = (isAdmin) => {
@@ -18,7 +17,6 @@ export const useAuthAPI = (isAdmin) => {
     clearServerError();
 
     const { data } = await apiLogin({ email, password, isAdmin });
-    console.log('login data', data);
     const { accessToken, refreshToken } = data;
 
     setTokens({ accessToken, refreshToken, isAdmin });
@@ -26,12 +24,8 @@ export const useAuthAPI = (isAdmin) => {
 
   const login = async ({ email, password }) => {
     await loginRequest({ email, password });
-    const token = getToken(isAdmin);
-    console.log({ token });
-    // setTimeout(() => {
 
     history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
-    // }, 1000)
   };
 
   const registerUser = ({ name, email, password }) => {

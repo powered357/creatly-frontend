@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
@@ -12,15 +12,33 @@ import { ModalInput } from 'COMPONENTS/ModalInput';
 
 import { replaceByObj } from 'UTILS/replaceByObj';
 
-import { SidebarStyled, Title, Nav, NavItem, NavLink, NavOrder, AddIcon, LockIcon } from './styles/SidebarStyled';
+import {
+  SidebarStyled,
+  Heading,
+  Title,
+  Nav,
+  NavItem,
+  NavLink,
+  NavOrder,
+  AddIcon,
+  LockIcon,
+} from './styles/SidebarStyled';
 
 export const CourseSidebar = ({ course, modules }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useParams();
   const [isCreating, setCreating] = useState(false);
   const [activeModuleId, setActiveModuleId] = useState(null);
   const [isModuleModalOpen, setModuleModalOpen] = useState(false);
   const [isLessonModalOpen, setLessonModalOpen] = useState(false);
+
+  const createLessonRoute = ({ courseId, moduleId, lessonId }) =>
+    replaceByObj(ROUTES.ADMIN.COURSE.LESSON, {
+      ':courseId': courseId,
+      ':moduleId': moduleId,
+      ':lessonId': lessonId,
+    });
 
   const openModuleModal = () => {
     setModuleModalOpen(true);
@@ -57,11 +75,7 @@ export const CourseSidebar = ({ course, modules }) => {
     dispatch(createLesson({ moduleId: activeModuleId, data: { name: lesson, position } }))
       .then(unwrapResult)
       .then(({ id }) => {
-        const route = replaceByObj(ROUTES.ADMIN.COURSE.LESSON, {
-          ':courseId': course.id,
-          ':moduleId': activeModuleId,
-          ':lessonId': id,
-        });
+        const route = createLessonRoute({ courseId: course.id, moduleId: activeModuleId, lessonId: id });
 
         setCreating(false);
         setActiveModuleId(null);
@@ -70,28 +84,43 @@ export const CourseSidebar = ({ course, modules }) => {
       });
   };
 
+  const navigateToLesson = ({ moduleId, lessonId }) => () => {
+    const route = createLessonRoute({ courseId: course.id, moduleId, lessonId });
+
+    history.push(route);
+  };
+
+  const navigateToCourse = () => {
+    history.push(ROUTES.ADMIN.COURSE.MAIN.replace(':id', course.id));
+  };
+
   return (
     <SidebarStyled>
-      <Title>
+      <Heading>
         {!course.published && <LockIcon />}
-        {course.name}
-      </Title>
+        <Title onClick={navigateToCourse}>{course.name}</Title>
+      </Heading>
       <Nav>
         {modules?.map(({ id, name, published, lessons }, i) => (
           <div key={id}>
-            <NavItem>
+            <NavItem isActive={id === params.moduleId}>
               {!published && <LockIcon />}
               <NavOrder>{i + 1}.</NavOrder> {name}
             </NavItem>
             <Nav>
               {lessons?.map((item, index) => (
                 <NavItem key={item.id}>
-                  {!item.published && <LockIcon />}
-                  <NavOrder>{index + 1}.</NavOrder> {item.name}
+                  <NavLink
+                    onClick={navigateToLesson({ moduleId: id, lessonId: item.id })}
+                    isActive={item.id === params.lessonId}
+                  >
+                    {!item.published && <LockIcon />}
+                    <NavOrder>{index + 1}.</NavOrder> {item.name}
+                  </NavLink>
                 </NavItem>
               ))}
               <NavItem>
-                <NavLink onClick={openLessonModal(id)}>
+                <NavLink onClick={openLessonModal(id)} bold>
                   <AddIcon />
                   Добавить урок
                 </NavLink>
@@ -100,7 +129,7 @@ export const CourseSidebar = ({ course, modules }) => {
           </div>
         ))}
         <NavItem>
-          <NavLink onClick={openModuleModal}>
+          <NavLink onClick={openModuleModal} bold>
             <AddIcon />
             Добавить модуль
           </NavLink>

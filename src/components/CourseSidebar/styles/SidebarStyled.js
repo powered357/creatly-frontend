@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { colorVariables, transitionVariables } from 'THEME/variables';
 
@@ -8,15 +8,23 @@ export const SidebarStyled = styled.div`
   margin-bottom: 100px;
 `;
 
-export const Title = styled(Text).attrs(() => ({
-  font: 's2',
-}))`
+export const Heading = styled.div`
   position: relative;
   display: block;
-  line-height: 24px;
   padding-top: 3px;
   margin-left: 18px;
   margin-bottom: 20px;
+`;
+
+export const Title = styled(Text).attrs(() => ({
+  font: 's2',
+}))`
+  line-height: 24px;
+  cursor: pointer;
+  transition: ${transitionVariables.color};
+  &:hover {
+    color: ${colorVariables.primary};
+  }
 `;
 
 export const Nav = styled.div`
@@ -30,13 +38,21 @@ export const NavItem = styled(Text).attrs(() => ({
   position: relative;
   display: block;
   line-height: 20px;
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      color: ${colorVariables.primary};
+      ${NavOrder} {
+        color: ${colorVariables.primary};
+      }
+    `}  
   &:not(:last-child) {
     margin-bottom: 10px;
   }
 }`;
 
-export const NavLink = styled(Text).attrs(() => ({
-  font: 's3',
+export const NavLink = styled(Text).attrs(({ bold }) => ({
+  font: bold ? 's3' : 't1',
 }))`
   margin-left: -4px;
   line-height: 20px;
@@ -45,11 +61,25 @@ export const NavLink = styled(Text).attrs(() => ({
   &:hover {
     color: ${colorVariables.grey};
   }
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      color: ${colorVariables.primary};
+      pointer-events: none;
+      ${NavOrder} {
+        color: ${colorVariables.primary};
+      }
+      &:hover {
+        color: ${colorVariables.primary};
+      }
+    `}
 `;
 
 export const NavOrder = styled(Text).attrs(() => ({
   font: 's3',
-}))``;
+}))`
+  transition: ${transitionVariables.color};
+`;
 
 export const AddIcon = styled(Icon).attrs(() => ({
   name: 'add',

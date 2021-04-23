@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-import { fetchCourse, updateCourse, clearCourse } from 'STORE/admin';
+import { fetchCourse, updateCourse } from 'STORE/admin';
 
 import { Input, Button, FormError, Loader } from 'UI-KIT';
 
@@ -17,7 +17,6 @@ import { CourseStyled, Form, FormField, Title, ButtonGroup } from './styles/Cour
 export const Course = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const { pathname } = useLocation();
   const { currentCourse } = useSelector(({ admin }) => admin);
   const { course, modules, isLoading } = currentCourse;
   const { register, handleSubmit, errors, reset } = useForm();
@@ -28,11 +27,7 @@ export const Course = () => {
     dispatch(fetchCourse(id))
       .then(unwrapResult)
       .then((data) => reset(data.course));
-
-    return () => {
-      dispatch(clearCourse());
-    };
-  }, [pathname]);
+  }, []);
 
   const submitData = (data) => {
     setSendingData(true);
