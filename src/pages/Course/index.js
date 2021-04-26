@@ -28,7 +28,7 @@ const Course = () => {
 
   return (
     <Container size="sm">
-      <DocumentTitle customTitle={course && course.name} />
+      <DocumentTitle title={course && course.name} />
       {course ? (
         <CourseStyled>
           <Title>{course.name}</Title>
