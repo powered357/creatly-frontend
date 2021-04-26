@@ -31,7 +31,9 @@ export const Title = styled(Text).attrs(() => ({
 export const BodyItem = styled(Text).attrs(() => ({
   font: 't3',
   color: colorVariables.white,
-}))``;
+}))`
+  pointer-events: ${(props) => (props.inactive ? 'none' : 'auto')};
+`;
 
 export const Body = styled.div`
   display: flex;
