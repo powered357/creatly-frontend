@@ -9,8 +9,7 @@ import { Button, Loader } from 'UI-KIT';
 
 import { CourseModule } from 'COMPONENTS/CourseModule';
 import { Container } from 'COMPONENTS/Container';
-
-import { DocumentTitle } from 'UTILS/DocumentTitle';
+import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
 import { Content, Description, CourseStyled, Title, SubTitle, BtnContainer } from './styles/CourseStyled';
 

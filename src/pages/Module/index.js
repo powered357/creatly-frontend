@@ -1,8 +1,8 @@
-import { DocumentTitle } from 'UTILS/DocumentTitle';
+import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
 const Module = () => (
   <>
-    <DocumentTitle customTitle="Название курса в заголовке" />
+    <DocumentTitle title="Название курса в заголовке" />
     <h1>Тут контент первого модуля</h1>
   </>
 );

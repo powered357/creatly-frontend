@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
-export const DocumentTitle = ({ customTitle }) => (
+export const DocumentTitle = ({ title }) => (
   <Helmet>
-    <title>{customTitle}</title>
+    <title>{title}</title>
   </Helmet>
 );
 
 DocumentTitle.propTypes = {
-  customTitle: PropTypes.string,
+  title: PropTypes.string,
 };
 
 DocumentTitle.defaultProps = {
-  customTitle: 'Courses Platform',
+  title: 'Courses Platform',
 };
