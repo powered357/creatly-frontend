@@ -7,6 +7,8 @@ import { logIn } from 'STORE/auth';
 
 import RootRouter from 'PAGES/RootRouter';
 
+import { Notifications } from 'COMPONENTS/Notifications';
+
 import { AppStyled } from './styles/AppStyled';
 
 export const App = () => {
@@ -21,6 +23,7 @@ export const App = () => {
       <AppStyled>
         <Router>
           <RootRouter />
+          <Notifications />
         </Router>
       </AppStyled>
     </CookiesProvider>
