@@ -17,10 +17,8 @@ const Registration = () => {
   const [isSubmitted, setSubmitted] = useState(false);
 
   const onSubmit = ({ name, email, password }) => {
-    registerUser({ name, email, password }).then(({ code }) => {
-      if (code === 200) {
-        setSubmitted(true);
-      }
+    registerUser({ name, email, password }).then(({ status }) => {
+      if (status === 201) setSubmitted(true);
     });
   };
 

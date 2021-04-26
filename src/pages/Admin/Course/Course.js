@@ -10,7 +10,6 @@ import { Input, Button, FormError, Loader } from 'UI-KIT';
 
 import { Container } from 'COMPONENTS/Container';
 import { CourseTemplate } from 'COMPONENTS/CourseTemplate';
-import { AdminSidebar } from 'COMPONENTS/AdminSidebar';
 import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
 
 import { CourseStyled, Form, FormField, Title, ButtonGroup } from './styles/CourseStyled';
@@ -50,7 +49,6 @@ export const Course = () => {
       <Container>
         {course && !isLoading ? (
           <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
-            <AdminSidebar direction="horizontal" />
             <Form onSubmit={handleSubmit(submitData)}>
               <FormField>
                 <Title>Название</Title>

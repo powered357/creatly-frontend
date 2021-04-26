@@ -1,23 +1,22 @@
 import { useMemo, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { createEditor } from 'slate';
 import { Slate, Editable, withReact } from 'slate-react';
 import { withHistory } from 'slate-history';
 
-import { Icon } from 'UI-KIT';
-
-import { InputModal } from 'COMPONENTS/InputModal';
+import { ModalInput } from 'COMPONENTS/ModalInput';
 
 import { useEditor, useLinks, useImages } from './hooks';
-import { Leaf, Element, ToolbarButton, CustomButton, CodeHighlight } from './components';
+import {
+  Leaf,
+  Element,
+  ToolbarButton,
+  CustomButton,
+  // CodeHighlight
+} from './components';
 import { EditorStyled, Toolbar } from './styles/EditorStyled';
 
-export const Editor = () => {
-  const [value, setValue] = useState([
-    {
-      type: 'paragraph',
-      children: [{ text: 'A line of text in a paragraph.' }],
-    },
-  ]);
+export const Editor = ({ value, onChange }) => {
   const [isLinkModalOpen, setLinkModalOpen] = useState(false);
   const [isImageModalOpen, setImageModalOpen] = useState(false);
   const { withLinks, addLink, isLinkActive } = useLinks();
@@ -50,59 +49,36 @@ export const Editor = () => {
   return (
     <>
       <EditorStyled>
-        <Slate editor={editor} value={value} onChange={setValue}>
+        <Slate editor={editor} value={value} onChange={onChange}>
           <Toolbar>
-            <ToolbarButton format="bold" isMark>
-              <Icon name="format_bold" />
-            </ToolbarButton>
-            <ToolbarButton format="italic" isMark>
-              <Icon name="format_italic" />
-            </ToolbarButton>
-            <ToolbarButton format="underline" isMark>
-              <Icon name="format_underline" />
-            </ToolbarButton>
-            <ToolbarButton format="code" isMark>
-              <Icon name="code" />
-            </ToolbarButton>
-            <CustomButton onClick={openLinkModal} isActive={isLinkActive}>
-              <Icon name="link" />
-            </CustomButton>
-            <CustomButton onClick={openImageModal}>
-              <Icon name="image" />
-            </CustomButton>
-            <ToolbarButton format="heading-one">
-              <Icon name="looks_one" />
-            </ToolbarButton>
-            <ToolbarButton format="heading-two">
-              <Icon name="looks_two" />
-            </ToolbarButton>
-            <ToolbarButton format="block-quote">
-              <Icon name="format_quote" />
-            </ToolbarButton>
-            <ToolbarButton format="numbered-list">
-              <Icon name="format_list_numbered" />
-            </ToolbarButton>
-            <ToolbarButton format="bulleted-list">
-              <Icon name="format_list_bulleted" />
-            </ToolbarButton>
+            <ToolbarButton format="bold" icon="format_bold" isMark />
+            <ToolbarButton format="italic" icon="format_italic" isMark />
+            <ToolbarButton format="underline" icon="format_underline" isMark />
+            <ToolbarButton format="code" icon="code" isMark />
+            <CustomButton onClick={openLinkModal} icon="link" isActive={isLinkActive} />
+            <CustomButton onClick={openImageModal} icon="image" />
+            <ToolbarButton format="heading-one" icon="looks_one" />
+            <ToolbarButton format="heading-two" icon="looks_two" />
+            <ToolbarButton format="block-quote" icon="format_quote" />
+            <ToolbarButton format="numbered-list" icon="format_list_numbered" />
+            <ToolbarButton format="bulleted-list" icon="format_list_bulleted" />
           </Toolbar>
           <Editable
             renderElement={renderElement}
             renderLeaf={renderLeaf}
             onKeyDown={handleKeyDown}
             onBlur={saveSelection}
-            placeholder="Start typing…"
+            placeholder="Введите контент урока"
             spellCheck
-            autoFocus
           />
-          <InputModal
+          <ModalInput
             name="link"
             placeholder="Ссылка"
             onSubmit={addLink(editor)}
             isOpen={isLinkModalOpen}
             closeModal={closeLinkModal}
           />
-          <InputModal
+          <ModalInput
             name="image"
             placeholder="Ссылка на картинку"
             onSubmit={addImage(editor)}
@@ -111,7 +87,7 @@ export const Editor = () => {
           />
         </Slate>
       </EditorStyled>
-      <CodeHighlight>{`
+      {/* <CodeHighlight>{`
         package main 
 
         import "fmt"  
@@ -119,7 +95,12 @@ export const Editor = () => {
         func main() {
           fmt.Println('hello world')
         }
-      `}</CodeHighlight>
+      `}</CodeHighlight> */}
     </>
   );
+};
+
+Editor.propTypes = {
+  value: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
 };

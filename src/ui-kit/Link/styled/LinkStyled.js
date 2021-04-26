@@ -6,6 +6,7 @@ import { colorVariables, transitionVariables } from 'THEME/variables';
 export const LinkStyled = styled.a`
   position: relative;
   text-decoration: none;
+  cursor: pointer;
   &:after {
     content: '';
     position: absolute;
@@ -23,8 +24,8 @@ export const LinkStyled = styled.a`
       opacity: 0;
     }
   }
-  ${({ isActive }) =>
-    isActive &&
+  ${({ $isActive }) =>
+    $isActive &&
     css`
       pointer-events: none;
       &:after {

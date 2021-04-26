@@ -32,6 +32,7 @@ export const Heading = styled.div`
 export const Title = styled(Text).attrs(() => ({
   font: 'h1',
 }))`
+  margin-bottom: 20px;
   padding-right: 50px;
 `;
 
@@ -41,6 +42,7 @@ export const LockIcon = styled(Icon).attrs(() => ({
   color: 'grey',
 }))`
   margin-left: 10px;
+  padding-bottom: 5px;
 `;
 
 export const Description = styled(Text).attrs(() => ({
@@ -65,7 +67,16 @@ export const EditLink = styled.div`
   }
 `;
 
-export const EditIcon = styled.div`
+export const IconStyled = styled(Icon)`
   display: inline-block;
   margin-right: 5px;
+  padding-bottom: 2px;
 `;
+
+export const EditIcon = styled(IconStyled).attrs(() => ({
+  name: 'edit',
+}))``;
+
+export const DeleteIcon = styled(IconStyled).attrs(() => ({
+  name: 'delete',
+}))``;
