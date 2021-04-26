@@ -1,8 +1,15 @@
+import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-import { Button, Link, Icon } from 'UI-KIT';
+import { deleteCourse } from 'STORE/admin';
+
+import { Button, Link } from 'UI-KIT';
+
+import { ModalConfirm } from 'COMPONENTS/ModalConfirm';
 
 import {
   BtnContainer,
@@ -14,34 +21,75 @@ import {
   EditGroup,
   EditLink,
   EditIcon,
-} from './styles/CourseCardStyle';
+  DeleteIcon,
+} from './styles/CourseCardStyled';
 
-export const CourseCard = ({ id, name, description, imageUrl, published, isEditable }) => (
-  <CardContainer>
-    <Heading>
-      <Title color={!published ? 'grey' : 'black'}>
-        {name}
-        {!published && <LockIcon />}
-      </Title>
-      {imageUrl && <img src={imageUrl} alt={name} />}
-    </Heading>
-    <Description>{description}</Description>
-    {!isEditable ? (
-      <BtnContainer>
-        <Button fullWidth>Подробнее</Button>
-      </BtnContainer>
-    ) : (
-      <EditGroup>
-        <EditLink>
-          <EditIcon>
-            <Icon name="edit" size={20} />
-          </EditIcon>
-          <Link to={ROUTES.ADMIN.COURSE.MAIN.replace(':id', id)}>Редактировать</Link>
-        </EditLink>
-      </EditGroup>
-    )}
-  </CardContainer>
-);
+export const CourseCard = ({ id, name, description, imageUrl, published, isEditable }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [isDeleting, setDeleting] = useState(false);
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+
+  const openConfirmModal = () => setConfirmModalOpen(true);
+
+  const closeConfirmModal = useCallback(() => {
+    setConfirmModalOpen(false);
+  }, []);
+
+  const navigateToCourse = () => {
+    history.push(ROUTES.COURSE.replace(':id', id));
+  };
+
+  const handleDeleteCourse = () => {
+    setDeleting(true);
+    dispatch(deleteCourse(id));
+  };
+
+  return (
+    <CardContainer>
+      <Heading>
+        <Title color={!published ? 'grey' : 'black'}>
+          {name}
+          {!published && <LockIcon />}
+        </Title>
+        {imageUrl && <img src={imageUrl} alt={name} />}
+      </Heading>
+      {description && <Description>{description}</Description>}
+      {!isEditable ? (
+        <BtnContainer>
+          <Button onClick={navigateToCourse} fullWidth>
+            Подробнее
+          </Button>
+        </BtnContainer>
+      ) : (
+        <EditGroup>
+          <EditLink>
+            <EditIcon />
+            <Link to={ROUTES.ADMIN.COURSE.MAIN.replace(':id', id)}>Редактировать</Link>
+          </EditLink>
+          <EditLink>
+            <DeleteIcon />
+            <Link onClick={openConfirmModal} external>
+              Удалить
+            </Link>
+          </EditLink>
+        </EditGroup>
+      )}
+      {isEditable && (
+        <ModalConfirm
+          title="Вы уверены?"
+          text="Вы правда хотите удалить этот курс? Его нельзя будет восстановить."
+          isOpen={isConfirmModalOpen}
+          closeModal={closeConfirmModal}
+          successFunc={handleDeleteCourse}
+          cancelFunc={closeConfirmModal}
+          isLoading={isDeleting}
+          autoClose={false}
+        />
+      )}
+    </CardContainer>
+  );
+};
 
 CourseCard.propTypes = {
   id: PropTypes.string,

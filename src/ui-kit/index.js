@@ -5,3 +5,4 @@ export { Loader } from './Loader';
 export { Link } from './Link';
 export { Icon } from './Icon';
 export { FormError } from './FormError';
+export { BasicModal } from './BasicModal';

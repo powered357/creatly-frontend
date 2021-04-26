@@ -31,7 +31,7 @@ export const Footer = () => {
 
   return (
     <FooterStyled>
-      <Container>
+      <Container autoHeight>
         <Content>
           <Block>
             <Title>Информация:</Title>

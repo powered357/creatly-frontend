@@ -16,3 +16,8 @@ export const Row = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
+export const Nav = styled.div`
+  display: flex;
+  align-items: center;
+`;

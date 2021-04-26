@@ -11,6 +11,8 @@ export const endpoints = {
     courses: `${API_URL}/admins/courses`,
     getCourseById: (id) => `${API_URL}/admins/courses/${id}`,
     createModule: (id) => `${API_URL}/admins/courses/${id}/modules`,
+    createLesson: (id) => `${API_URL}/admins/modules/${id}/lessons`,
+    getLessonById: (id) => `${API_URL}/admins/lessons/${id}`,
   },
   courses: {
     getAll: `${API_URL}/courses`,

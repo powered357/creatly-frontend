@@ -1,29 +1,11 @@
 import PropTypes from 'prop-types';
-import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 
-import { commonVariables } from 'THEME/variables';
-
-import { Input, Button } from 'UI-KIT';
+import { Input, Button, BasicModal } from 'UI-KIT';
 
 import { Form, FormField } from './styles/ModalStyled';
 
-const customStyles = {
-  content: {
-    width: '100%',
-    maxWidth: '500px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    transform: 'translate(-50%, -50%)',
-    boxShadow: commonVariables.boxShadow,
-    borderRadius: commonVariables.borderRadius,
-    border: 'none',
-  },
-};
-
-export const InputModal = ({ name, placeholder, buttonText, onSubmit, isLoading, isOpen, closeModal, autoClose }) => {
+export const ModalInput = ({ name, placeholder, buttonText, onSubmit, isLoading, isOpen, closeModal, autoClose }) => {
   const { register, handleSubmit } = useForm();
 
   const submitData = (data) => {
@@ -37,26 +19,22 @@ export const InputModal = ({ name, placeholder, buttonText, onSubmit, isLoading,
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      style={customStyles}
-      onRequestClose={closeModal}
-      shouldCloseOnOverlayClick
-      ariaHideApp={false}
-    >
+    <BasicModal isOpen={isOpen} closeModal={closeModal}>
       <Form onSubmit={handleSubmit(submitData)}>
         <FormField>
           <Input ref={onRef} name={name} placeholder={placeholder} />
         </FormField>
-        <Button type="submit" isLoading={isLoading}>
-          {buttonText}
-        </Button>
+        <div>
+          <Button type="submit" isLoading={isLoading}>
+            {buttonText}
+          </Button>
+        </div>
       </Form>
-    </Modal>
+    </BasicModal>
   );
 };
 
-InputModal.propTypes = {
+ModalInput.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   buttonText: PropTypes.string,
@@ -67,7 +45,7 @@ InputModal.propTypes = {
   autoClose: PropTypes.bool,
 };
 
-InputModal.defaultProps = {
+ModalInput.defaultProps = {
   onSubmit: Function.prototype,
   isLoading: false,
   buttonText: 'Добавить',
