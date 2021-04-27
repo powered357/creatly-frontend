@@ -10,7 +10,7 @@ import { Loader } from 'UI-KIT';
 import { CourseCard } from 'COMPONENTS/CourseCard';
 import { Container } from 'COMPONENTS/Container';
 
-import { Content, HomeStyled, PageTitle } from './styles/HomeStyled';
+import { Content, HomeStyled, Title } from './styles/HomeStyled';
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export const Home = () => {
   return (
     <Container size="sm">
       <HomeStyled>
-        <PageTitle>Курсы</PageTitle>
+        <Title>Курсы</Title>
         <Content>
           {!isLoading ? allCourses.map((course) => <CourseCard key={course.id} {...course} />) : <Loader size={50} />}
         </Content>

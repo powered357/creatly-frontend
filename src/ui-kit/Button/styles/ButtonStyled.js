@@ -13,6 +13,15 @@ const setTheme = (theme) => {
         }
       `;
     }
+    case 'danger': {
+      return css`
+        background-color: ${colorVariables.danger};
+        border: 2px solid ${colorVariables.danger};
+        &:not(:disabled):hover {
+          background-color: ${colorVariables.white};
+        }
+      `;
+    }
     default: {
       return css`
         background-color: ${colorVariables.primary};
@@ -27,8 +36,7 @@ const setTheme = (theme) => {
 
 export const ButtonStyled = styled.button`
   height: 50px;
-  width: 100%;
-  max-width: ${({ fullWidth }) => (fullWidth ? '100%' : '190px')};
+  width: ${({ fullWidth }) => (fullWidth ? '100%' : '190px')};
   border-radius: ${commonVariables.borderRadius};
   box-shadow: none;
   text-align: center;

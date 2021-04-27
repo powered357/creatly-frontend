@@ -7,12 +7,10 @@ export const ROUTES = {
   },
   ADMIN: {
     LOGIN: '/admin/login',
-    CREATE_COURSE: '/admin/create-course',
     MY_COURSES: '/admin/my-courses',
     COURSE: {
-      MAIN: '/admin/course/:id',
-      MODULES: ' /admin/course/:id/modules',
-      LESSONS: ' /admin/course/:id/lessons',
+      MAIN: '/admin/courses/:id',
+      LESSON: '/admin/courses/:courseId/modules/:moduleId/lesson/:lessonId',
     },
   },
   PRIVACY: '/privacy',

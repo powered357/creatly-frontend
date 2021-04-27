@@ -5,7 +5,7 @@ import { colorVariables, commonVariables, transitionVariables } from 'THEME/vari
 import { Text } from 'UI-KIT';
 
 export const EditorStyled = styled.div`
-  margin: 20px auto;
+  margin: 0 auto;
   padding: 20px;
   box-shadow: ${commonVariables.boxShadow};
 `;

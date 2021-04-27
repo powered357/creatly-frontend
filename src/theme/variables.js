@@ -4,7 +4,7 @@ export const colorVariables = {
   black: '#333333',
   white: '#ffffff',
   grey: '#cccccc',
-  danger: '#FF2051',
+  danger: '#f44336',
 };
 
 export const fontFamilyVariables = {
