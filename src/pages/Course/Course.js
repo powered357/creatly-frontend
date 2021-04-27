@@ -9,6 +9,7 @@ import { Button, Loader } from 'UI-KIT';
 
 import { CourseModule } from 'COMPONENTS/CourseModule';
 import { Container } from 'COMPONENTS/Container';
+import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
 import { Content, Description, CourseStyled, Title, SubTitle, BtnContainer } from './styles/CourseStyled';
 
@@ -27,6 +28,7 @@ export const Course = () => {
 
   return (
     <Container size="sm">
+      <DocumentTitle title={course && course.name} />
       {course ? (
         <CourseStyled>
           <Title>{course.name}</Title>
