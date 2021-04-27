@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import { getToken } from 'UTILS/getToken';
+import { getRefreshToken } from 'UTILS/getRefreshToken';
+
 export const AdminRoute = ({ children: Component, ...rest }) => {
-  const [cookies] = useCookies(['adminToken', 'adminRefresh']);
-  const { adminToken, adminRefresh } = cookies;
+  const adminToken = getToken(true);
+  const adminRefresh = getRefreshToken(true);
 
   return (
     <Route
