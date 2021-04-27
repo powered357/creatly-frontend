@@ -11,9 +11,9 @@ import { CourseModule } from 'COMPONENTS/CourseModule';
 import { Container } from 'COMPONENTS/Container';
 import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
-import { Content, Description, CourseStyled, Title, SubTitle, BtnContainer } from './styles/CourseStyled';
+import { Content, Description, CourseInfoStyled, Title, SubTitle, BtnContainer } from './styles/CourseInfoStyled';
 
-export const Course = () => {
+export const CourseInfo = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const course = useSelector(({ courses }) => courses.course);
@@ -21,6 +21,7 @@ export const Course = () => {
 
   useEffect(() => {
     dispatch(fetchCourse(params.id));
+
     return () => dispatch(clearCourse());
   }, []);
 
@@ -30,7 +31,7 @@ export const Course = () => {
     <Container size="sm">
       <DocumentTitle title={course && course.name} />
       {course ? (
-        <CourseStyled>
+        <CourseInfoStyled>
           <Title>{course.name}</Title>
           <Description>{course.description}</Description>
           {isModulesBlock() ? (
@@ -50,7 +51,7 @@ export const Course = () => {
               </Link>
             )}
           </BtnContainer>
-        </CourseStyled>
+        </CourseInfoStyled>
       ) : (
         <Loader size={50} />
       )}

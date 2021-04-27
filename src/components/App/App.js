@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Router } from 'react-router-dom';
-import { CookiesProvider } from 'react-cookie';
 
 import { logIn } from 'STORE/auth';
 
@@ -21,13 +20,11 @@ export const App = () => {
   }, []);
 
   return (
-    <CookiesProvider>
-      <AppStyled>
-        <Router history={history}>
-          <RootRouter />
-          <Notifications />
-        </Router>
-      </AppStyled>
-    </CookiesProvider>
+    <AppStyled>
+      <Router history={history}>
+        <RootRouter />
+        <Notifications />
+      </Router>
+    </AppStyled>
   );
 };
