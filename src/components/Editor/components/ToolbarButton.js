@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { useSlate } from 'slate-react';
 
+import { Icon } from 'UI-KIT';
+
 import { useEditor } from '../hooks/useEditor';
 import { ToolbarButtonStyled } from '../styles/EditorStyled';
 
-export const ToolbarButton = ({ format, children, isMark }) => {
+export const ToolbarButton = ({ format, children, icon, isMark }) => {
   const editor = useSlate();
   const { isBlockActive, isMarkActive, toggleBlock, toggleMark } = useEditor(editor);
 
@@ -18,11 +20,13 @@ export const ToolbarButton = ({ format, children, isMark }) => {
     toggleBlock(formatType);
   };
 
+  const handleToggle = isMark ? handleToggleMark : handleToggleBlock;
+
+  const isActive = isMark ? isMarkActive : isBlockActive;
+
   return (
-    <ToolbarButtonStyled
-      onMouseDown={isMark ? handleToggleMark(format) : handleToggleBlock(format)}
-      isActive={isMark ? isMarkActive(format) : isBlockActive(format)}
-    >
+    <ToolbarButtonStyled onMouseDown={handleToggle(format)} isActive={isActive(format)}>
+      {icon && <Icon name={icon} color={isActive(format) ? 'black' : 'grey'} />}
       {children}
     </ToolbarButtonStyled>
   );
@@ -30,10 +34,13 @@ export const ToolbarButton = ({ format, children, isMark }) => {
 
 ToolbarButton.propTypes = {
   format: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+  icon: PropTypes.string,
   isMark: PropTypes.bool,
 };
 
 ToolbarButton.defaultProps = {
+  children: null,
+  icon: null,
   isMark: false,
 };

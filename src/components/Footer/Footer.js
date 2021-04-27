@@ -31,18 +31,18 @@ export const Footer = () => {
 
   return (
     <FooterStyled>
-      <Container>
+      <Container autoHeight>
         <Content>
           <Block>
             <Title>Информация:</Title>
             <Body>
-              <BodyItem>
+              <BodyItem inactive>
                 <Link to={pages.confidential}>Политика конфиденциальности</Link>
               </BodyItem>
-              <BodyItem>
+              <BodyItem inactive>
                 <Link to={pages.serviceAgreement}>Условия предоставления услуг</Link>
               </BodyItem>
-              <BodyItem>
+              <BodyItem inactive>
                 <Link to={pages.refundPolicy}>Условия возврата денежных средств</Link>
               </BodyItem>
             </Body>
