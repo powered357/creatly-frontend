@@ -3,6 +3,9 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import { getToken } from 'UTILS/getToken';
+import { getRefreshToken } from 'UTILS/getRefreshToken';
+
 export const PrivateRoute = ({ children: Component, ...rest }) => {
   const token = getToken();
   const refresh = getRefreshToken();

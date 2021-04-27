@@ -37,7 +37,7 @@ export const CourseCard = ({ id, name, description, imageUrl, published, isEdita
   }, []);
 
   const navigateToCourse = () => {
-    history.push(ROUTES.COURSE.replace(':id', id));
+    history.push(ROUTES.COURSE.INFO.replace(':id', id));
   };
 
   const handleDeleteCourse = () => {
