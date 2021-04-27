@@ -16,7 +16,10 @@ export const ROUTES = {
   PRIVACY: '/privacy',
   REFUND: '/refund',
   SERVICE: '/service',
-  COURSE: '/course/:id',
+  COURSE: {
+    MAIN: '/course/:id',
+    INFO: '/course-info/:id',
+  },
   MODULE: '/module/:id',
   ERROR: {
     NOT_FOUND: '/404',

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Text } from 'UI-KIT';
 
-export const CourseStyled = styled.div`
+export const CourseInfoStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
