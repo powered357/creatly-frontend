@@ -16,10 +16,10 @@ const pages = {
 };
 
 const contactInfo = {
-  address: 'ул. Мира, д.1',
-  businessName: 'Иванов Иван Иванович',
-  email: 'test@test.com',
-  registrationNumber: '579-125-967-2348',
+  address: 'ул. Ветеранов 19, кв. 74',
+  businessName: 'Жашкевич М.И.',
+  email: 'zhashkevychmaksim@gmail.com',
+  registrationNumber: 'ИНН 3664808833',
 };
 
 export const Footer = () => {
@@ -50,11 +50,11 @@ export const Footer = () => {
           <Block>
             <Title>Контакты:</Title>
             <Body>
-              <BodyItem>ФЛП: {contactInfo.businessName}</BodyItem>
-              <BodyItem>Рег.№.: {contactInfo.address}</BodyItem>
-              <BodyItem>Адрес: {contactInfo.registrationNumber}</BodyItem>
+              <BodyItem>{contactInfo.businessName}</BodyItem>
+              <BodyItem>{contactInfo.address}</BodyItem>
+              <BodyItem>{contactInfo.registrationNumber}</BodyItem>
               <BodyItem>
-                <a href={`mailto:${contactInfo.email}`}>e-mail: {contactInfo.email}</a>
+                <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
               </BodyItem>
             </Body>
           </Block>
