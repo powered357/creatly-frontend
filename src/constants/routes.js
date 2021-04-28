@@ -17,8 +17,9 @@ export const ROUTES = {
   REFUND: '/refund',
   SERVICE: '/service',
   COURSE: {
-    MAIN: '/course/:id',
-    INFO: '/course-info/:id',
+    MAIN: '/courses/:id',
+    LESSON: '/courses/:courseId/modules/:moduleId/lesson/:lessonId',
+    INFO: '/courses-info/:id',
   },
   MODULE: '/module/:id',
   ERROR: {

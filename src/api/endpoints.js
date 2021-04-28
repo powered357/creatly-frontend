@@ -9,14 +9,19 @@ export const endpoints = {
     refresh: `${API_URL}/admins/auth/refresh`,
     login: `${API_URL}/admins/sign-in`,
     courses: `${API_URL}/admins/courses`,
-    getCourseById: (id) => `${API_URL}/admins/courses/${id}`,
+    getCourse: (id) => `${API_URL}/admins/courses/${id}`,
     createModule: (id) => `${API_URL}/admins/courses/${id}/modules`,
     createLesson: (id) => `${API_URL}/admins/modules/${id}/lessons`,
-    getLessonById: (id) => `${API_URL}/admins/lessons/${id}`,
+    getLesson: (id) => `${API_URL}/admins/lessons/${id}`,
   },
   courses: {
-    getAll: `${API_URL}/courses`,
-    getById: (id) => `${API_URL}/courses/${id}`,
+    all: `${API_URL}/courses`,
+    getCourse: (id) => `${API_URL}/courses/${id}`,
+  },
+  student: {
+    account: `${API_URL}/students/account`,
+    courses: `${API_URL}/students/courses/`,
+    getLesson: (id) => `${API_URL}/students/lessons/${id}`,
   },
   footer: `${API_URL}/settings`,
 };

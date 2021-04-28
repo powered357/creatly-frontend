@@ -33,8 +33,6 @@ export const Lesson = () => {
   const [isPublishing, setPublishing] = useState(false);
   const hasContentChanged = JSON.stringify(content) !== JSON.stringify(contentRef.current);
 
-  console.log({ prev: contentRef.current, current: content, hasContentChanged });
-
   useEffect(() => {
     setLessonLoading(true);
     apiGetLesson(lessonId)
@@ -90,7 +88,7 @@ export const Lesson = () => {
     <LessonStyled>
       <Container>
         {course && !isLoading ? (
-          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
+          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} isAdmin />}>
             {!isLessonLoading ? (
               <>
                 <Form onSubmit={handleSubmit(submitData)}>
