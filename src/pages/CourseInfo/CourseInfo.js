@@ -37,8 +37,8 @@ export const CourseInfo = () => {
           {isModulesBlock() ? (
             <Content>
               <SubTitle>Содержание курса</SubTitle>
-              {modules.map((module, index) => (
-                <CourseModule key={module.id} {...module} moduleIndex={index} />
+              {modules.map((module) => (
+                <CourseModule key={module.id} {...module} />
               ))}
             </Content>
           ) : (
