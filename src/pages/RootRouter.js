@@ -3,7 +3,7 @@ import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { ROUTES } from 'CONSTANTS/routes';
 
 import Module from 'PAGES/Module';
-import Course from 'PAGES/Course';
+import CourseInfo from 'PAGES/CourseInfo';
 import Home from 'PAGES/Home';
 import Privacy from 'PAGES/Privacy';
 import Refund from 'PAGES/Refund';
@@ -20,6 +20,7 @@ import { ErrorWrapper } from 'COMPONENTS/ErrorWrapper';
 import { Header } from 'COMPONENTS/Header';
 import { Footer } from 'COMPONENTS/Footer';
 import { Main } from 'COMPONENTS/Main';
+import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
 const RootRouter = () => {
   const { pathname } = useLocation();
@@ -29,6 +30,7 @@ const RootRouter = () => {
 
   return (
     <>
+      <DocumentTitle />
       {withBars && <Header isAdmin={isAdmin} />}
       <Main>
         <Switch>
@@ -44,9 +46,9 @@ const RootRouter = () => {
           <PrivateRoute exact path={ROUTES.SERVICE}>
             <Service />
           </PrivateRoute>
-          <PrivateRoute exact path={ROUTES.COURSE}>
-            <Course />
-          </PrivateRoute>
+          <Route exact path={ROUTES.COURSE.INFO}>
+            <CourseInfo />
+          </Route>
           <PrivateRoute exact path={ROUTES.MODULE}>
             <Module />
           </PrivateRoute>
