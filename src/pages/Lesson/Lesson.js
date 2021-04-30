@@ -12,7 +12,7 @@ import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 import { Container } from 'COMPONENTS/Container';
 import { CourseTemplate } from 'COMPONENTS/CourseTemplate';
 import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
-import { serialize } from 'COMPONENTS/Editor/utils/serialize';
+import { serializeToJsx } from 'COMPONENTS/Editor/utils/serializeToJsx';
 
 import { LessonStyled } from './styles/LessonStyled';
 
@@ -37,19 +37,13 @@ export const Lesson = () => {
       .finally(() => setLessonsLoading(false));
   }, [moduleId]);
 
-  // useEffect(() => {
-  //   apiGetLesson(lessonId)
-  //     .then((res) => console.log('lesson: ', res))
-  //     .catch((error) => console.log(error));
-  // }, [lessonId]);
-
   useEffect(() => () => dispatch(clearCourse()), []);
 
   const parseContent = () => {
     const content = lessons.filter((item) => item.id === lessonId)[0]?.content;
 
     if (content) {
-      return JSON.parse(curLesson.content).map((node) => serialize(node));
+      return JSON.parse(content).map((node) => serializeToJsx(node));
     }
 
     return 'У этого урока пока нет контента :(';

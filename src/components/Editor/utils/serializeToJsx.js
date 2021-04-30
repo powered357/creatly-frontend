@@ -4,7 +4,7 @@ import { Text } from 'slate';
 
 import { Element, Leaf } from '../components';
 
-export const serialize = (node) => {
+export const serializeToJsx = (node) => {
   if (Text.isText(node)) {
     const string = escapeHtml(node.text) || String.fromCharCode('U+FEFF');
 
@@ -16,7 +16,9 @@ export const serialize = (node) => {
   }
 
   // TODO: parse code & use highlighting
-  const children = node.children.map((item) => serialize(item));
+  const children = node.children.map((item) => serializeToJsx(item));
+
+  console.log({ node, children });
 
   return (
     <Element key={uuid()} element={node}>
