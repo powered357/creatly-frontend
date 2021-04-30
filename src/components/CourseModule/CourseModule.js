@@ -5,21 +5,19 @@ import { Icon } from 'UI-KIT';
 
 import { Title, Module, SubTitle } from './styles/CourseModuleStyles';
 
-export const CourseModule = ({ id, position, name, lessons }) => {
+export const CourseModule = ({ id, name, lessons }) => {
   const [isModuleOpen, setModuleOpen] = useState(false);
   return (
     <Module key={id} isOpen={isModuleOpen} onClick={() => setModuleOpen(!isModuleOpen)}>
       <Title open={isModuleOpen}>
-        <span>
-          {position + 1}. {name}
-        </span>
+        <span>{name}</span>
         <Icon size={24} name="expand_more" />
       </Title>
       {isModuleOpen &&
-        lessons.map((lesson) => (
+        lessons.map((lesson, lessonIndex) => (
           <SubTitle key={lesson.id}>
             <span>
-              {position + 1}.{lesson.position + 1} {lesson.name}
+              {lessonIndex + 1} {lesson.name}
             </span>
           </SubTitle>
         ))}
@@ -29,7 +27,6 @@ export const CourseModule = ({ id, position, name, lessons }) => {
 
 CourseModule.propTypes = {
   id: PropTypes.string.isRequired,
-  position: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   lessons: PropTypes.array.isRequired,
 };
