@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { Icon } from 'UI-KIT';
 
-import { Title, Module, SubTitle } from './styles/CourseModuleStyles';
+import { Title, Module, SubTitle, LessonIndex } from './styles/CourseModuleStyles';
 
 export const CourseModule = ({ id, name, lessons }) => {
   const [isModuleOpen, setModuleOpen] = useState(false);
@@ -17,7 +17,7 @@ export const CourseModule = ({ id, name, lessons }) => {
         lessons.map((lesson, lessonIndex) => (
           <SubTitle key={lesson.id}>
             <span>
-              <b>{lessonIndex + 1}</b>. {lesson.name}
+              <LessonIndex>{lessonIndex + 1}</LessonIndex>. {lesson.name}
             </span>
           </SubTitle>
         ))}

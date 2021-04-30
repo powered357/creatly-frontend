@@ -19,6 +19,7 @@ export const Title = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-weight: bold;
   > :last-child {
     transition: ${transitionVariables.transform};
     transform: ${({ isOpen }) => (isOpen ? 'rotate(180deg)' : '')};
@@ -27,4 +28,8 @@ export const Title = styled.div`
 
 export const SubTitle = styled.div`
   padding: 24px 0;
+`;
+
+export const LessonIndex = styled.span`
+  font-weight: bold;
 `;
