@@ -17,7 +17,7 @@ export const CourseModule = ({ id, name, lessons }) => {
         lessons.map((lesson, lessonIndex) => (
           <SubTitle key={lesson.id}>
             <span>
-              {lessonIndex + 1} {lesson.name}
+              <b>{lessonIndex + 1}</b>. {lesson.name}
             </span>
           </SubTitle>
         ))}
