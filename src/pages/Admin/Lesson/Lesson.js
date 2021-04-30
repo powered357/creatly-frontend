@@ -15,7 +15,7 @@ import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
 import { Editor } from 'COMPONENTS/Editor';
 import { RouteLeavingGuard } from 'COMPONENTS/RouteLeavingGuard';
 
-import { LessonStyled, Form, FormField, Title, ButtonGroup, EditorWrap, LoaderWrap } from './styles/LessonStyled';
+import { LessonStyled, Form, FormField, Title, ButtonGroup, EditorWrap } from './styles/LessonStyled';
 
 export const Lesson = () => {
   const history = useHistory();
@@ -116,9 +116,7 @@ export const Lesson = () => {
                 <RouteLeavingGuard when={hasContentChanged} navigate={navigateTo} shouldBlockNavigation />
               </>
             ) : (
-              <LoaderWrap>
-                <Loader />
-              </LoaderWrap>
+              <Loader padding={50} />
             )}
           </CourseTemplate>
         ) : (

@@ -48,7 +48,3 @@ export const EditIcon = styled(Icon).attrs(() => ({
 export const EditorWrap = styled.div`
   padding-top: 15px;
 `;
-
-export const LoaderWrap = styled.div`
-  padding-top: 50px;
-`;

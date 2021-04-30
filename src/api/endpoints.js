@@ -21,6 +21,7 @@ export const endpoints = {
   student: {
     account: `${API_URL}/students/account`,
     courses: `${API_URL}/students/courses/`,
+    getModuleLessons: (id) => `${API_URL}/students/modules/${id}/lessons`,
     getLesson: (id) => `${API_URL}/students/lessons/${id}`,
   },
   footer: `${API_URL}/settings`,

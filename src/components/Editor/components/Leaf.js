@@ -23,7 +23,11 @@ export const Leaf = ({ attributes, children, leaf }) => {
 };
 
 Leaf.propTypes = {
-  attributes: PropTypes.object.isRequired,
+  attributes: PropTypes.object,
   children: PropTypes.node.isRequired,
   leaf: PropTypes.object.isRequired,
+};
+
+Leaf.defaultProps = {
+  attributes: {},
 };

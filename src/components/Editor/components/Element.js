@@ -38,7 +38,11 @@ export const Element = ({ attributes, children, element }) => {
 };
 
 Element.propTypes = {
-  attributes: PropTypes.object.isRequired,
+  attributes: PropTypes.object,
   children: PropTypes.node.isRequired,
   element: PropTypes.object.isRequired,
+};
+
+Element.defaultProps = {
+  attributes: {},
 };
