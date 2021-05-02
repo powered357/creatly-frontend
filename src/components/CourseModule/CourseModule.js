@@ -3,9 +3,9 @@ import { useState } from 'react';
 
 import { Icon } from 'UI-KIT';
 
-import { Title, Module, SubTitle } from './styles/CourseModuleStyled';
+import { Title, Module, SubTitle, LessonIndex } from './styles/CourseModuleStyled';
 
-export const CourseModule = ({ position, name, lessons }) => {
+export const CourseModule = ({ name, lessons }) => {
   const [isModuleOpen, setModuleOpen] = useState(false);
 
   const toggleModule = () => setModuleOpen(!isModuleOpen);
@@ -13,16 +13,14 @@ export const CourseModule = ({ position, name, lessons }) => {
   return (
     <Module isOpen={isModuleOpen} onClick={toggleModule}>
       <Title open={isModuleOpen}>
-        <span>
-          {position + 1}. {name}
-        </span>
+        <span>{name}</span>
         <Icon size={24} name="expand_more" />
       </Title>
       {isModuleOpen &&
-        lessons?.map((lesson) => (
+        lessons?.map((lesson, index) => (
           <SubTitle key={lesson.id}>
             <span>
-              {position + 1}.{lesson.position + 1} {lesson.name}
+              <LessonIndex>{index + 1}</LessonIndex>. {lesson.name}
             </span>
           </SubTitle>
         ))}
@@ -31,7 +29,6 @@ export const CourseModule = ({ position, name, lessons }) => {
 };
 
 CourseModule.propTypes = {
-  position: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   lessons: PropTypes.array.isRequired,
 };
