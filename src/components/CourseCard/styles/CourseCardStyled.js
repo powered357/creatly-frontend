@@ -51,6 +51,7 @@ export const Description = styled(Text).attrs(() => ({
 
 export const BtnContainer = styled.div`
   width: ${(CARD_WIDTH - CARD_PADDING) / 2}px;
+  padding-top: 40px;
 `;
 
 export const EditGroup = styled.div`
