@@ -1,14 +1,8 @@
 import PropTypes from 'prop-types';
 
-import { Code } from '../styles/EditorStyled';
-
 export const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
     children = <strong>{children}</strong>;
-  }
-
-  if (leaf.code) {
-    children = <Code>{children}</Code>;
   }
 
   if (leaf.italic) {

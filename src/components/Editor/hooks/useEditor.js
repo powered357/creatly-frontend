@@ -21,20 +21,28 @@ export const useEditor = (editor) => {
   const toggleBlock = (format) => {
     const isActive = isBlockActive(format);
     const isList = LIST_TYPES.includes(format);
+    const isCode = format === 'code';
 
     Transforms.unwrapNodes(editor, {
       match: (n) => LIST_TYPES.includes(!Editor.isEditor(n) && Element.isElement(n) && n.type),
       split: true,
     });
 
+    Transforms.unwrapNodes(editor, {
+      match: (n) => n.type === 'code',
+      split: true,
+    });
+
     const paragraph = isActive ? 'paragraph' : false;
-    const newProperties = {
-      type: paragraph || isList ? 'list-item' : format,
-    };
+    let childrenType = format;
 
-    Transforms.setNodes(editor, newProperties);
+    if (isList) childrenType = 'list-item';
+    if (isCode) childrenType = 'code-item';
 
-    if (!isActive && isList) {
+    Transforms.setNodes(editor, { type: paragraph || childrenType });
+
+    // TODO: create custom element '<code>' and wrap with it all code
+    if (!isActive && (isList || isCode)) {
       const block = { type: format, children: [] };
 
       Transforms.wrapNodes(editor, block);

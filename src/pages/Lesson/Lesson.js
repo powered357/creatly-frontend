@@ -33,7 +33,6 @@ export const Lesson = () => {
     setLessonsLoading(true);
     apiGetModuleLessons(moduleId)
       .then(({ data }) => setLessons(data.data))
-      .catch((error) => console.log(error))
       .finally(() => setLessonsLoading(false));
   }, [moduleId]);
 
@@ -48,10 +47,6 @@ export const Lesson = () => {
 
     return 'У этого урока пока нет контента :(';
   };
-
-  // console.log('PARAMS', { courseId, moduleId, lessonId });
-  // console.log('COURSE', { course, modules, isLoading });
-  // console.log('LESSONS', { lessons, isLessonsLoading });
 
   return (
     <LessonStyled>

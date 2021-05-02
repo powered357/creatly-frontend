@@ -24,12 +24,16 @@ export const Title = styled(Text).attrs(() => ({
   margin-bottom: 10px;
 `;
 
-export const ButtonGroup = styled.div`
+export const ButtonRow = styled.div`
   display: flex;
-  padding-top: 20px;
+  justify-content: space-between;
   button:not(:last-child) {
     margin-right: 20px;
   }
+`;
+
+export const ButtonGroup = styled.div`
+  padding-top: 15px;
 `;
 
 export const EditIcon = styled(Icon).attrs(() => ({
