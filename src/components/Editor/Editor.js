@@ -7,13 +7,7 @@ import { withHistory } from 'slate-history';
 import { ModalInput } from 'COMPONENTS/ModalInput';
 
 import { useEditor, useLinks, useImages } from './hooks';
-import {
-  Leaf,
-  Element,
-  ToolbarButton,
-  CustomButton,
-  // CodeHighlight
-} from './components';
+import { Leaf, Element, ToolbarButton, CustomButton } from './components';
 import { EditorStyled, Toolbar } from './styles/EditorStyled';
 
 export const Editor = ({ value, onChange }) => {
@@ -54,7 +48,7 @@ export const Editor = ({ value, onChange }) => {
             <ToolbarButton format="bold" icon="format_bold" isMark />
             <ToolbarButton format="italic" icon="format_italic" isMark />
             <ToolbarButton format="underline" icon="format_underline" isMark />
-            <ToolbarButton format="code" icon="code" isMark />
+            <ToolbarButton format="code" icon="code" />
             <CustomButton onClick={openLinkModal} icon="link" isActive={isLinkActive} />
             <CustomButton onClick={openImageModal} icon="image" />
             <ToolbarButton format="heading-one" icon="looks_one" />

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
@@ -11,11 +12,12 @@ import { AdminNav } from 'COMPONENTS/AdminNav';
 import { getToken } from 'UTILS/getToken';
 import { removeTokens } from 'UTILS/removeTokens';
 
-import { HeaderStyled, Row, Nav } from './styles/HeaderStyled';
+import { HeaderStyled, Row, Nav, Greetings } from './styles/HeaderStyled';
 
 export const Header = ({ isAdmin }) => {
   const history = useHistory();
   const token = getToken(isAdmin);
+  const { account } = useSelector(({ student }) => student);
 
   const navigateToLogin = () => {
     history.push(ROUTES.ACCOUNT.LOGIN);
@@ -36,7 +38,7 @@ export const Header = ({ isAdmin }) => {
             </Text>
           </Link>
           <Nav>
-            {isAdmin && <AdminNav />}
+            {isAdmin ? <AdminNav /> : account && <Greetings>Привет, {account.name}!</Greetings>}
             {!token ? <Button onClick={navigateToLogin}>Войти</Button> : <Button onClick={handleLogout}>Выйти</Button>}
           </Nav>
         </Row>
