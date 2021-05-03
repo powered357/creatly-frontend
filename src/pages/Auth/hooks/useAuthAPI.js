@@ -6,7 +6,7 @@ import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-import { setErrorMsg } from 'STORE/notifications';
+import { clearErrorMsg, setErrorMsg } from 'STORE/notifications';
 
 import { setTokens } from 'UTILS/setTokens';
 
@@ -33,8 +33,9 @@ export const useAuthAPI = (isAdmin) => {
 
       history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
     } catch (err) {
-      dispatch(setErrorMsg(err));
-      setLoading(false);
+      notifyForError(err);
+    } finally {
+      stopLoading();
     }
   };
 
@@ -42,7 +43,7 @@ export const useAuthAPI = (isAdmin) => {
     setLoading(true);
     clearServerError();
 
-    return apiRegistration({ name, email, password }).catch(catchError).finally(stopLoading);
+    return apiRegistration({ name, email, password }).catch(notifyForError).finally(stopLoading);
   };
 
   const verifyUser = ({ code }) => {
@@ -62,7 +63,10 @@ export const useAuthAPI = (isAdmin) => {
   };
 
   const catchError = ({ message }) => setServerError(message);
-
+  const notifyForError = (err) => {
+    dispatch(clearErrorMsg());
+    dispatch(setErrorMsg(err));
+  };
   const stopLoading = () => setLoading(false);
 
   const clearServerError = useCallback(() => setServerError(''), []);
