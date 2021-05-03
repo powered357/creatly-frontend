@@ -1,14 +1,18 @@
 import { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
+import { setErrorMsg } from 'STORE/notifications';
+
 import { setTokens } from 'UTILS/setTokens';
 
 export const useAuthAPI = (isAdmin) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const [serverError, setServerError] = useState('');
 
@@ -20,12 +24,18 @@ export const useAuthAPI = (isAdmin) => {
     const { accessToken, refreshToken } = data;
 
     setTokens({ accessToken, refreshToken, isAdmin });
+    return data;
   };
 
   const login = async ({ email, password }) => {
-    await loginRequest({ email, password });
+    try {
+      await loginRequest({ email, password });
 
-    history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
+      history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
+    } catch (err) {
+      dispatch(setErrorMsg(err));
+      setLoading(false);
+    }
   };
 
   const registerUser = ({ name, email, password }) => {
