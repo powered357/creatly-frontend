@@ -29,8 +29,14 @@ const Registration = () => {
       {!isSubmitted ? (
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormField>
-            <Input name="name" ref={register({ required: true })} placeholder="Имя" onChange={clearServerError} />
+            <Input
+              name="name"
+              ref={register({ required: true, pattern: VALIDATION.NAME })}
+              placeholder="Имя"
+              onChange={clearServerError}
+            />
             {errors.name?.type === 'required' && <FormError>Это поле обязательное</FormError>}
+            {errors.name?.type === 'pattern' && <FormError>Введите валидное имя</FormError>}
           </FormField>
           <FormField>
             <Input
@@ -46,14 +52,14 @@ const Registration = () => {
             <Input
               type="password"
               name="password"
-              ref={register({ required: true })}
+              ref={register({ required: true, pattern: VALIDATION.PASSWORD })}
               placeholder="Пароль"
               onChange={clearServerError}
             />
-            {serverError ? (
-              <FormError>{serverError}</FormError>
-            ) : (
-              errors.password?.type === 'required' && <FormError>Это поле обязательное</FormError>
+            {serverError && <FormError>{serverError}</FormError>}
+            {errors.password?.type === 'required' && <FormError>Это поле обязательное</FormError>}
+            {errors.password?.type === 'pattern' && (
+              <FormError>Введите более 8 символов,используйте как минимум 1 букву и 1 число </FormError>
             )}
           </FormField>
           <FormButton>
