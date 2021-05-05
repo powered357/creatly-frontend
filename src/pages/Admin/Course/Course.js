@@ -65,6 +65,10 @@ export const Course = () => {
                 />
                 {errors.description?.type === 'required' && <FormError>Это поле обязательное</FormError>}
               </FormField>
+              <FormField>
+                <Title>Ссылка на курс</Title>
+                <Input ref={register()} name="code" placeholder="Введите кастомную ссылку для курса" />
+              </FormField>
               <ButtonGroup>
                 <Button type="submit" isLoading={isSendingData}>
                   Сохранить

@@ -12,9 +12,13 @@ export const CourseInfoStyled = styled.div`
 
 export const Title = styled(Text).attrs(() => ({
   font: 'h1',
-}))``;
+}))`
+  display: block;
+  margin-bottom: 20px;
+`;
 
-export const Description = styled.p`
+export const Description = styled(Text)`
+  white-space: pre-line;
   margin-bottom: 40px;
 `;
 
