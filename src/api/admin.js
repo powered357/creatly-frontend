@@ -30,6 +30,17 @@ export const apiCreateModule = ({ id, data }) =>
     data,
   });
 
+export const apiUpdateModule = ({ id, data }) =>
+  makeRequest('PUT')(endpoints.admin.getModuleById(id))({
+    headers: { Authorization: `Bearer ${getToken(true)}` },
+    data,
+  });
+
+export const apiDeleteModule = (id) =>
+  makeRequest('DELETE')(endpoints.admin.getModuleById(id))({
+    headers: { Authorization: `Bearer ${getToken(true)}` },
+  });
+
 export const apiCreateLesson = ({ moduleId, data }) =>
   makeRequest('POST')(endpoints.admin.createLesson(moduleId))({
     headers: { Authorization: `Bearer ${getToken(true)}` },

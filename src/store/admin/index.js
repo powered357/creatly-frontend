@@ -9,6 +9,8 @@ import {
   apiCreateModule,
   apiCreateLesson,
   apiUpdateLesson,
+  apiUpdateModule,
+  apiDeleteModule,
 } from 'API/admin';
 
 export const createCourse = createAsyncThunk('admin/createCourse', (name) =>
@@ -44,6 +46,18 @@ export const deleteCourse = createAsyncThunk('admin/deleteCourse', (id) =>
 export const createModule = createAsyncThunk('admin/createModule', ({ id, data }) =>
   apiCreateModule({ id, data })
     .then((res) => ({ id: res.data.id, name: data.name, position: data.position }))
+    .catch((error) => console.log(error)),
+);
+
+export const updateModule = createAsyncThunk('admin/updateModule', ({ id, data }) =>
+  apiUpdateModule({ id, data })
+    .then(() => data)
+    .catch((error) => console.log(error)),
+);
+
+export const deleteModule = createAsyncThunk('admin/deleteModule', (id) =>
+  apiDeleteModule(id)
+    .then(() => ({ id }))
     .catch((error) => console.log(error)),
 );
 
@@ -118,6 +132,16 @@ const { reducer, actions } = createSlice({
       } else {
         state.currentCourse.modules = [payload];
       }
+    },
+    [updateModule.fulfilled]: (state, { payload }) => {
+      state.currentCourse.modules.forEach((module, index) => {
+        if (module.id === payload.id) {
+          state.currentCourse.modules.splice(index, 1, payload);
+        }
+      });
+    },
+    [deleteModule.fulfilled]: (state, { payload: { id } }) => {
+      state.currentCourse.modules = state.currentCourse.modules.filter((module) => module.id !== id);
     },
     [createLesson.fulfilled]: (state, { payload }) => {
       const { moduleId, ...lesson } = payload;
