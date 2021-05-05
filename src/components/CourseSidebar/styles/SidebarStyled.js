@@ -20,11 +20,15 @@ export const Title = styled(Text).attrs(() => ({
   font: 's2',
 }))`
   line-height: 24px;
-  cursor: pointer;
   transition: ${transitionVariables.color};
-  &:hover {
-    color: ${colorVariables.primary};
-  }
+  ${({ withHover }) =>
+    withHover &&
+    css`
+      cursor: pointer;
+      &:hover {
+        color: ${colorVariables.primary};
+      }
+    `}
 `;
 
 export const Nav = styled.div`

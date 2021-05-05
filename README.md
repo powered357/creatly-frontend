@@ -18,6 +18,12 @@ Open [http://localhost:1337](http://localhost:1337) to view it in the browser.
 
 The page will reload if you make edits.
 
+Before you start you need to specify API_HOST environment variable in the console:
+
+```bash
+$ export API_HOST="http://104.236.31.192:8000"
+```
+
 ### `yarn test`
 
 Launches the test runner.

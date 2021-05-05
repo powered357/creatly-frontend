@@ -34,7 +34,7 @@ export const Footer = () => {
       <Container autoHeight>
         <Content>
           <Block>
-            <Title>Информация:</Title>
+            <Title>Информация</Title>
             <Body>
               <BodyItem inactive>
                 <Link to={pages.confidential}>Политика конфиденциальности</Link>
@@ -48,7 +48,7 @@ export const Footer = () => {
             </Body>
           </Block>
           <Block>
-            <Title>Контакты:</Title>
+            <Title>Контакты</Title>
             <Body>
               <BodyItem>{contactInfo.businessName}</BodyItem>
               <BodyItem>{contactInfo.address}</BodyItem>

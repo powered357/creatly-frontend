@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { apiGetLesson } from 'API/admin';
 
-import { fetchCourse, updateLesson } from 'STORE/admin';
+import { ROUTES } from 'CONSTANTS/routes';
+
+import { fetchCourse, updateLesson, deleteLesson } from 'STORE/admin';
 
 import { Input, Button, FormError, Loader } from 'UI-KIT';
 
@@ -15,7 +17,7 @@ import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
 import { Editor } from 'COMPONENTS/Editor';
 import { RouteLeavingGuard } from 'COMPONENTS/RouteLeavingGuard';
 
-import { LessonStyled, Form, FormField, Title, ButtonGroup, EditorWrap, LoaderWrap } from './styles/LessonStyled';
+import { LessonStyled, Form, FormField, Title, ButtonRow, ButtonGroup, EditorWrap } from './styles/LessonStyled';
 
 export const Lesson = () => {
   const history = useHistory();
@@ -31,9 +33,8 @@ export const Lesson = () => {
   const [isLessonLoading, setLessonLoading] = useState(true);
   const [isSendingData, setSendingData] = useState(false);
   const [isPublishing, setPublishing] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
   const hasContentChanged = JSON.stringify(content) !== JSON.stringify(contentRef.current);
-
-  console.log({ prev: contentRef.current, current: content, hasContentChanged });
 
   useEffect(() => {
     setLessonLoading(true);
@@ -49,7 +50,6 @@ export const Lesson = () => {
           setContent(parsedContent);
         }
       })
-      .catch((error) => console.log(error))
       .finally(() => setLessonLoading(false));
 
     return () => {
@@ -82,6 +82,13 @@ export const Lesson = () => {
     );
   };
 
+  const handleDelete = () => {
+    setDeleting(true);
+    dispatch(deleteLesson({ lessonId, moduleId }))
+      .then(() => history.push(ROUTES.ADMIN.COURSE.MAIN.replace(':id', courseId)))
+      .finally(() => setDeleting(false));
+  };
+
   const navigateTo = (route) => {
     history.push(route);
   };
@@ -90,7 +97,7 @@ export const Lesson = () => {
     <LessonStyled>
       <Container>
         {course && !isLoading ? (
-          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
+          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} isAdmin />}>
             {!isLessonLoading ? (
               <>
                 <Form onSubmit={handleSubmit(submitData)}>
@@ -106,21 +113,24 @@ export const Lesson = () => {
                     </EditorWrap>
                     {errors.description?.type === 'required' && <FormError>Это поле обязательное</FormError>}
                   </FormField>
-                  <ButtonGroup>
-                    <Button type="submit" isLoading={isSendingData}>
-                      Сохранить
+                  <ButtonRow>
+                    <ButtonGroup>
+                      <Button type="submit" isLoading={isSendingData}>
+                        Сохранить
+                      </Button>
+                      <Button onClick={handlePublish} theme="inverse" isLoading={isPublishing}>
+                        {isPublished ? 'Скрыть курс' : 'Опубликовать'}
+                      </Button>
+                    </ButtonGroup>
+                    <Button onClick={handleDelete} theme="danger" isLoading={isDeleting}>
+                      Удалить
                     </Button>
-                    <Button onClick={handlePublish} theme="inverse" isLoading={isPublishing}>
-                      {isPublished ? 'Скрыть курс' : 'Опубликовать'}
-                    </Button>
-                  </ButtonGroup>
+                  </ButtonRow>
                 </Form>
                 <RouteLeavingGuard when={hasContentChanged} navigate={navigateTo} shouldBlockNavigation />
               </>
             ) : (
-              <LoaderWrap>
-                <Loader />
-              </LoaderWrap>
+              <Loader padding={50} />
             )}
           </CourseTemplate>
         ) : (

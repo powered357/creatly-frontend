@@ -13,16 +13,16 @@ export const apiCreateCourse = (name) =>
   });
 
 export const apiGetCourse = (id) =>
-  makeRequest('GET')(endpoints.admin.getCourseById(id))({ headers: { Authorization: `Bearer ${getToken(true)}` } });
+  makeRequest('GET')(endpoints.admin.getCourse(id))({ headers: { Authorization: `Bearer ${getToken(true)}` } });
 
 export const apiUpdateCourse = ({ id, data }) =>
-  makeRequest('PUT')(endpoints.admin.getCourseById(id))({
+  makeRequest('PUT')(endpoints.admin.getCourse(id))({
     headers: { Authorization: `Bearer ${getToken(true)}` },
     data,
   });
 
 export const apiDeleteCourse = (id) =>
-  makeRequest('DELETE')(endpoints.admin.getCourseById(id))({ headers: { Authorization: `Bearer ${getToken(true)}` } });
+  makeRequest('DELETE')(endpoints.admin.getCourse(id))({ headers: { Authorization: `Bearer ${getToken(true)}` } });
 
 export const apiCreateModule = ({ id, data }) =>
   makeRequest('POST')(endpoints.admin.createModule(id))({
@@ -48,17 +48,17 @@ export const apiCreateLesson = ({ moduleId, data }) =>
   });
 
 export const apiGetLesson = (id) =>
-  makeRequest('GET')(endpoints.admin.getLessonById(id))({
+  makeRequest('GET')(endpoints.admin.getLesson(id))({
     headers: { Authorization: `Bearer ${getToken(true)}` },
   });
 
 export const apiDeleteLesson = (id) =>
-  makeRequest('DELETE')(endpoints.admin.getLessonById(id))({
+  makeRequest('DELETE')(endpoints.admin.getLesson(id))({
     headers: { Authorization: `Bearer ${getToken(true)}` },
   });
 
 export const apiUpdateLesson = ({ id, data }) =>
-  makeRequest('PUT')(endpoints.admin.getLessonById(id))({
+  makeRequest('PUT')(endpoints.admin.getLesson(id))({
     headers: { Authorization: `Bearer ${getToken(true)}` },
     data,
   });

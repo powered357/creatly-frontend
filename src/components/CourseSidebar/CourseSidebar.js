@@ -26,7 +26,7 @@ import {
   LockIcon,
 } from './styles/SidebarStyled';
 
-export const CourseSidebar = ({ course, modules }) => {
+export const CourseSidebar = ({ course, modules, isAdmin }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
@@ -39,7 +39,7 @@ export const CourseSidebar = ({ course, modules }) => {
   const [isDeleting, setDeleting] = useState(false);
 
   const createLessonRoute = ({ courseId, moduleId, lessonId }) =>
-    replaceByObj(ROUTES.ADMIN.COURSE.LESSON, {
+    replaceByObj(!isAdmin ? ROUTES.COURSE.LESSON : ROUTES.ADMIN.COURSE.LESSON, {
       ':courseId': courseId,
       ':moduleId': moduleId,
       ':lessonId': lessonId,
@@ -158,15 +158,23 @@ export const CourseSidebar = ({ course, modules }) => {
 
   return (
     <SidebarStyled>
-      <Heading>
-        {!course.published && <LockIcon />}
-        <Title onClick={navigateToCourse}>{course.name}</Title>
-      </Heading>
+      {!isAdmin ? (
+        <Heading>
+          <Title>{course.name}</Title>
+        </Heading>
+      ) : (
+        <Heading>
+          {!course.published && <LockIcon />}
+          <Title onClick={navigateToCourse} withHover>
+            {course.name}
+          </Title>
+        </Heading>
+      )}
       <Nav>
         {modules?.map(({ id, name, published, lessons }, i) => (
           <div key={id}>
             <NavItem isActive={id === params.moduleId}>
-              {!published && <LockIcon />}
+              {isAdmin && !published && <LockIcon />}
               <NavOrder>{i + 1}.</NavOrder> {name}
               <TooltipMenu menuItems={tooltipMenuItems} moduleId={id} published={published} />
             </NavItem>
@@ -177,65 +185,73 @@ export const CourseSidebar = ({ course, modules }) => {
                     onClick={navigateToLesson({ moduleId: id, lessonId: item.id })}
                     isActive={item.id === params.lessonId}
                   >
-                    {!item.published && <LockIcon />}
+                    {isAdmin && !item.published && <LockIcon />}
                     <NavOrder>{index + 1}.</NavOrder> {item.name}
                   </NavLink>
                 </NavItem>
               ))}
-              <NavItem>
-                <NavLink onClick={openLessonModal(id)} bold>
-                  <AddIcon />
-                  Добавить урок
-                </NavLink>
-              </NavItem>
+              {isAdmin && (
+                <NavItem>
+                  <NavLink onClick={openLessonModal(id)} bold>
+                    <AddIcon />
+                    Добавить урок
+                  </NavLink>
+                </NavItem>
+              )}
             </Nav>
           </div>
         ))}
-        <NavItem>
-          <NavLink onClick={openModuleModal} bold>
-            <AddIcon />
-            Добавить модуль
-          </NavLink>
-        </NavItem>
+        {isAdmin && (
+          <NavItem>
+            <NavLink onClick={openModuleModal} bold>
+              <AddIcon />
+              Добавить модуль
+            </NavLink>
+          </NavItem>
+        )}
       </Nav>
-      <ModalInput
-        name="module"
-        placeholder="Введите название модуля"
-        onSubmit={addModule}
-        isOpen={isModuleModalOpen}
-        closeModal={closeModuleModal}
-        isLoading={isCreating}
-        autoClose={false}
-      />
-      <ModalInput
-        name="lesson"
-        placeholder="Введите название урока"
-        onSubmit={addLesson}
-        isOpen={isLessonModalOpen}
-        closeModal={closeLessonModal}
-        isLoading={isCreating}
-        autoClose={false}
-      />
-      <ModalInput
-        name="newModuleName"
-        placeholder="Измените название модуля"
-        onSubmit={editModuleHandler}
-        isOpen={isModuleEditOpen}
-        closeModal={closeEditModuleModal}
-        isLoading={isCreating}
-        autoClose={false}
-        buttonText="Изменить"
-      />
-      <ModalConfirm
-        title="Вы уверены?"
-        text="Вы правда хотите удалить этот модуль? Его нельзя будет восстановить."
-        isOpen={isConfirmModalOpen}
-        closeModal={closeConfirmModal}
-        successFunc={removeModuleHandler}
-        cancelFunc={closeConfirmModal}
-        isLoading={isDeleting}
-        autoClose={false}
-      />
+      {isAdmin && (
+        <>
+          <ModalInput
+            name="module"
+            placeholder="Введите название модуля"
+            onSubmit={addModule}
+            isOpen={isModuleModalOpen}
+            closeModal={closeModuleModal}
+            isLoading={isCreating}
+            autoClose={false}
+          />
+          <ModalInput
+            name="lesson"
+            placeholder="Введите название урока"
+            onSubmit={addLesson}
+            isOpen={isLessonModalOpen}
+            closeModal={closeLessonModal}
+            isLoading={isCreating}
+            autoClose={false}
+          />
+          <ModalInput
+            name="newModuleName"
+            placeholder="Измените название модуля"
+            onSubmit={editModuleHandler}
+            isOpen={isModuleEditOpen}
+            closeModal={closeEditModuleModal}
+            isLoading={isCreating}
+            autoClose={false}
+            buttonText="Изменить"
+          />
+          <ModalConfirm
+            title="Вы уверены?"
+            text="Вы правда хотите удалить этот модуль? Его нельзя будет восстановить."
+            isOpen={isConfirmModalOpen}
+            closeModal={closeConfirmModal}
+            successFunc={removeModuleHandler}
+            cancelFunc={closeConfirmModal}
+            isLoading={isDeleting}
+            autoClose={false}
+          />
+        </>
+      )}
     </SidebarStyled>
   );
 };
@@ -243,9 +259,11 @@ export const CourseSidebar = ({ course, modules }) => {
 CourseSidebar.propTypes = {
   course: PropTypes.object,
   modules: PropTypes.array,
+  isAdmin: PropTypes.bool,
 };
 
 CourseSidebar.defaultProps = {
   course: {},
   modules: null,
+  isAdmin: false,
 };

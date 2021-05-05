@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { apiGetCourse } from 'API/course';
-import { apiGetAllCourses } from 'API/home';
+import { apiGetAllCourses, apiGetCourse } from 'API/courses';
 
-export const fetchCourses = createAsyncThunk('courses/fetchCourses', () => apiGetAllCourses().then((res) => res.data));
-export const fetchCourse = createAsyncThunk('course/fetchCourse', (id) => apiGetCourse(id).then((res) => res.data));
+export const fetchCourses = createAsyncThunk('courses/fetchCourses', () => apiGetAllCourses().then(({ data }) => data));
+export const fetchCourse = createAsyncThunk('course/fetchCourse', (id) => apiGetCourse(id).then(({ data }) => data));
 
 const initialState = {
   all: [],
@@ -17,27 +16,27 @@ const { reducer, actions } = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    clearCourse: (state) => ({
-      ...state,
-      course: null,
-      modules: null,
-    }),
+    clearCourse: (state) => {
+      state.course = null;
+      state.modules = null;
+    },
   },
   extraReducers: {
-    [fetchCourses.pending]: (state) => ({
-      ...state,
-      isLoading: true,
-    }),
-    [fetchCourses.fulfilled]: (state, { payload }) => ({
-      ...state,
-      isLoading: false,
-      all: payload.data,
-    }),
-    [fetchCourse.fulfilled]: (state, { payload }) => ({
-      ...state,
-      course: payload.course,
-      modules: payload.modules,
-    }),
+    [fetchCourses.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchCourses.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.all = payload.data;
+    },
+    [fetchCourse.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchCourse.fulfilled]: (state, { payload: { course, modules } }) => {
+      state.course = course;
+      state.modules = modules;
+      state.isLoading = false;
+    },
   },
 });
 
