@@ -6,7 +6,8 @@ export const CourseInfoStyled = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 100px;
 `;
 
 export const Title = styled(Text).attrs(() => ({
@@ -23,9 +24,9 @@ export const SubTitle = styled(Text).attrs(() => ({
 
 export const Content = styled.div`
   width: 100%;
+  margin-bottom: 25px;
 `;
 
 export const BtnContainer = styled.div`
-  margin-top: 24px;
   width: 50%;
 `;

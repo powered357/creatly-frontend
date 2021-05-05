@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import { colorVariables, commonVariables } from 'THEME/variables';
 
+import { Text } from 'UI-KIT';
+
 export const HeaderStyled = styled.header`
   background-color: ${colorVariables.white};
   box-shadow: ${commonVariables.boxShadow};
@@ -20,4 +22,11 @@ export const Row = styled.div`
 export const Nav = styled.div`
   display: flex;
   align-items: center;
+`;
+
+export const Greetings = styled(Text).attrs(() => ({
+  font: 's2',
+}))`
+  display: block;
+  margin-right: 20px;
 `;

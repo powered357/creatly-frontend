@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import auth from './auth';
 import courses from './courses';
 import footer from './footer';
 import notifications from './notifications';
 import admin from './admin';
+import student from './student';
 
-const rootReducer = combineReducers({ notifications, auth, courses, footer, admin });
+const rootReducer = combineReducers({ notifications, courses, footer, admin, student });
 
 export default rootReducer;

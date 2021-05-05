@@ -14,6 +14,7 @@ import Verification from 'PAGES/Auth/Verification';
 import MyCourses from 'PAGES/Admin/MyCourses';
 import AdminCourse from 'PAGES/Admin/Course';
 import AdminLesson from 'PAGES/Admin/Lesson';
+import Lesson from 'PAGES/Lesson';
 
 import { PrivateRoute, AdminRoute } from 'COMPONENTS/Routes';
 import { ErrorWrapper } from 'COMPONENTS/ErrorWrapper';
@@ -52,17 +53,23 @@ const RootRouter = () => {
           <PrivateRoute exact path={ROUTES.MODULE}>
             <Module />
           </PrivateRoute>
+          <PrivateRoute exact path={ROUTES.COURSE.LESSON}>
+            <Lesson />
+          </PrivateRoute>
           <Route exact path={ROUTES.ACCOUNT.LOGIN}>
             <Login />
-          </Route>
-          <Route exact path={ROUTES.ADMIN.LOGIN}>
-            <Login isAdmin />
           </Route>
           <Route exact path={ROUTES.ACCOUNT.REGISTRATION}>
             <Registration />
           </Route>
           <Route exact path={ROUTES.ACCOUNT.VERIFICATION}>
             <Verification />
+          </Route>
+          <Route exact path={ROUTES.ADMIN.LOGIN}>
+            <Login isAdmin />
+          </Route>
+          <Route exact path={ROUTES.ADMIN.MAIN}>
+            <Redirect to={ROUTES.ADMIN.MY_COURSES} />
           </Route>
           <AdminRoute exact path={ROUTES.ADMIN.MY_COURSES}>
             <MyCourses />

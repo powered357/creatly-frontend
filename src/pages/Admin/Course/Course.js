@@ -48,7 +48,7 @@ export const Course = () => {
     <CourseStyled>
       <Container>
         {course && !isLoading ? (
-          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
+          <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} isAdmin />}>
             <Form onSubmit={handleSubmit(submitData)}>
               <FormField>
                 <Title>Название</Title>

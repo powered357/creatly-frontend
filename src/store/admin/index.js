@@ -9,6 +9,7 @@ import {
   apiCreateModule,
   apiCreateLesson,
   apiUpdateLesson,
+  apiDeleteLesson,
 } from 'API/admin';
 
 export const createCourse = createAsyncThunk('admin/createCourse', (name) =>
@@ -56,6 +57,12 @@ export const createLesson = createAsyncThunk('admin/createLesson', ({ moduleId, 
 export const updateLesson = createAsyncThunk('admin/updateLesson', ({ lessonId, moduleId, data }) =>
   apiUpdateLesson({ id: lessonId, data })
     .then(() => ({ lessonId, moduleId, ...data }))
+    .catch((error) => console.log(error)),
+);
+
+export const deleteLesson = createAsyncThunk('admin/deleteLesson', ({ lessonId, moduleId }) =>
+  apiDeleteLesson(lessonId)
+    .then(() => ({ lessonId, moduleId }))
     .catch((error) => console.log(error)),
 );
 
@@ -138,6 +145,12 @@ const { reducer, actions } = createSlice({
         ...state.currentCourse.modules[moduleIndex].lessons[lessonIndex],
         ...lesson,
       };
+    },
+    [deleteLesson.fulfilled]: (state, { payload: { lessonId, moduleId } }) => {
+      const moduleIndex = state.currentCourse.modules.findIndex(({ id }) => id === moduleId);
+      const newLessons = state.currentCourse.modules[moduleIndex].lessons.filter(({ id }) => id !== lessonId);
+
+      state.currentCourse.modules[moduleIndex].lessons = newLessons;
     },
   },
 });

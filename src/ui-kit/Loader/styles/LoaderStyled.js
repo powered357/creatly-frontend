@@ -8,6 +8,7 @@ export const LoaderStyled = styled.div`
   align-items: center;
   justify-content: center;
   ${({ fullHeight }) => fullHeight && 'height: 100%;'}
+  ${({ padding }) => `padding: ${padding}px`}
 `;
 
 export const Spinner = styled.div`
@@ -18,7 +19,6 @@ export const Spinner = styled.div`
   border: 2px solid ${colorVariables.black};
   border-right-color: transparent;
   background-color: transparent;
-
   @-webkit-keyframes rotate {
     0% {
       -webkit-transform: rotate(0);
@@ -30,7 +30,6 @@ export const Spinner = styled.div`
       transform: rotate(360deg);
     }
   }
-
   @keyframes rotate {
     0% {
       -webkit-transform: rotate(0);
