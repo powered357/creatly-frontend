@@ -11,6 +11,8 @@ import { Button, Link } from 'UI-KIT';
 
 import { ModalConfirm } from 'COMPONENTS/ModalConfirm';
 
+import { cutString } from 'UTILS/cutString';
+
 import {
   BtnContainer,
   Description,
@@ -29,6 +31,7 @@ export const CourseCard = ({ id, name, description, imageUrl, published, isEdita
   const dispatch = useDispatch();
   const [isDeleting, setDeleting] = useState(false);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const DESCRIPTION_MAX_LENGTH = 300;
 
   const openConfirmModal = () => setConfirmModalOpen(true);
 
@@ -54,7 +57,7 @@ export const CourseCard = ({ id, name, description, imageUrl, published, isEdita
         </Title>
         {imageUrl && <img src={imageUrl} alt={name} />}
       </Heading>
-      {description && <Description>{description}</Description>}
+      {description && <Description>{cutString(description, DESCRIPTION_MAX_LENGTH)}</Description>}
       {!isEditable ? (
         <BtnContainer>
           <Button onClick={navigateToCourse} fullWidth>

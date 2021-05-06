@@ -6,7 +6,15 @@ import { Text } from 'UI-KIT';
 import { LinkStyled, RouterLink } from './styled/LinkStyled';
 
 export const Link = forwardRef(({ children, to, onClick, font, isActive, external }, ref) => (
-  <LinkStyled ref={ref} as={!external && RouterLink} href={to} to={to} onClick={onClick} $isActive={isActive}>
+  <LinkStyled
+    ref={ref}
+    as={!external && RouterLink}
+    href={to}
+    to={to}
+    onClick={onClick}
+    $isActive={isActive}
+    {...(external && { target: '_blank' })}
+  >
     <Text font={font}>{children}</Text>
   </LinkStyled>
 ));

@@ -47,7 +47,9 @@ export const LockIcon = styled(Icon).attrs(() => ({
 
 export const Description = styled(Text).attrs(() => ({
   font: 't2',
-}))``;
+}))`
+  white-space: pre-line;
+`;
 
 export const BtnContainer = styled.div`
   width: ${(CARD_WIDTH - CARD_PADDING) / 2}px;
