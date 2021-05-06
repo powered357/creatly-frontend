@@ -52,10 +52,6 @@ export const useAuthAPI = (isAdmin) => {
     clearServerError();
 
     return apiVerification({ code })
-      .then(() => {
-        // TODO: implement login on success
-        history.push(ROUTES.ACCOUNT.LOGIN);
-      })
       .catch(({ message }) => {
         catchError(message);
         history.push(ROUTES.ACCOUNT.LOGIN);
@@ -64,12 +60,14 @@ export const useAuthAPI = (isAdmin) => {
   };
 
   const catchError = ({ message }) => setServerError(message);
+
   const notifyForError = ({ message }) => {
     const payload = { message: ERROR_MESSAGES[message] ? ERROR_MESSAGES[message] : 'Ошибка на сервере' };
 
     dispatch(clearErrorMsg());
     dispatch(setErrorMsg(payload));
   };
+
   const stopLoading = () => setLoading(false);
 
   const clearServerError = useCallback(() => setServerError(''), []);
