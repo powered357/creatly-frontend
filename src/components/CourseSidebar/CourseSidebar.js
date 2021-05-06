@@ -121,12 +121,12 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
     setConfirmModalOpen(false);
   }, []);
 
-  const publishedModule = (id) => {
+  const handleModulePublish = (id) => {
     const module = modules.find((el) => el.id === id);
     dispatch(updateModule({ id, data: { ...module, published: !module.published } }));
   };
 
-  const removeModuleHandler = () => {
+  const handleModuleDelete = () => {
     setDeleting(true);
     const module = modules.find((el) => el.id === activeModuleId);
     dispatch(deleteModule(module.id))
@@ -138,7 +138,7 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
       });
   };
 
-  const editModuleHandler = ({ newModuleName }) => {
+  const handleModuleEdit = ({ newModuleName }) => {
     const updatedModule = modules.find((module) => module.id === activeModuleId);
     setCreating(true);
     dispatch(updateModule({ id: activeModuleId, data: { ...updatedModule, name: newModuleName } }))
@@ -151,7 +151,7 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
   };
 
   const tooltipMenuItems = [
-    { title: 'Опубликовать', action: publishedModule },
+    { title: 'Опубликовать', action: handleModulePublish },
     { title: 'Редактировать', action: editModule },
     { title: 'Удалить', action: openConfirmModal },
   ];
@@ -176,7 +176,13 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
             <NavItem isActive={id === params.moduleId}>
               {isAdmin && !published && <LockIcon />}
               <NavOrder>{i + 1}.</NavOrder> {name}
-              <TooltipMenu menuItems={tooltipMenuItems} moduleId={id} published={published} />
+              <TooltipMenu
+                menuItems={tooltipMenuItems}
+                moduleId={id}
+                published={published}
+                iconName="settings"
+                iconSize={16}
+              />
             </NavItem>
             <Nav>
               {lessons?.map((item, index) => (
@@ -233,7 +239,7 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
           <ModalInput
             name="newModuleName"
             placeholder="Измените название модуля"
-            onSubmit={editModuleHandler}
+            onSubmit={handleModuleEdit}
             isOpen={isModuleEditOpen}
             closeModal={closeEditModuleModal}
             isLoading={isCreating}
@@ -245,7 +251,7 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
             text="Вы правда хотите удалить этот модуль? Его нельзя будет восстановить."
             isOpen={isConfirmModalOpen}
             closeModal={closeConfirmModal}
-            successFunc={removeModuleHandler}
+            successFunc={handleModuleDelete}
             cancelFunc={closeConfirmModal}
             isLoading={isDeleting}
             autoClose={false}

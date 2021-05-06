@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -7,8 +7,8 @@ import { Icon } from 'UI-KIT';
 
 import { StyledIcon } from './styles/TooltipMenuStyled';
 
-export const TooltipMenu = ({ menuItems, moduleId, published }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export const TooltipMenu = ({ menuItems, moduleId, published, iconName, iconSize }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -18,7 +18,7 @@ export const TooltipMenu = ({ menuItems, moduleId, published }) => {
     setAnchorEl(null);
   };
 
-  const handleItemClick = (action) => {
+  const handleItemClick = (action) => () => {
     if (action) action(moduleId);
     setAnchorEl(null);
   };
@@ -33,11 +33,11 @@ export const TooltipMenu = ({ menuItems, moduleId, published }) => {
   return (
     <>
       <StyledIcon onClick={handleClick}>
-        <Icon size={16} name="settings" />
+        <Icon size={iconSize} name={iconName} />
       </StyledIcon>
       <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         {menuItems.map(({ title, action }) => (
-          <MenuItem key={title} onClick={() => handleItemClick(action)}>
+          <MenuItem key={title} onClick={handleItemClick(action)}>
             {itemTitle(title)}
           </MenuItem>
         ))}
@@ -55,8 +55,11 @@ TooltipMenu.propTypes = {
   ).isRequired,
   moduleId: PropTypes.string.isRequired,
   published: PropTypes.bool,
+  iconName: PropTypes.string.isRequired,
+  iconSize: PropTypes.number,
 };
 
 TooltipMenu.defaultProps = {
   published: false,
+  iconSize: 16,
 };
