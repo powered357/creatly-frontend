@@ -36,7 +36,7 @@ const Registration = () => {
               onChange={clearServerError}
             />
             {errors.name?.type === 'required' && <FormError>Это поле обязательное</FormError>}
-            {errors.name?.type === 'pattern' && <FormError>Введите валидное имя</FormError>}
+            {errors.name?.type === 'pattern' && <FormError>Введите корректное имя</FormError>}
           </FormField>
           <FormField>
             <Input
@@ -59,7 +59,7 @@ const Registration = () => {
             {serverError && <FormError>{serverError}</FormError>}
             {errors.password?.type === 'required' && <FormError>Это поле обязательное</FormError>}
             {errors.password?.type === 'pattern' && (
-              <FormError>Введите более 8 символов,используйте как минимум 1 букву и 1 число </FormError>
+              <FormError>Пароль должен состоять минимум из 8 символов </FormError>
             )}
           </FormField>
           <FormButton>

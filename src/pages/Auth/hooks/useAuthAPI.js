@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
-import { AUTH_NOTIFICATIONS } from 'CONSTANTS/authNotifications';
+import { ERROR_MESSAGES } from 'CONSTANTS/errorMessages';
 
 import { clearErrorMsg, setErrorMsg } from 'STORE/notifications';
 
@@ -65,7 +65,7 @@ export const useAuthAPI = (isAdmin) => {
 
   const catchError = ({ message }) => setServerError(message);
   const notifyForError = ({ message }) => {
-    const payload = { message: AUTH_NOTIFICATIONS[message] ? AUTH_NOTIFICATIONS[message] : 'Ошибка на сервере' };
+    const payload = { message: ERROR_MESSAGES[message] ? ERROR_MESSAGES[message] : 'Ошибка на сервере' };
 
     dispatch(clearErrorMsg());
     dispatch(setErrorMsg(payload));
