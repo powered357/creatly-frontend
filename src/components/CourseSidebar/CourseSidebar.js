@@ -6,8 +6,10 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-import { createModule, createLesson } from 'STORE/admin';
+import { createModule, createLesson, updateModule, deleteModule } from 'STORE/admin';
 
+import { ModalConfirm } from 'COMPONENTS/ModalConfirm';
+import { TooltipMenu } from 'COMPONENTS/TooltipMenu';
 import { ModalInput } from 'COMPONENTS/ModalInput';
 
 import { replaceByObj } from 'UTILS/replaceByObj';
@@ -32,6 +34,9 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
   const [activeModuleId, setActiveModuleId] = useState(null);
   const [isModuleModalOpen, setModuleModalOpen] = useState(false);
   const [isLessonModalOpen, setLessonModalOpen] = useState(false);
+  const [isModuleEditOpen, setModuleEditOpen] = useState(false);
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const [isDeleting, setDeleting] = useState(false);
 
   const createLessonRoute = ({ courseId, moduleId, lessonId }) =>
     replaceByObj(!isAdmin ? ROUTES.COURSE.LESSON : ROUTES.ADMIN.COURSE.LESSON, {
@@ -94,6 +99,63 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
     history.push(ROUTES.ADMIN.COURSE.MAIN.replace(':id', course.id));
   };
 
+  const editModule = (id) => {
+    setActiveModuleId(id);
+    openEditModuleModal();
+  };
+
+  const openEditModuleModal = () => {
+    setModuleEditOpen(true);
+  };
+
+  const closeEditModuleModal = useCallback(() => {
+    setModuleEditOpen(false);
+  }, []);
+
+  const openConfirmModal = (id) => {
+    setActiveModuleId(id);
+    setConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = useCallback(() => {
+    setConfirmModalOpen(false);
+  }, []);
+
+  const handleModulePublish = (id) => {
+    const module = modules.find((el) => el.id === id);
+    dispatch(updateModule({ id, data: { ...module, published: !module.published } }));
+  };
+
+  const handleModuleDelete = () => {
+    setDeleting(true);
+    const module = modules.find((el) => el.id === activeModuleId);
+    dispatch(deleteModule(module.id))
+      .then(unwrapResult)
+      .then(() => {
+        setDeleting(false);
+        setActiveModuleId(null);
+        closeConfirmModal();
+      });
+  };
+
+  const handleModuleEdit = ({ newModuleName }) => {
+    const updatedModule = modules.find((module) => module.id === activeModuleId);
+    setCreating(true);
+    dispatch(updateModule({ id: activeModuleId, data: { ...updatedModule, name: newModuleName } }))
+      .then(unwrapResult)
+      .then(() => {
+        setCreating(false);
+        setActiveModuleId(null);
+        closeEditModuleModal();
+      });
+  };
+
+  const tooltipMenuItems = [
+    { title: 'Опубликовать', action: handleModulePublish },
+    { title: 'Редактировать', action: editModule },
+    { title: 'Удалить', action: openConfirmModal },
+  ];
+
   return (
     <SidebarStyled>
       {!isAdmin ? (
@@ -114,6 +176,13 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
             <NavItem isActive={id === params.moduleId}>
               {isAdmin && !published && <LockIcon />}
               <NavOrder>{i + 1}.</NavOrder> {name}
+              <TooltipMenu
+                menuItems={tooltipMenuItems}
+                moduleId={id}
+                published={published}
+                iconName="settings"
+                iconSize={16}
+              />
             </NavItem>
             <Nav>
               {lessons?.map((item, index) => (
@@ -165,6 +234,26 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
             isOpen={isLessonModalOpen}
             closeModal={closeLessonModal}
             isLoading={isCreating}
+            autoClose={false}
+          />
+          <ModalInput
+            name="newModuleName"
+            placeholder="Измените название модуля"
+            onSubmit={handleModuleEdit}
+            isOpen={isModuleEditOpen}
+            closeModal={closeEditModuleModal}
+            isLoading={isCreating}
+            autoClose={false}
+            buttonText="Изменить"
+          />
+          <ModalConfirm
+            title="Вы уверены?"
+            text="Вы правда хотите удалить этот модуль? Его нельзя будет восстановить."
+            isOpen={isConfirmModalOpen}
+            closeModal={closeConfirmModal}
+            successFunc={handleModuleDelete}
+            cancelFunc={closeConfirmModal}
+            isLoading={isDeleting}
             autoClose={false}
           />
         </>
