@@ -13,7 +13,7 @@ import { Container } from 'COMPONENTS/Container';
 
 import { getToken } from 'UTILS/getToken';
 
-import { Content, HomeStyled, Title } from './styles/HomeStyled';
+import { Content, HomeStyled, Title, EmptyText } from './styles/HomeStyled';
 
 export const Home = () => {
   const token = getToken();
@@ -34,13 +34,19 @@ export const Home = () => {
       });
   }, []);
 
+  const getCoursesContent = () => {
+    if (allCourses.length) {
+      return allCourses.map((course) => <CourseCard key={course.id} {...course} />);
+    }
+
+    return <EmptyText>К сожалению, на данный момент на платформе нет доступных для вас курсов :(</EmptyText>;
+  };
+
   return (
     <Container size="sm">
       <HomeStyled>
         <Title>Курсы</Title>
-        <Content>
-          {!isLoading ? allCourses.map((course) => <CourseCard key={course.id} {...course} />) : <Loader size={50} />}
-        </Content>
+        <Content>{!isLoading ? getCoursesContent() : <Loader size={50} />}</Content>
       </HomeStyled>
     </Container>
   );
