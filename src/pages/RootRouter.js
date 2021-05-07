@@ -68,9 +68,9 @@ const RootRouter = () => {
           <Route exact path={ROUTES.ADMIN.LOGIN}>
             <Login isAdmin />
           </Route>
-          <Route exact path={ROUTES.ADMIN.MAIN}>
+          <AdminRoute exact path={ROUTES.ADMIN.MAIN}>
             <Redirect to={ROUTES.ADMIN.MY_COURSES} />
-          </Route>
+          </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN.MY_COURSES}>
             <MyCourses />
           </AdminRoute>

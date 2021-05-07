@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { apiGetModuleLessons } from 'API/student';
 
+import { ROUTES } from 'CONSTANTS/routes';
+
 import { clearCourse, fetchCourse } from 'STORE/courses';
 
 import { Loader } from 'UI-KIT';
@@ -12,7 +14,10 @@ import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 import { Container } from 'COMPONENTS/Container';
 import { CourseTemplate } from 'COMPONENTS/CourseTemplate';
 import { CourseSidebar } from 'COMPONENTS/CourseSidebar';
+import { NavigationButtons } from 'COMPONENTS/NavigationButtons';
 import { serializeToJsx } from 'COMPONENTS/Editor/utils/serializeToJsx';
+
+import { replaceByObj } from 'UTILS/replaceByObj';
 
 import { LessonStyled } from './styles/LessonStyled';
 
@@ -38,6 +43,22 @@ export const Lesson = () => {
 
   useEffect(() => () => dispatch(clearCourse()), []);
 
+  const getLessonRoute = (direction) => {
+    const lessonIndex = lessons.findIndex((item) => item.id === lessonId);
+    const newLessonIndex = direction === 'prev' ? lessonIndex - 1 : lessonIndex + 1;
+    const newLessonId = lessons[newLessonIndex]?.id;
+
+    if (newLessonId) {
+      return replaceByObj(ROUTES.COURSE.LESSON, {
+        ':courseId': courseId,
+        ':moduleId': moduleId,
+        ':lessonId': newLessonId,
+      });
+    }
+
+    return '';
+  };
+
   const parseContent = () => {
     const content = lessons.filter((item) => item.id === lessonId)[0]?.content;
 
@@ -54,7 +75,14 @@ export const Lesson = () => {
         <DocumentTitle title={course && course.name} />
         {course && !isLoading ? (
           <CourseTemplate sidebar={<CourseSidebar course={course} modules={modules} />}>
-            {lessons && !isLessonsLoading ? parseContent() : <Loader padding={50} />}
+            {lessons && !isLessonsLoading ? (
+              <>
+                {parseContent()}
+                <NavigationButtons prevRoute={getLessonRoute('prev')} nextRoute={getLessonRoute('next')} />
+              </>
+            ) : (
+              <Loader padding={50} />
+            )}
           </CourseTemplate>
         ) : (
           <Loader fullHeight />
