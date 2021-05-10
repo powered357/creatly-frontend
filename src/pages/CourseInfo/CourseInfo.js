@@ -12,6 +12,7 @@ import { Button, Loader } from 'UI-KIT';
 import { CourseModule } from 'COMPONENTS/CourseModule';
 import { Container } from 'COMPONENTS/Container';
 import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
+import Offer from 'COMPONENTS/Offer';
 
 import { replaceByObj } from 'UTILS/replaceByObj';
 
@@ -69,6 +70,7 @@ export const CourseInfo = () => {
       ) : (
         <Loader size={50} />
       )}
+      <Offer />
     </Container>
   );
 };
