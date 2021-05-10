@@ -1,14 +1,19 @@
 import { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
+import { ERROR_MESSAGES } from 'CONSTANTS/errorMessages';
+
+import { clearErrorMsg, setErrorMsg } from 'STORE/notifications';
 
 import { setTokens } from 'UTILS/setTokens';
 
 export const useAuthAPI = (isAdmin) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
   const [serverError, setServerError] = useState('');
 
@@ -20,19 +25,26 @@ export const useAuthAPI = (isAdmin) => {
     const { accessToken, refreshToken } = data;
 
     setTokens({ accessToken, refreshToken, isAdmin });
+    return data;
   };
 
   const login = async ({ email, password }) => {
-    await loginRequest({ email, password });
+    try {
+      await loginRequest({ email, password });
 
-    history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
+      history.replace(!isAdmin ? ROUTES.ROOT : ROUTES.ADMIN.MY_COURSES);
+    } catch (err) {
+      notifyForError(err);
+    } finally {
+      stopLoading();
+    }
   };
 
   const registerUser = ({ name, email, password }) => {
     setLoading(true);
     clearServerError();
 
-    return apiRegistration({ name, email, password }).catch(catchError).finally(stopLoading);
+    return apiRegistration({ name, email, password }).catch(notifyForError).finally(stopLoading);
   };
 
   const verifyUser = ({ code }) => {
@@ -40,10 +52,6 @@ export const useAuthAPI = (isAdmin) => {
     clearServerError();
 
     return apiVerification({ code })
-      .then(() => {
-        // TODO: implement login on success
-        history.push(ROUTES.ACCOUNT.LOGIN);
-      })
       .catch(({ message }) => {
         catchError(message);
         history.push(ROUTES.ACCOUNT.LOGIN);
@@ -52,6 +60,13 @@ export const useAuthAPI = (isAdmin) => {
   };
 
   const catchError = ({ message }) => setServerError(message);
+
+  const notifyForError = ({ message }) => {
+    const payload = { message: ERROR_MESSAGES[message] ? ERROR_MESSAGES[message] : 'Ошибка на сервере' };
+
+    dispatch(clearErrorMsg());
+    dispatch(setErrorMsg(payload));
+  };
 
   const stopLoading = () => setLoading(false);
 

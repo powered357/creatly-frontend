@@ -9,7 +9,7 @@ export const CourseStyled = styled.div`
 `;
 
 export const Form = styled.form`
-  padding-top: 20px;
+  padding-top: 2px;
 `;
 
 export const FormField = styled.div`

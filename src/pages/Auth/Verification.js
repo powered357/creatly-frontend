@@ -27,6 +27,10 @@ const Verification = () => {
     }
   }, []);
 
+  const navigateToLogin = () => {
+    history.push(ROUTES.ACCOUNT.LOGIN);
+  };
+
   return (
     !isLoading && (
       <AuthTemplate title="Zhashkevych workshop">
@@ -34,7 +38,7 @@ const Verification = () => {
           Ваш аккаунт успешно подтвержден.<br></br> Спасибо за регистрацию!
         </Subtitle>
         <FormButton>
-          <Button type="submit" isLoading={isLoading} fullWidth>
+          <Button onClick={navigateToLogin} fullWidth>
             Войти
           </Button>
         </FormButton>

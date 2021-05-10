@@ -27,13 +27,14 @@ export const Title = styled(Text).attrs(() => ({
 export const ButtonRow = styled.div`
   display: flex;
   justify-content: space-between;
+  padding-top: 15px;
   button:not(:last-child) {
     margin-right: 20px;
   }
 `;
 
 export const ButtonGroup = styled.div`
-  padding-top: 15px;
+  display: flex;
 `;
 
 export const EditIcon = styled(Icon).attrs(() => ({

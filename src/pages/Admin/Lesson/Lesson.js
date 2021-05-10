@@ -77,9 +77,10 @@ export const Lesson = () => {
 
   const handlePublish = () => {
     setPublishing(true);
-    dispatch(updateLesson({ lessonId, moduleId, data: { published: !isPublished } })).finally(() =>
-      setPublishing(false),
-    );
+    dispatch(updateLesson({ lessonId, moduleId, data: { published: !isPublished } })).finally(() => {
+      setPublishing(false);
+      setPublished(!isPublished);
+    });
   };
 
   const handleDelete = () => {
