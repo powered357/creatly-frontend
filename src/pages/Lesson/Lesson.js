@@ -28,8 +28,6 @@ export const Lesson = () => {
   const [lessons, setLessons] = useState(null);
   const [isLessonsLoading, setLessonsLoading] = useState(null);
 
-  console.log({ modules });
-
   useEffect(() => {
     if (!course && !isLoading) {
       dispatch(fetchCourse(courseId));
