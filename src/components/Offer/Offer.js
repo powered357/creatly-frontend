@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
 
-import { Button } from 'UI-KIT';
+import { Button, Text, Input } from 'UI-KIT';
 
 import { BtnContainer } from 'COMPONENTS/CourseCard/styles/CourseCardStyled';
 
-import { Container, Description, Heading, OfferContainer, Title } from './styles/OfferStyle';
+import { Container, Description, Heading, OfferContainer, PreviewContainer, Title } from './styles/OfferStyle';
 
-export const OfferCard = ({ offer }) => (
-  <OfferContainer>
+export const OfferCard = ({ offer, verticalAlign }) => (
+  <OfferContainer verticalAlign>
     <Heading>
       <Title>{offer.name}</Title>
     </Heading>
-    <Description>{offer.description}</Description>
+    {!verticalAlign && <Description>{offer.description}</Description>}
+    {verticalAlign && offer.benefits.map((el) => <li> {el} </li>)}
     <BtnContainer>
       <Button fullWidth>Купить</Button>
     </BtnContainer>
@@ -28,7 +29,7 @@ export const Offer = () => {
         currency: 'usd',
         value: 100,
       },
-      benefits: ['1', '2', '3'],
+      benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
     },
     {
       description:
@@ -38,7 +39,7 @@ export const Offer = () => {
         currency: 'usd',
         value: 140,
       },
-      benefits: ['1', '2', '3'],
+      benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
     },
     {
       description: 'Все предыдущие программы. Действительно, команда input() считывает строку текста.',
@@ -47,30 +48,35 @@ export const Offer = () => {
         currency: 'usd',
         value: 10,
       },
-      benefits: ['1', '2', '3'],
+      benefits: ['benefit 1', 'benefit 2', 'benefit 3'],
     },
   ];
 
   return (
-    <div>
-      Данный курс входит в следующие пакеты :
+    <>
+      <PreviewContainer>
+        <Text>Данный курс входит в следующие пакеты :</Text>
+        <Input placeholder="Ввести промокод и получить скидку" />
+      </PreviewContainer>
       {offers.length - 1 ? (
         <Container>
           {offers.map((el) => (
-            <OfferCard key={el.name} offer={el} />
+            <OfferCard key={el.name} offer={el} verticalAlign />
           ))}
         </Container>
       ) : (
         <OfferCard key={offers[0].name} offer={offers[0]} />
       )}
-    </div>
+    </>
   );
 };
 
 OfferCard.propTypes = {
   offer: PropTypes.object,
+  verticalAlign: PropTypes.bool,
 };
 
 OfferCard.defaultProps = {
   offer: null,
+  verticalAlign: false,
 };
