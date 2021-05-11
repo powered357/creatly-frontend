@@ -176,13 +176,15 @@ export const CourseSidebar = ({ course, modules, isAdmin }) => {
             <NavItem isActive={id === params.moduleId}>
               {isAdmin && !published && <LockIcon />}
               <NavOrder>{i + 1}.</NavOrder> {name}
-              <TooltipMenu
-                menuItems={tooltipMenuItems}
-                moduleId={id}
-                published={published}
-                iconName="settings"
-                iconSize={16}
-              />
+              {isAdmin && (
+                <TooltipMenu
+                  menuItems={tooltipMenuItems}
+                  moduleId={id}
+                  published={published}
+                  iconName="settings"
+                  iconSize={16}
+                />
+              )}
             </NavItem>
             <Nav>
               {lessons?.map((item, index) => (

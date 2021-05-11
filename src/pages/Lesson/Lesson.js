@@ -28,6 +28,8 @@ export const Lesson = () => {
   const [lessons, setLessons] = useState(null);
   const [isLessonsLoading, setLessonsLoading] = useState(null);
 
+  console.log({ modules });
+
   useEffect(() => {
     if (!course && !isLoading) {
       dispatch(fetchCourse(courseId));
@@ -44,14 +46,37 @@ export const Lesson = () => {
   useEffect(() => () => dispatch(clearCourse()), []);
 
   const getLessonRoute = (direction) => {
+    const moduleIndex = modules.findIndex((item) => item.id === moduleId);
     const lessonIndex = lessons.findIndex((item) => item.id === lessonId);
     const newLessonIndex = direction === 'prev' ? lessonIndex - 1 : lessonIndex + 1;
-    const newLessonId = lessons[newLessonIndex]?.id;
+    let newModuleId = moduleId;
+    let newLessonId = lessons[newLessonIndex]?.id;
+
+    if (lessonIndex === 0 && direction === 'prev') {
+      const prevModule = modules[moduleIndex - 1];
+      const lessonsLength = prevModule?.lessons.length;
+      const prevLessonId = prevModule?.lessons[lessonsLength - 1]?.id;
+
+      if (prevLessonId) {
+        newModuleId = prevModule.id;
+        newLessonId = prevLessonId;
+      }
+    }
+
+    if (lessonIndex === lessons.length - 1 && direction === 'next') {
+      const nextModule = modules[moduleIndex + 1];
+      const nextLessonId = nextModule?.lessons[0]?.id;
+
+      if (nextLessonId) {
+        newModuleId = nextModule.id;
+        newLessonId = nextLessonId;
+      }
+    }
 
     if (newLessonId) {
       return replaceByObj(ROUTES.COURSE.LESSON, {
         ':courseId': courseId,
-        ':moduleId': moduleId,
+        ':moduleId': newModuleId,
         ':lessonId': newLessonId,
       });
     }
