@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { commonVariables } from 'THEME/variables';
+import { commonVariables, colorVariables } from 'THEME/variables';
 
 import { Text } from 'UI-KIT';
 
@@ -27,10 +27,18 @@ export const OfferContainer = styled.div`
   width: ${CARD_WIDTH}px;
   min-height: 248px;
   margin-bottom: 24px;
-  margin-right: ${(props) => (props.verticalAlign ? 24 : 'auto')}px;
+  margin-right: ${(props) => (props.verticalAlign ? '24px' : 'auto')};
   padding: ${CARD_PADDING}px;
   border-radius: ${commonVariables.borderRadius};
   box-shadow: 4px 4px 16px rgba(51, 51, 51, 0.16);
+`;
+
+export const ContentContainer = styled.div`
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 `;
 
 export const Heading = styled.div`
@@ -50,6 +58,17 @@ export const Description = styled(Text).attrs(() => ({
 }))``;
 
 export const BtnContainer = styled.div`
-  width: ${(CARD_WIDTH - CARD_PADDING) / 2}px;
+  //width: 20%;
   padding-top: 40px;
+`;
+
+export const BenefitsList = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-top: ${colorVariables.grey} 1px solid;
+`;
+
+export const Benefit = styled.span`
+  margin: 0.25rem;
+  padding-left: 1rem;
 `;
