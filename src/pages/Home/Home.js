@@ -46,7 +46,7 @@ export const Home = () => {
     <Container size="sm">
       <HomeStyled>
         <Title>Курсы</Title>
-        <Content>{!isLoading ? getCoursesContent() : <Loader size={50} />}</Content>
+        <Content>{!isLoading ? getCoursesContent() : <Loader padding={50} />}</Content>
       </HomeStyled>
     </Container>
   );

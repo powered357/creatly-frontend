@@ -2,8 +2,10 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const paths = require('./paths');
+const { ANALYZE_MODE } = process.env;
 
 module.exports = {
   context: paths.src,
@@ -29,7 +31,7 @@ module.exports = {
           from: paths.assets,
           to: 'assets',
           globOptions: {
-            ignore: ['*.DS_Store'],
+            ignore: ['**.DS_Store'],
           },
           noErrorOnMissing: true,
         },
@@ -39,6 +41,7 @@ module.exports = {
       template: 'index.html',
       filename: 'index.html',
     }),
+    ...(ANALYZE_MODE ? [new BundleAnalyzerPlugin()] : []),
   ],
   module: {
     rules: [
@@ -74,5 +77,6 @@ module.exports = {
     colors: {
       green: '\u001b[32m',
     },
+    ...(ANALYZE_MODE && { assets: true, chunks: true }),
   },
 };
