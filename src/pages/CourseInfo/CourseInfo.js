@@ -41,36 +41,40 @@ export const CourseInfo = () => {
   };
 
   return (
-    <Container size="sm">
-      <DocumentTitle title={course && course.name} />
-      {course && !isLoading ? (
-        <CourseInfoStyled>
-          <Title>{course.name}</Title>
-          <Description>{course.description}</Description>
-          <Content>
-            {hasModules ? (
-              <>
-                <SubTitle>Содержание курса</SubTitle>
-                {modules.map((item) => (
-                  <CourseModule key={item.id} {...item} />
-                ))}
-              </>
-            ) : (
-              <p>Материалы курса находятся в разработке</p>
+    <div>
+      <Container size="sm">
+        <DocumentTitle title={course && course.name} />
+        {course && !isLoading ? (
+          <CourseInfoStyled>
+            <Title>{course.name}</Title>
+            <Description>{course.description}</Description>
+            <Content>
+              {hasModules ? (
+                <>
+                  <SubTitle>Содержание курса</SubTitle>
+                  {modules.map((item) => (
+                    <CourseModule key={item.id} {...item} />
+                  ))}
+                </>
+              ) : (
+                <p>Материалы курса находятся в разработке</p>
+              )}
+            </Content>
+            {hasLessons && (
+              <BtnContainer>
+                <Link to={createLessonLink()}>
+                  <Button fullWidth>Начать обучение</Button>
+                </Link>
+              </BtnContainer>
             )}
-          </Content>
-          {hasLessons && (
-            <BtnContainer>
-              <Link to={createLessonLink()}>
-                <Button fullWidth>Начать обучение</Button>
-              </Link>
-            </BtnContainer>
-          )}
-        </CourseInfoStyled>
-      ) : (
-        <Loader size={50} />
-      )}
-      <Offer />
-    </Container>
+          </CourseInfoStyled>
+        ) : (
+          <Loader size={50} />
+        )}
+      </Container>
+      <Container size="lg">
+        <Offer />
+      </Container>
+    </div>
   );
 };

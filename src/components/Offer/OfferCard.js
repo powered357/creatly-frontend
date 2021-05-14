@@ -1,33 +1,36 @@
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 
-import { Button } from 'UI-KIT';
+import { Button, Icon } from 'UI-KIT';
 
 import {
   BenefitsList,
+  Purchase,
   Benefit,
-  ContentContainer,
+  Content,
   Description,
-  Heading,
   OfferContainer,
   Title,
+  Price,
 } from 'COMPONENTS/Offer/styles/OfferStyle';
-import { BtnContainer } from 'COMPONENTS/CourseCard/styles/CourseCardStyled';
 
 export const OfferCard = ({ offer, verticalAlign }) => (
   <OfferContainer verticalAlign>
-    <ContentContainer>
-      <Heading>
-        <Title>{offer.name}</Title>
-      </Heading>
-      {!verticalAlign && <Description>{offer.description}</Description>}
-      <BtnContainer>
+    {JSON.stringify(verticalAlign)}
+    <Content>
+      <Title>{offer.name}</Title>
+      <Description>{offer.description}</Description>
+      <Purchase>
         <Button>Купить</Button>
-      </BtnContainer>
-    </ContentContainer>
+        <Price>${offer.price.value}</Price>
+      </Purchase>
+    </Content>
     {verticalAlign && offer.benefits && (
       <BenefitsList>
         {offer.benefits.map((el) => (
-          <Benefit key={Math.random()}> {el} </Benefit>
+          <Benefit key={uuidv4()}>
+            <Icon name="check" /> {el}
+          </Benefit>
         ))}
       </BenefitsList>
     )}

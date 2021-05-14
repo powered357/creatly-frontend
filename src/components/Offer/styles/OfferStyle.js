@@ -12,38 +12,33 @@ export const PreviewContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin-bottom: 24px;
+  margin: auto auto 24px auto;
 `;
 
-export const Container = styled.div`
+export const OfferList = styled.div`
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 `;
 
 export const OfferContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: ${CARD_WIDTH}px;
-  min-height: 248px;
+  max-width: ${CARD_WIDTH}px;
   margin-bottom: 24px;
-  margin-right: ${(props) => (props.verticalAlign ? '24px' : 'auto')};
   padding: ${CARD_PADDING}px;
   border-radius: ${commonVariables.borderRadius};
   box-shadow: 4px 4px 16px rgba(51, 51, 51, 0.16);
 `;
 
-export const ContentContainer = styled.div`
+export const Content = styled.div`
+  width: ${(CARD_WIDTH - CARD_PADDING) / 2.1}px;
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-`;
-
-export const Heading = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 export const Title = styled(Text).attrs(() => ({
@@ -55,11 +50,19 @@ export const Title = styled(Text).attrs(() => ({
 
 export const Description = styled(Text).attrs(() => ({
   font: 't2',
-}))``;
+}))`
+  margin-bottom: 20px;
+`;
 
-export const BtnContainer = styled.div`
-  //width: 20%;
-  padding-top: 40px;
+export const Purchase = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Price = styled(Text).attrs(() => ({
+  font: 'h1',
+}))`
+  margin-right: 24px;
 `;
 
 export const BenefitsList = styled.div`
@@ -69,6 +72,5 @@ export const BenefitsList = styled.div`
 `;
 
 export const Benefit = styled.span`
-  margin: 0.25rem;
-  padding-left: 1rem;
+  margin: 0.5rem;
 `;
