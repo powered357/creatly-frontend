@@ -29,7 +29,7 @@ export const Offer = () => {
           {offers.length - 1 ? (
             <OfferList>
               {offers.map((el) => (
-                <OfferCard key={uuidv4()} offer={el} verticalAlign />
+                <OfferCard key={uuidv4()} offer={el} />
               ))}
             </OfferList>
           ) : (

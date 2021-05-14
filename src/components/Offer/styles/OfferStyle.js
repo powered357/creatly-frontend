@@ -26,6 +26,8 @@ export const OfferContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   max-width: ${CARD_WIDTH}px;
+  margin-right: auto;
+  margin-left: auto;
   margin-bottom: 24px;
   padding: ${CARD_PADDING}px;
   border-radius: ${commonVariables.borderRadius};

@@ -14,9 +14,8 @@ import {
   Price,
 } from 'COMPONENTS/Offer/styles/OfferStyle';
 
-export const OfferCard = ({ offer, verticalAlign }) => (
-  <OfferContainer verticalAlign>
-    {JSON.stringify(verticalAlign)}
+export const OfferCard = ({ offer }) => (
+  <OfferContainer>
     <Content>
       <Title>{offer.name}</Title>
       <Description>{offer.description}</Description>
@@ -25,7 +24,7 @@ export const OfferCard = ({ offer, verticalAlign }) => (
         <Price>${offer.price.value}</Price>
       </Purchase>
     </Content>
-    {verticalAlign && offer.benefits && (
+    {offer.benefits && (
       <BenefitsList>
         {offer.benefits.map((el) => (
           <Benefit key={uuidv4()}>
@@ -39,10 +38,8 @@ export const OfferCard = ({ offer, verticalAlign }) => (
 
 OfferCard.propTypes = {
   offer: PropTypes.object,
-  verticalAlign: PropTypes.bool,
 };
 
 OfferCard.defaultProps = {
   offer: null,
-  verticalAlign: false,
 };
