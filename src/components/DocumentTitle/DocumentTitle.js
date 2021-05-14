@@ -12,5 +12,5 @@ DocumentTitle.propTypes = {
 };
 
 DocumentTitle.defaultProps = {
-  title: 'Courses Platform',
+  title: 'ZHAHSHKEVYCH WORKSHOP',
 };

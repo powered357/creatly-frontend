@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 
 import store from 'STORE';
@@ -9,6 +10,8 @@ import { App } from 'COMPONENTS/App';
 import { ErrorBoundary } from 'COMPONENTS/ErrorBoundary';
 
 import { loadFonts } from 'UTILS/loadFonts';
+
+ReactGA.initialize('G-M8ECFPS7BK');
 
 ReactDOM.render(
   <Provider store={store}>
