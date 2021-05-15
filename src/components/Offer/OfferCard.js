@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
+import { CURRENCIES } from 'CONSTANTS/currencies';
+
 import { Button, Icon } from 'UI-KIT';
 
 import {
@@ -14,18 +16,21 @@ import {
   Price,
 } from 'COMPONENTS/Offer/styles/OfferStyle';
 
-export const OfferCard = ({ offer }) => (
-  <OfferContainer>
+export const OfferCard = ({ offer, isVertical }) => (
+  <OfferContainer vertical={!!isVertical}>
     <Content>
       <Title>{offer.name}</Title>
       <Description>{offer.description}</Description>
       <Purchase>
         <Button>Купить</Button>
-        <Price>${offer.price.value}</Price>
+        <Price>
+          {CURRENCIES[offer.price.currency.toUpperCase()]}
+          {offer.price.value}
+        </Price>
       </Purchase>
     </Content>
     {offer.benefits && (
-      <BenefitsList>
+      <BenefitsList vertical={!!isVertical}>
         {offer.benefits.map((el) => (
           <Benefit key={uuidv4()}>
             <Icon name="check" /> {el}
@@ -38,8 +43,10 @@ export const OfferCard = ({ offer }) => (
 
 OfferCard.propTypes = {
   offer: PropTypes.object,
+  isVertical: PropTypes.bool,
 };
 
 OfferCard.defaultProps = {
   offer: null,
+  isVertical: false,
 };

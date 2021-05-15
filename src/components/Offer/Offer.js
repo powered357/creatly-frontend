@@ -33,7 +33,7 @@ export const Offer = () => {
               ))}
             </OfferList>
           ) : (
-            <OfferCard offer={offers[0]} />
+            <OfferCard offer={offers[0]} isVertical />
           )}
         </>
       )}

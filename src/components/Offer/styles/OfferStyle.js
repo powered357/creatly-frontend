@@ -6,6 +6,7 @@ import { Text } from 'UI-KIT';
 
 const CARD_WIDTH = 816;
 const CARD_PADDING = 32;
+const BENEFIT_BORDER = `${colorVariables.grey} 1px solid`;
 
 export const PreviewContainer = styled.div`
   width: ${(CARD_WIDTH - CARD_PADDING) / 2}px;
@@ -23,7 +24,8 @@ export const OfferList = styled.div`
 
 export const OfferContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ vertical }) => (vertical ? 'row' : 'column')};
+  flex-wrap: ${({ vertical }) => (vertical ? 'wrap' : 'nowrap')};
   justify-content: space-between;
   max-width: ${CARD_WIDTH}px;
   margin-right: auto;
@@ -70,7 +72,8 @@ export const Price = styled(Text).attrs(() => ({
 export const BenefitsList = styled.div`
   display: flex;
   flex-direction: column;
-  border-top: ${colorVariables.grey} 1px solid;
+  border-top: ${({ vertical }) => (vertical ? 'none' : BENEFIT_BORDER)};
+  border-left: ${({ vertical }) => (vertical ? BENEFIT_BORDER : 'none')};
 `;
 
 export const Benefit = styled.span`
