@@ -26,7 +26,7 @@ export const Offer = () => {
             <Text>Данный курс входит в следующие пакеты :</Text>
             <Input placeholder="Ввести промокод и получить скидку" />
           </PreviewContainer>
-          {offers.length - 1 ? (
+          {offers.length > 1 ? (
             <OfferList>
               {offers.map((el) => (
                 <OfferCard key={uuidv4()} offer={el} />

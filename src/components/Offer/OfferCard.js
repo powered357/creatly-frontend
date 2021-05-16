@@ -16,22 +16,30 @@ import {
   Price,
 } from 'COMPONENTS/Offer/styles/OfferStyle';
 
-export const OfferCard = ({ offer, isVertical }) => (
+export const OfferCard = ({
+  offer: {
+    name,
+    description,
+    price: { currency, value },
+    benefits,
+  },
+  isVertical,
+}) => (
   <OfferContainer vertical={!!isVertical}>
     <Content>
-      <Title>{offer.name}</Title>
-      <Description>{offer.description}</Description>
+      <Title>{name}</Title>
+      <Description>{description}</Description>
       <Purchase>
-        <Button>Купить</Button>
+        <Button disabled>Купить</Button>
         <Price>
-          {CURRENCIES[offer.price.currency.toUpperCase()]}
-          {offer.price.value}
+          {CURRENCIES[currency.toUpperCase()]}
+          {value}
         </Price>
       </Purchase>
     </Content>
-    {offer.benefits && (
+    {benefits && (
       <BenefitsList vertical={!!isVertical}>
-        {offer.benefits.map((el) => (
+        {benefits.map((el) => (
           <Benefit key={uuidv4()}>
             <Icon name="check" /> {el}
           </Benefit>
@@ -42,11 +50,19 @@ export const OfferCard = ({ offer, isVertical }) => (
 );
 
 OfferCard.propTypes = {
-  offer: PropTypes.object,
+  offer: {
+    name: PropTypes.string,
+    description: PropTypes.string,
+    price: {
+      currency: PropTypes.string,
+      value: PropTypes.string || PropTypes.number,
+    },
+    benefits: PropTypes.array,
+  },
   isVertical: PropTypes.bool,
 };
 
 OfferCard.defaultProps = {
-  offer: null,
+  offer: { name: null, description: null, price: null, benefits: null },
   isVertical: false,
 };
