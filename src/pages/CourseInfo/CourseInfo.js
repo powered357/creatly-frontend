@@ -67,7 +67,7 @@ export const CourseInfo = () => {
           )}
         </CourseInfoStyled>
       ) : (
-        <Loader size={50} />
+        <Loader fullHeight />
       )}
     </Container>
   );

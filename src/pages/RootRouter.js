@@ -1,20 +1,9 @@
+import { Suspense, lazy } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
-import Module from 'PAGES/Module';
-import CourseInfo from 'PAGES/CourseInfo';
-import Home from 'PAGES/Home';
-import Privacy from 'PAGES/Privacy';
-import Refund from 'PAGES/Refund';
-import Service from 'PAGES/Service';
-import Login from 'PAGES/Auth/Login';
-import Registration from 'PAGES/Auth/Registration';
-import Verification from 'PAGES/Auth/Verification';
-import MyCourses from 'PAGES/Admin/MyCourses';
-import AdminCourse from 'PAGES/Admin/Course';
-import AdminLesson from 'PAGES/Admin/Lesson';
-import Lesson from 'PAGES/Lesson';
+import { Loader } from 'UI-KIT';
 
 import { PrivateRoute, AdminRoute } from 'COMPONENTS/Routes';
 import { ErrorWrapper } from 'COMPONENTS/ErrorWrapper';
@@ -23,6 +12,20 @@ import { Footer } from 'COMPONENTS/Footer';
 import { Main } from 'COMPONENTS/Main';
 import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
+const Home = lazy(() => import(/* webpackChunkName: "home" */ 'PAGES/Home'));
+const Login = lazy(() => import(/* webpackChunkName: "login" */ 'PAGES/Auth/Login'));
+const Registration = lazy(() => import(/* webpackChunkName: "registration" */ 'PAGES/Auth/Registration'));
+const Verification = lazy(() => import(/* webpackChunkName: "verification" */ 'PAGES/Auth/Verification'));
+const CourseInfo = lazy(() => import(/* webpackChunkName: "course-info" */ 'PAGES/CourseInfo'));
+const Module = lazy(() => import(/* webpackChunkName: "module" */ 'PAGES/Module'));
+const Lesson = lazy(() => import(/* webpackChunkName: "lesson" */ 'PAGES/Lesson'));
+const AdminMyCourses = lazy(() => import(/* webpackChunkName: "admin-mycourses" */ 'PAGES/Admin/MyCourses'));
+const AdminCourse = lazy(() => import(/* webpackChunkName: "admin-course" */ 'PAGES/Admin/Course'));
+const AdminLesson = lazy(() => import(/* webpackChunkName: "admin-lesson" */ 'PAGES/Admin/Lesson'));
+const Privacy = lazy(() => import(/* webpackChunkName: "privacy" */ 'PAGES/Privacy'));
+const Refund = lazy(() => import(/* webpackChunkName: "refund" */ 'PAGES/Refund'));
+const Service = lazy(() => import(/* webpackChunkName: "service" */ 'PAGES/Service'));
+
 const RootRouter = () => {
   const { pathname } = useLocation();
 
@@ -30,7 +33,7 @@ const RootRouter = () => {
   const isAdmin = pathname.includes('/admin/');
 
   return (
-    <>
+    <Suspense fallback={<Loader fullHeight />}>
       <DocumentTitle />
       {withBars && <Header isAdmin={isAdmin} />}
       <Main>
@@ -72,7 +75,7 @@ const RootRouter = () => {
             <Redirect to={ROUTES.ADMIN.MY_COURSES} />
           </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN.MY_COURSES}>
-            <MyCourses />
+            <AdminMyCourses />
           </AdminRoute>
           <AdminRoute exact path={ROUTES.ADMIN.COURSE.MAIN}>
             <AdminCourse />
@@ -89,7 +92,7 @@ const RootRouter = () => {
         </Switch>
       </Main>
       {withBars && <Footer />}
-    </>
+    </Suspense>
   );
 };
 
