@@ -12,6 +12,7 @@ import { ErrorBoundary } from 'COMPONENTS/ErrorBoundary';
 import { loadFonts } from 'UTILS/loadFonts';
 
 ReactGA.initialize('UA-179511990-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
   <Provider store={store}>
