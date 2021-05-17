@@ -20,7 +20,7 @@ export const endpoints = {
     getCourse: (id) => `${API_URL}/courses/${id}`,
   },
   offers: {
-    getOffersByCourse: (id) => `${API_URL}/courses/${id}/offers`,
+    getCourseOffers: (id) => `${API_URL}/courses/${id}/offers`,
   },
   student: {
     account: `${API_URL}/students/account`,

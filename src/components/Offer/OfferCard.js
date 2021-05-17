@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 
 import { CURRENCIES } from 'CONSTANTS/currencies';
 
@@ -14,7 +13,7 @@ import {
   OfferContainer,
   Title,
   Price,
-} from 'COMPONENTS/Offer/styles/OfferStyle';
+} from 'COMPONENTS/Offer/styles/OfferStyled';
 
 export const OfferCard = ({
   offer: {
@@ -39,8 +38,8 @@ export const OfferCard = ({
     </Content>
     {benefits && (
       <BenefitsList vertical={!!isVertical}>
-        {benefits.map((el) => (
-          <Benefit key={uuidv4()}>
+        {benefits.map((el, i) => (
+          <Benefit key={i}>
             <Icon name="check" /> {el}
           </Benefit>
         ))}
