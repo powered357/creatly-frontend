@@ -8,6 +8,8 @@
   "scripts": {
     "start": "cross-env API_HOST=$API_HOST NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js",
+    "start:analyze": "cross-env API_HOST=$API_HOST NODE_ENV=development ANALYZE_MODE=true webpack serve --config config/webpack.dev.js",
+    "build:analyze": "cross-env NODE_ENV=production ANALYZE_MODE=true webpack --config config/webpack.prod.js",
     "test": "jest",
     "lint": "eslint src"
   },
@@ -78,6 +80,7 @@
     "style-loader": "^2.0.0",
     "styled-components": "^5.2.1",
     "webpack": "^5.21.2",
+    "webpack-bundle-analyzer": "^4.4.1",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"

@@ -41,7 +41,6 @@ export const useEditor = (editor) => {
 
     Transforms.setNodes(editor, { type: paragraph || childrenType });
 
-    // TODO: create custom element '<code>' and wrap with it all code
     if (!isActive && (isList || isCode)) {
       const block = { type: format, children: [] };
 
