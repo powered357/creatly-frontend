@@ -1,6 +1,6 @@
 import { endpoints } from 'API/endpoints';
 
-import { getToken } from 'UTILS/getToken';
+import { getToken } from 'UTILS/manageTokens';
 import { makeRequest } from 'UTILS/makeRequest';
 
 export const apiGetAllCourses = () =>

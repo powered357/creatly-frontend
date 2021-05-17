@@ -1,7 +1,7 @@
 import { endpoints } from 'API/endpoints';
 
 import { makeRequest } from 'UTILS/makeRequest';
-import { getToken } from 'UTILS/getToken';
+import { getToken } from 'UTILS/manageTokens';
 
 export const apiGetStudentAccount = () =>
   makeRequest('GET')(endpoints.student.account)({

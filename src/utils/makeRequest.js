@@ -1,15 +1,11 @@
 import axios from 'axios';
 
-// import { apiRefreshToken } from 'API/auth';
+import { apiRefreshToken } from 'API/auth';
 
 import { ROUTES } from 'CONSTANTS/routes';
 
 import history from 'UTILS/history';
-// import { retryRequest } from 'UTILS/retryRequest';
-// import { getRefreshToken } from 'UTILS/getRefreshToken';
-// import { getToken } from 'UTILS/getToken';
-import { removeTokens } from 'UTILS/removeTokens';
-// import { setTokens } from 'UTILS/setTokens';
+import { getRefreshToken, rewriteTokens } from 'UTILS/manageTokens';
 
 export const makeRequest = (method = 'get') => (url) => ({ headers, params, data } = {}) =>
   new Promise((resolve, reject) => {
@@ -24,20 +20,26 @@ export const makeRequest = (method = 'get') => (url) => ({ headers, params, data
         resolve(response);
       })
       .catch((error) => {
-        if (error?.response?.status === 401) {
-          const isAdmin = error.config.url.includes('admins');
+        const isAdmin = error.config.url.includes('admins');
 
-          removeTokens(isAdmin);
-          history.push(!isAdmin ? ROUTES.ACCOUNT.LOGIN : ROUTES.ADMIN.LOGIN);
+        switch (error?.response?.status) {
+          case 401: {
+            apiRefreshToken({ token: getRefreshToken(isAdmin), isAdmin })
+              .then((res) => {
+                const { accessToken, refreshToken } = res.data;
 
-          // TODO: implement refresh flow
-          // apiRefreshToken({ token: getRefreshToken(isAdmin), isAdmin }).then((res) => {
-          //   const { accessToken, refreshToken } = res.data;
-
-          //   removeTokens(isAdmin);
-          //   setTokens({ accessToken, refreshToken, isAdmin });
-          //   retryRequest(error, resolve, reject);
-          // });
+                rewriteTokens({ accessToken, refreshToken, isAdmin });
+                window.location.reload();
+              })
+              .catch((err) => {
+                history.push(!isAdmin ? ROUTES.ACCOUNT.LOGIN : ROUTES.ADMIN.LOGIN);
+                reject(err);
+              });
+            break;
+          }
+          default: {
+            reject(error.response?.data ?? error.response);
+          }
         }
         reject(error.response.data);
       });
