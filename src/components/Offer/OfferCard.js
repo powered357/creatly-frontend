@@ -13,6 +13,7 @@ import {
   OfferContainer,
   Title,
   Price,
+  BlockTitle,
 } from 'COMPONENTS/Offer/styles/OfferStyled';
 
 export const OfferCard = ({
@@ -24,7 +25,7 @@ export const OfferCard = ({
   },
   isVertical,
 }) => (
-  <OfferContainer vertical={!!isVertical}>
+  <OfferContainer vertical={isVertical}>
     <Content>
       <Title>{name}</Title>
       <Description>{description}</Description>
@@ -37,7 +38,8 @@ export const OfferCard = ({
       </Purchase>
     </Content>
     {benefits && (
-      <BenefitsList vertical={!!isVertical}>
+      <BenefitsList vertical={isVertical}>
+        <BlockTitle>Преимущества пакета:</BlockTitle>
         {benefits.map((el, i) => (
           <Benefit key={i}>
             <Icon name="check" /> {el}

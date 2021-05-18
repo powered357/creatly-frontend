@@ -24,7 +24,7 @@ export const OfferList = styled.div`
 
 export const OfferContainer = styled.div`
   display: flex;
-  flex-direction: ${({ vertical }) => (vertical ? 'row' : 'column')};
+  flex-direction: ${({ vertical }) => (vertical ? 'row-reverse' : 'column')};
   flex-wrap: ${({ vertical }) => (vertical ? 'wrap' : 'nowrap')};
   justify-content: space-between;
   max-width: ${CARD_WIDTH}px;
@@ -52,6 +52,14 @@ export const Title = styled(Text).attrs(() => ({
   padding-right: 50px;
 `;
 
+export const BlockTitle = styled(Text).attrs(() => ({
+  font: 'h3',
+}))`
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-right: 50px;
+`;
+
 export const Description = styled(Text).attrs(() => ({
   font: 't2',
 }))`
@@ -73,9 +81,10 @@ export const BenefitsList = styled.div`
   display: flex;
   flex-direction: column;
   border-top: ${({ vertical }) => (vertical ? 'none' : BENEFIT_BORDER)};
-  border-left: ${({ vertical }) => (vertical ? BENEFIT_BORDER : 'none')};
+  border-right: ${({ vertical }) => (vertical ? BENEFIT_BORDER : 'none')};
+  margin-right: ${({ vertical }) => (vertical ? '24px' : 'none')};
 `;
 
 export const Benefit = styled.span`
-  margin: 0.5rem;
+  margin: 0.6rem;
 `;
