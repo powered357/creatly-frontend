@@ -19,7 +19,15 @@ const Registration = () => {
 
   const onSubmit = ({ name, email, password }) => {
     registerUser({ name, email, password }).then(({ status }) => {
-      if (status === 201) setSubmitted(true);
+      if (status === 201) {
+        setSubmitted(true);
+        ReactGA.event({
+          category: 'User',
+          action: 'Registration',
+          transport: 'beacon',
+          value: `Email: ${email}`,
+        });
+      }
     });
   };
 

@@ -1,5 +1,4 @@
 import ReactDOM from 'react-dom';
-import ReactGA from 'react-ga';
 import { Provider } from 'react-redux';
 
 import store from 'STORE';
@@ -10,9 +9,6 @@ import { App } from 'COMPONENTS/App';
 import { ErrorBoundary } from 'COMPONENTS/ErrorBoundary';
 
 import { loadFonts } from 'UTILS/loadFonts';
-
-ReactGA.initialize('UA-179511990-1');
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
   <Provider store={store}>
