@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import ReactGA from 'react-ga';
 
 import { apiLogin, apiRegistration, apiVerification } from 'API/auth';
 
@@ -25,6 +26,12 @@ export const useAuthAPI = (isAdmin) => {
     const { accessToken, refreshToken } = data;
 
     rewriteTokens({ accessToken, refreshToken, isAdmin });
+
+    ReactGA.event({
+      category: 'User',
+      action: 'Login',
+      transport: 'beacon',
+    });
   };
 
   const login = async ({ email, password }) => {
@@ -51,6 +58,14 @@ export const useAuthAPI = (isAdmin) => {
     clearServerError();
 
     return apiVerification({ code })
+      .then(() => {
+        ReactGA.event({
+          category: 'User',
+          action: 'Verification',
+          transport: 'beacon',
+          value: `Verification code: ${code}`,
+        });
+      })
       .catch(({ message }) => {
         catchError(message);
         history.push(ROUTES.ACCOUNT.LOGIN);

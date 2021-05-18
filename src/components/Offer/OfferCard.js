@@ -16,54 +16,49 @@ import {
   BlockTitle,
 } from 'COMPONENTS/Offer/styles/OfferStyled';
 
-export const OfferCard = ({
-  offer: {
+export const OfferCard = ({ offer, isVertical }) => {
+  const {
     name,
     description,
     price: { currency, value },
     benefits,
-  },
-  isVertical,
-}) => (
-  <OfferContainer vertical={isVertical}>
-    <Content>
-      <Title>{name}</Title>
-      <Description>{description}</Description>
-      <Purchase>
-        <Button disabled>Купить</Button>
-        <Price>
-          {CURRENCIES[currency.toUpperCase()]}
-          {value}
-        </Price>
-      </Purchase>
-    </Content>
-    {benefits && (
-      <BenefitsList vertical={isVertical}>
-        <BlockTitle>Преимущества пакета:</BlockTitle>
-        {benefits.map((el, i) => (
-          <Benefit key={i}>
-            <Icon name="check" /> {el}
-          </Benefit>
-        ))}
-      </BenefitsList>
-    )}
-  </OfferContainer>
-);
+  } = offer;
+
+  return (
+    offer && (
+      <OfferContainer vertical={isVertical}>
+        <Content>
+          <Title>{name}</Title>
+          <Description>{description}</Description>
+          <Purchase>
+            <Button disabled>Купить</Button>
+            <Price>
+              {CURRENCIES[currency.toUpperCase()]}
+              {value}
+            </Price>
+          </Purchase>
+        </Content>
+        {benefits && (
+          <BenefitsList vertical={isVertical}>
+            <BlockTitle>Преимущества пакета:</BlockTitle>
+            {benefits.map((el, i) => (
+              <Benefit key={i}>
+                <Icon name="check" /> {el}
+              </Benefit>
+            ))}
+          </BenefitsList>
+        )}
+      </OfferContainer>
+    )
+  );
+};
 
 OfferCard.propTypes = {
-  offer: {
-    name: PropTypes.string,
-    description: PropTypes.string,
-    price: {
-      currency: PropTypes.string,
-      value: PropTypes.string || PropTypes.number,
-    },
-    benefits: PropTypes.array,
-  },
+  offer: PropTypes.object,
   isVertical: PropTypes.bool,
 };
 
 OfferCard.defaultProps = {
-  offer: { name: null, description: null, price: null, benefits: null },
+  offer: null,
   isVertical: false,
 };
