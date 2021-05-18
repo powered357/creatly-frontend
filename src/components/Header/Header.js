@@ -9,8 +9,7 @@ import { Text, Button } from 'UI-KIT';
 import { Container } from 'COMPONENTS/Container';
 import { AdminNav } from 'COMPONENTS/AdminNav';
 
-import { getToken } from 'UTILS/getToken';
-import { removeTokens } from 'UTILS/removeTokens';
+import { getToken, removeTokens } from 'UTILS/manageTokens';
 
 import { HeaderStyled, Row, Nav, Greetings } from './styles/HeaderStyled';
 

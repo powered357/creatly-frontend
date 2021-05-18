@@ -9,7 +9,7 @@ import { ERROR_MESSAGES } from 'CONSTANTS/errorMessages';
 
 import { clearErrorMsg, setErrorMsg } from 'STORE/notifications';
 
-import { setTokens } from 'UTILS/setTokens';
+import { rewriteTokens } from 'UTILS/manageTokens';
 
 export const useAuthAPI = (isAdmin) => {
   const history = useHistory();
@@ -24,8 +24,7 @@ export const useAuthAPI = (isAdmin) => {
     const { data } = await apiLogin({ email, password, isAdmin });
     const { accessToken, refreshToken } = data;
 
-    setTokens({ accessToken, refreshToken, isAdmin });
-    return data;
+    rewriteTokens({ accessToken, refreshToken, isAdmin });
   };
 
   const login = async ({ email, password }) => {
