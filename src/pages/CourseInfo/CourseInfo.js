@@ -12,6 +12,7 @@ import { Button, Loader } from 'UI-KIT';
 import { CourseModule } from 'COMPONENTS/CourseModule';
 import { Container } from 'COMPONENTS/Container';
 import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
+import Offer from 'COMPONENTS/Offer';
 
 import { replaceByObj } from 'UTILS/replaceByObj';
 
@@ -40,35 +41,40 @@ export const CourseInfo = () => {
   };
 
   return (
-    <Container size="sm">
-      <DocumentTitle title={course && course.name} />
-      {course && !isLoading ? (
-        <CourseInfoStyled>
-          <Title>{course.name}</Title>
-          <Description>{course.description}</Description>
-          <Content>
-            {hasModules ? (
-              <>
-                <SubTitle>Содержание курса</SubTitle>
-                {modules.map((item) => (
-                  <CourseModule key={item.id} {...item} />
-                ))}
-              </>
-            ) : (
-              <p>Материалы курса находятся в разработке</p>
+    <div>
+      <Container size="sm">
+        <DocumentTitle title={course && course.name} />
+        {course && !isLoading ? (
+          <CourseInfoStyled>
+            <Title>{course.name}</Title>
+            <Description>{course.description}</Description>
+            <Content>
+              {hasModules ? (
+                <>
+                  <SubTitle>Содержание курса</SubTitle>
+                  {modules.map((item) => (
+                    <CourseModule key={item.id} {...item} />
+                  ))}
+                </>
+              ) : (
+                <p>Материалы курса находятся в разработке</p>
+              )}
+            </Content>
+            {hasLessons && (
+              <BtnContainer>
+                <Link to={createLessonLink()}>
+                  <Button fullWidth>Начать обучение</Button>
+                </Link>
+              </BtnContainer>
             )}
-          </Content>
-          {hasLessons && (
-            <BtnContainer>
-              <Link to={createLessonLink()}>
-                <Button fullWidth>Начать обучение</Button>
-              </Link>
-            </BtnContainer>
-          )}
-        </CourseInfoStyled>
-      ) : (
-        <Loader fullHeight />
-      )}
-    </Container>
+          </CourseInfoStyled>
+        ) : (
+          <Loader fullHeight />
+        )}
+      </Container>
+      <Container size="lg">
+        <Offer />
+      </Container>
+    </div>
   );
 };

@@ -9,7 +9,8 @@ import { ERROR_MESSAGES } from 'CONSTANTS/errorMessages';
 
 import { clearErrorMsg, setErrorMsg } from 'STORE/notifications';
 
-import { setTokens } from 'UTILS/setTokens';
+import { analytics } from 'UTILS/analytics';
+import { rewriteTokens } from 'UTILS/manageTokens';
 
 export const useAuthAPI = (isAdmin) => {
   const history = useHistory();
@@ -24,8 +25,7 @@ export const useAuthAPI = (isAdmin) => {
     const { data } = await apiLogin({ email, password, isAdmin });
     const { accessToken, refreshToken } = data;
 
-    setTokens({ accessToken, refreshToken, isAdmin });
-    return data;
+    rewriteTokens({ accessToken, refreshToken, isAdmin });
   };
 
   const login = async ({ email, password }) => {
@@ -52,6 +52,12 @@ export const useAuthAPI = (isAdmin) => {
     clearServerError();
 
     return apiVerification({ code })
+      .then(() => {
+        analytics.event({
+          category: 'User',
+          action: 'Verification',
+        });
+      })
       .catch(({ message }) => {
         catchError(message);
         history.push(ROUTES.ACCOUNT.LOGIN);

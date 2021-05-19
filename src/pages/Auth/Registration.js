@@ -9,6 +9,8 @@ import { Input, Button, Link, FormError } from 'UI-KIT';
 import { AuthTemplate } from 'COMPONENTS/AuthTemplate';
 import { DocumentTitle } from 'COMPONENTS/DocumentTitle';
 
+import { analytics } from 'UTILS/analytics';
+
 import { useAuthAPI } from './hooks/useAuthAPI';
 import { Subtitle, Form, FormField, FormButton, FormBottom, TextStyled } from './styles/AuthStyled';
 
@@ -19,7 +21,13 @@ const Registration = () => {
 
   const onSubmit = ({ name, email, password }) => {
     registerUser({ name, email, password }).then(({ status }) => {
-      if (status === 201) setSubmitted(true);
+      if (status === 201) {
+        setSubmitted(true);
+        analytics.event({
+          category: 'User',
+          action: 'Registration',
+        });
+      }
     });
   };
 

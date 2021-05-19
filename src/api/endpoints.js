@@ -19,6 +19,9 @@ export const endpoints = {
     all: `${API_URL}/courses`,
     getCourse: (id) => `${API_URL}/courses/${id}`,
   },
+  offers: {
+    getCourseOffers: (id) => `${API_URL}/courses/${id}/offers`,
+  },
   student: {
     account: `${API_URL}/students/account`,
     courses: `${API_URL}/students/courses/`,

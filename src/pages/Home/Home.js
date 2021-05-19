@@ -11,7 +11,7 @@ import { Loader } from 'UI-KIT';
 import { CourseCard } from 'COMPONENTS/CourseCard';
 import { Container } from 'COMPONENTS/Container';
 
-import { getToken } from 'UTILS/getToken';
+import { getToken } from 'UTILS/manageTokens';
 
 import { Content, HomeStyled, Title, EmptyText } from './styles/HomeStyled';
 

@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-export const retryRequest = (error, resolve, reject) => {
+import { getToken } from 'UTILS/manageTokens';
+
+export const retryRequest = ({ error, resolve, reject, isAdmin }) => {
   const config = {
     ...error.config,
-    headers: { ...error.config.headers, Authorization: `Bearer ${getToken()}` },
+    headers: { ...error.config.headers, Authorization: `Bearer ${getToken(isAdmin)}` },
   };
 
   axios
