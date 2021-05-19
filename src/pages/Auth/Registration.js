@@ -33,7 +33,7 @@ const Registration = () => {
 
   return (
     <AuthTemplate title="Zhashkevych workshop">
-      <DocumentTitle title="Registration" />
+      <DocumentTitle title="Регистрация" />
       {!isSubmitted ? (
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormField>

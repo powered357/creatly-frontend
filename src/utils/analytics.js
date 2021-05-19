@@ -11,6 +11,7 @@ export const analytics = {
     });
   },
   pageView: (page) => {
+    ReactGA.set({ page });
     ReactGA.pageview(page);
   },
 };
