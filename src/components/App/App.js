@@ -10,7 +10,7 @@ import { analytics } from 'UTILS/analytics';
 
 import { AppStyled } from './styles/AppStyled';
 
-analytics.init('UA-179511990-1');
+analytics.init('UA-179511990-2');
 
 export const App = () => {
   useEffect(() => {
