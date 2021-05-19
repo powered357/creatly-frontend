@@ -10,11 +10,7 @@ import { analytics } from 'UTILS/analytics';
 
 import { AppStyled } from './styles/AppStyled';
 
-// PROD CODE: UA-179511990-1
-analytics.init('UA-197317218-1', {
-  debug: true,
-  titleCase: false,
-});
+analytics.init('UA-179511990-1');
 
 export const App = () => {
   useEffect(() => {
